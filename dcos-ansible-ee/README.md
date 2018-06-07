@@ -1,4 +1,4 @@
-# Documentation for dcos-ansible-centos on AWS
+# Documentation for DCOS-ansible-centos on AWS
 
 This repo contains Ansible playbooks that can be used to deploy a DC/OS cluster
 running the Enterprise Edition version 1.10.5 of DC/OS for CentOS Linux (centos user) on AWS.
