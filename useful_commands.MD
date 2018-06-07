@@ -1,5 +1,26 @@
 # DCOS Useful Commands I've Found:
 
+## CockroachDB in a bad state Troubleshooting:
+```
+On all Masters Nodes:
+curl -k https://127.0.0.1:8090/debug/pprof/goroutine?debug=2 | gzip > $(hostname).crdb-pprof.out.gz
+
+Collect Logs
+```
+
+## Display agent config.yaml
+```
+On any Master/Agent:
+cat /opt/mesosphere/etc/user.config.yaml
+```
+
+## Editing a Package
+```
+1. dcos package describe --app --render marathon-lb > my-marathon-lb-marathon.json
+2. Edit my-marathon-lb-marathon.json
+3. dcos marathon app update </path/to/marathon-lb> < my-marathon-lb-marathon.json
+```
+
 ## Make sure X is available and if not install it
 ```# Make sure the DC/OS CLI is available
 result=$(dcos security 2>&1)
