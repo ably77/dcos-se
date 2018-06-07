@@ -1,0 +1,15 @@
+{
+  "id": "tensorflow-gpus-1",
+  "acceptedResourceRoles": ["slave_public"],
+  "cpus": 4,
+  "gpus": 4,
+  "mem": 2048,
+  "disk": 0,
+  "instances": 1,
+  "container": {
+    "type": "MESOS",
+    "docker": {
+      "image": "tensorflow/tensorflow:latest-gpu"
+    }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "id": "my-tensorflow-no-gpus",
+  "cpus": 4,
+  "gpus": 0,
+  "mem": 2048,
+  "disk": 0,
+  "instances": 1,
+  "container": {
+    "type": "MESOS",
+    "docker": {
+      "image": "tensorflow/tensorflow"
+    }
+  }
+}
