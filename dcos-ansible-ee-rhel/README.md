@@ -1,4 +1,4 @@
-# Documentation for dcos-ansible
+# Documentation for dcos-ansible-rhel on AWS
 
 This repo contains Ansible playbooks that can be used to deploy a DC/OS cluster
 running the Enterprise Edition version 1.10.5 of DC/OS for Red Hat Enterprise Linux (RHEL user) on AWS.
