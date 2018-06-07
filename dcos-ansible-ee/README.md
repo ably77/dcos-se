@@ -1,7 +1,7 @@
 # Documentation for dcos-ansible
 
 This repo contains Ansible playbooks that can be used to deploy a DC/OS cluster
-running the community version of DC/OS.
+running the Enterprise Edition 1.10.5 version of DC/OS on CentOS
 
 ## Dependencies
 
@@ -15,11 +15,6 @@ proceed with the installation.
 ## Usage
 
 Clone this repository:
-
-```
-git clone https://bitbucket.org/pumphouse_p/dcos-ansible.git
-cd dcos-ansible
-```
 
 Update the `hosts` file with the IP addresses or hostnames of the systems you would like to use for your cluster, for example:
 
