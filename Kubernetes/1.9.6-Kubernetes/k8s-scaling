@@ -1,0 +1,43 @@
+read -p "Ready to scale Kubernetes Deployment? (y/n) " -n1 -s c
+if [ "$c" = "y" ]; then
+        echo yes
+
+### Describe existing configuration
+echo ====================================================================================================
+echo
+echo
+echo
+echo "Describe current configuration using command: dcos kubernetes describe"
+dcos kubernetes describe
+echo 
+
+### Display options.json configuration
+echo ====================================================================================================
+echo 
+echo "Desired configuration in options.json (HA, multiple kubelets):"
+echo "Using command: cat options.json"
+cat options.json
+else
+        echo no
+fi
+echo
+
+### Upgrade Procedure
+echo ====================================================================================================
+echo
+read -p "Is this desired configuration correct? (y/n) " -n1 -s c
+if [ "$c" = "y" ]; then
+        echo yes
+
+dcos kubernetes update --options=options.json
+
+else
+        echo no
+fi
+
+echo ====================================================================================================
+
+#Show completed Kubernetes deploy plan
+echo "Show Kubernetes deploy plan using command: dcos kubernetes plan status deploy"
+
+dcos kubernetes plan status deploy

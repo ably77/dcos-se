@@ -1,0 +1,34 @@
+{
+  "kubernetes": {
+    "high_availability": true,
+    "node_count": 2,
+    "public_node_count": 1,
+    "reserved_resources": {
+      "kube_cpus": 2,
+      "kube_mem": 2048,
+      "kube_disk": 10240,
+      "system_mem": 1024,
+      "system_cpus": 1
+    }
+  },
+  "etcd": {
+    "cpus": 0.5,
+    "mem": 1024
+  },
+  "scheduler": {
+    "cpus": 0.5,
+    "mem": 512
+  },
+  "controller_manager": {
+    "cpus": 0.5,
+    "mem": 1024
+  },
+  "apiserver": {
+    "cpus": 0.5,
+    "mem": 1024
+  },
+  "kube_proxy": {
+    "cpus": 0.1,
+    "mem": 512
+  }
+}

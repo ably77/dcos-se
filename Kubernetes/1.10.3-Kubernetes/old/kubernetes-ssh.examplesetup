@@ -1,0 +1,39 @@
+#!/bin/bash
+#set -x #echo on
+
+#### Provide Master IP in command line ./kubernetes-ssh.sh <MASTER_IP> ####
+if [[ $# -eq 0 ]] ; then
+    echo 'Master IP not provided. Please pass Master IP as argument. Aborting'
+    exit 1
+fi
+MASTER_IP=$(echo $1)
+echo "Master's IP: " $MASTER_IP
+
+#### Set up Kubectl config ####
+echo "Setting up kubectl config"
+echo .
+echo .
+echo .
+echo .
+
+#Reconfigure kubectl for SSH Tunnel
+kubectl config set-cluster dcos-k8s --server=http://localhost:9000
+kubectl config set-context dcos-k8s --cluster=dcos-k8s --namespace=default
+kubectl config use-context dcos-k8s
+
+
+#### Set Up SSH-tunnel ####
+echo "Setting up ssh-tunnel"
+echo .
+echo .
+echo .
+echo .
+
+ssh -4 -f -o "UserKnownHostsFile=/dev/null" -o "StrictHostKeyChecking=no" -o "ServerAliveInterval=120" -N -L 9000:apiserver-insecure.kubernetes.l4lb.thisdcos.directory:9000 core@$MASTER_IP
+
+echo
+echo
+echo
+echo
+echo
+

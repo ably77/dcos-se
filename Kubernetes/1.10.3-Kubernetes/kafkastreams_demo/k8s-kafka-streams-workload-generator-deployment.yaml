@@ -1,0 +1,17 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: kafka-streams-workload-generator
+spec:
+  selector:
+    matchLabels:
+      app: kafka-streams-workload-generator
+  replicas: 2 # tells deployment to run 2 pods matching the template
+  template: # create pods using pod definition in this template
+    metadata:
+      labels:
+        app: kafka-streams-workload-generator
+    spec:
+      containers:
+      - name: kafka-streams-workload-generator
+        image: greshwalk/kafka-streams-workload-generator:latest
