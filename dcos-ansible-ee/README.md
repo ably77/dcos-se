@@ -1,7 +1,7 @@
-# Documentation for dcos-ansible
+# Documentation for dcos-ansible-centos on AWS
 
 This repo contains Ansible playbooks that can be used to deploy a DC/OS cluster
-running the Enterprise Edition 1.10.5 version of DC/OS on CentOS
+running the Enterprise Edition version 1.10.5 of DC/OS for CentOS Linux (centos user) on AWS.
 
 ## Dependencies
 
@@ -14,7 +14,25 @@ proceed with the installation.
 
 ## Usage
 
-Clone this repository:
+## Clone this repository:
+
+Add your 1.10 License Key to the files/config.yaml.j2
+
+```bootstrap_url: http://{{ hostvars[groups['bootstrap'][0]].ansible_default_ipv4.address }}
+cluster_name: Test-Cluster
+customer_key: <ENTER_LICENSE_KEY_HERE>
+exhibitor_storage_backend: static
+master_discovery: static
+master_list:
+{% for host in groups['masters'] %}
+- {{ hostvars[host].ansible_default_ipv4.address }}
+{% endfor %}
+resolvers:
+- 169.254.169.253
+- 8.8.8.8
+security: permissive
+```
+
 
 Update the `hosts` file with the IP addresses or hostnames of the systems you would like to use for your cluster, for example:
 
