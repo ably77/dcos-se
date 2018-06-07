@@ -1,0 +1,29 @@
+---
+- hosts: bootstrap
+  remote_user: centos
+  become: false
+
+  tasks:
+  - name: Generate and write out DC/OS config.yaml
+    template:
+      src: ../files/config.yaml.j2
+      dest: /home/centos/genconf/config.yaml
+
+  - name: Fetch DC/OS installer from Mesosphere
+    get_url:
+      url: https://downloads.mesosphere.com/dcos-enterprise/stable/1.10.5/dcos_generate_config.ee.sh
+      dest: /home/centos
+
+  - name: Generate DC/OS install bits
+    become: true
+    shell: bash /home/centos/dcos_generate_config.ee.sh
+
+  - name: Start nginx Docker container
+    become: true
+    docker_container:
+      name: nginx
+      image: nginx:latest
+      ports:
+      - "80:80"
+      volumes:
+      - "/home/centos/genconf/serve:/usr/share/nginx/html:ro"
