@@ -52,6 +52,22 @@ $ cat ~/.aws/credentials
 aws_access_key_id = ACHEHS71DG712w7EXAMPLE
 aws_secret_access_key = /R8SHF+SHFJaerSKE83awf4ASyrF83sa471DHSEXAMPLE
 ```
+### Make sure you have the right permissions/SSH access to Mesosphere Internal Github
+
+**Mesosphere Internal Github**
+
+If you do not have access to the Internal Mesosphere Github https://github.com/mesosphere then request access by opening up an IT Support ticket at http://desk.mesosphere.com
+
+**2-Factor Authentication (2FA)**
+
+Mesosphere Company policy requires 2FA to be enabled, please do so accordingly
+
+**SSH Key**
+
+Make sure that your Github account has SSH properly set up:
+
+https://help.github.com/articles/adding-a-new-ssh-key-to-your-github-account/
+
 ### Terraform Deployment
 
 ## Make changes by using the Terraform’s desired_cluster_profile -var-file
