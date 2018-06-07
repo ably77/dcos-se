@@ -25,7 +25,7 @@ Installation will typically take anywhere from 5-8 minutes. Dashboard will open 
 ### Scaling Kubernetes
 This script will scale from a non-HA install of Kubernetes to the HA install
 ```
-./k8s-scaleing.sh
+./k8s-scaling.sh
 ```
 
 ### Upgrade Kubernetes
@@ -46,6 +46,7 @@ This demo will run through commands using kubectl:
 - Rolling upgrade NGINX 1.7 to 1.8 
 - Delete deployment
 - Manually kill etcd instance and watch it auto-heal in the GUI
+- Manually kill kubelet and watch it auto-heal in the GUI
 - Run through Kubernetes Ingress Demo
 	- Deploy Traefik
 	- Expose Hello World application to the outside world
