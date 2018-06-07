@@ -1,0 +1,12 @@
+---
+- name: Top level play for the entire installation
+  hosts: all
+  user: ec2-user
+
+- include: playbooks/selinux.yaml
+- include: playbooks/groups.yaml
+- include: playbooks/docker.yaml
+- include: playbooks/utilities.yaml
+- include: playbooks/dcos-all-preinstall.yaml
+- include: playbooks/dcos-bootstrap-preinstall.yaml
+- include: playbooks/dcos-cluster-install.yaml
