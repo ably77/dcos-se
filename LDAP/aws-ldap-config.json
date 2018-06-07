@@ -1,0 +1,16 @@
+{
+    "host": "ads1.mesosphere.com",
+    "port": 389,
+    "use-ldaps": false,
+    "enforce-starttls": true,
+    "lookup-dn": "cn=lookupuser,cn=Users,dc=mesosphere,dc=com",
+    "lookup-password": "pw-l00kup",
+    "user-search": {
+        "search-filter-template": "(sAMAccountName=%(username)s)",
+        "search-base": "cn=Users,dc=mesosphere,dc=com"
+    },
+    "group-search": {
+        "search-filter-template": "(&(objectclass=group)(sAMAccountName=%(groupname)s))",
+        "search-base": "cn=Users,dc=mesosphere,dc=com"
+    }
+} 
