@@ -8,8 +8,15 @@
 
 If you're on a mac environment with homebrew installed, run this command.
 
-```bash
+```
 brew install terraform
+```
+
+If you have terraform already installed, it is a good idea to update to the latest stable version of Terraform
+
+```
+brew update
+brew upgrade terraform
 ```
 
 If you want to leverage the terraform installer, feel free to check out https://www.terraform.io/downloads.html.
@@ -27,10 +34,16 @@ ssh-add ~/.ssh/path_to_you_key.pem
 ```
 **Configure your IAM AWS Keys**
 
-You will need your AWS aws_access_key_id and aws_secret_access_key. If you dont have one yet, you can get them from the AWS documetnation [here](
-http://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html). When you finally get them, you can install it in your home directory. The default location is `$HOME/.aws/credentials` on Linux and OS X, or `"%USERPROFILE%\.aws\credentials"` for Windows users.
+You will need your AWS aws_access_key_id and aws_secret_access_key. If you dont have one yet, you can get them from the AWS documentation [here](http://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html). 
 
-Here is an example of the output when you're done:
+**High Level Steps for generating new AWS access keys:
+
+Login to AWS Console --> IAM --> Users --> Add User --> Follow instructions
+Note: AWS Secret Access Key is only shown once
+
+When you finally get them, you can install it in your home directory. The default location is `$HOME/.aws/credentials` on Linux and OS X, or `"%USERPROFILE%\.aws\credentials"` for Windows users.
+
+**Here is an example of the output when you're done:
 
 ```bash
 $ cat ~/.aws/credentials
