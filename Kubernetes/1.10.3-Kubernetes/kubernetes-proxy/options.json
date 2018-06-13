@@ -1,6 +1,0 @@
-{
-  "service": {
-    "service_account": "kubernetes",
-    "service_account_secret": "kubernetes/sa"
-  }
-}
