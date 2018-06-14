@@ -1,5 +1,14 @@
 # DCOS Useful Commands I've Found:
 
+## Kill inactive Mesos Framework
+```
+Run:
+dcos service --inactive
+
+then use:
+dcos service shutdown <ID>
+```
+
 ## CockroachDB in a bad state Troubleshooting:
 ```
 On all Masters Nodes:
@@ -81,7 +90,7 @@ Note: Grab mesos-id from Mesos dashboard or `dcos node`
 ## SSH into Master Node:
 ```dcos node ssh --master-proxy --leader```
 
-## Reset Superuser from Master (if accidentally deleted): 
+## Reset Superuser from Master (if accidentally deleted):
 ```sudo /opt/mesosphere/bin/dcos-shell /opt/mesosphere/active/bouncer/bouncer/bin/reset-superuser <username>```
 
 ## Retrieve the stderr/stdout for all tasks:
@@ -91,7 +100,7 @@ Note: Grab mesos-id from Mesos dashboard or `dcos node`
 ## Troubleshooting:
 ```
 dcos node diagnostics create all
-dcos node diagnostics --status 
+dcos node diagnostics --status
 wait for progress to reach 100%
 dcos node diagnostics download <bundle_name>
 ```
@@ -120,6 +129,3 @@ sudo pip install --upgrade pip
 sudo pip install --upgrade virtualenv
 dcos package install spark
 ```
-
-
-
