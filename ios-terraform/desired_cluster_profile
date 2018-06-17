@@ -1,0 +1,5 @@
+num_of_masters = "1"
+num_of_private_agents = "11"
+num_of_public_agents = "1"
+dcos_security = "disabled"
+dcos_version = "1.10.3"
