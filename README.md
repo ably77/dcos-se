@@ -7,12 +7,14 @@ This is a repository of DC/OS tools that can be used to showcase or learn DC/OS 
 DC/OS Enterprise Edition Features Demos:
 - Kubernetes on DC/OS Quickstart
 - Terraform EE DC/OS Quickstart
+- Terraform iOS
 - Kafka Connect API - Kafka -> Elastic Demo
 - Tensorflow non-GPU Quickstart
 - LDAP Configuration
 - RBAC Configuration
 - Logging and Metrics APIs
 - Edge-LB
+- Smartcity DC/OS Appstudio
 - WIP: Secrets Management
 - WIP: Upgrades
 
