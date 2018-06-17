@@ -1,11 +1,5 @@
 #!/bin/bash
 
-### WIP: Set up ssh-add to be automated ###
-ssh-agent /bin/sh
-ssh-add keys/Mesosphere
-ssh-add keys/mesosphere_github
-exit
-
 ### View and verify desired_cluster_profile ###
 echo
 echo
