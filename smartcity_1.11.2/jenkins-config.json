@@ -1,0 +1,27 @@
+{
+    "service": {
+      "name": "dev/tools/jenkins",
+      "cpus": 1,
+      "mem": 2048,
+      "user": "root"
+    },
+    "storage": {
+      "host-volume": "/tmp"
+    },
+    "networking": {
+      "known-hosts": "github.com",
+      "https-redirect": false,
+      "agent-port": 50000
+    },
+    "roles": {
+      "jenkins-master-role": "*",
+      "jenkins-agent-role": "*"
+    },
+    "security": {
+      "strict-mode": false
+    },
+    "advanced": {
+      "mesos-master": "zk://leader.mesos:2181/mesos",
+      "jvm-opts": "-Xms1024m -Xmx1024m"
+    }
+  }

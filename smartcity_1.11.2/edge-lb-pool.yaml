@@ -1,0 +1,101 @@
+---
+pools:
+  - name: smartcity
+    count: 1
+    haproxy:
+      frontends:
+        - bindPort: 80
+          protocol: HTTP
+          linkBackend:
+            defaultBackend: ui
+        - bindPort: 10500
+          protocol: TCP
+          linkBackend:
+            defaultBackend: socket
+        - bindPort: 10339
+          protocol: HTTP
+          linkBackend:
+            defaultBackend: kibana
+        - bindPort: 10081
+          protocol: HTTP
+          linkBackend:
+            defaultBackend: loader
+        - bindPort: 8080
+          protocol: HTTP
+          linkBackend:
+            defaultBackend: dcos-appstudio-creator
+        - bindPort: 10080
+          protocol: HTTP
+          linkBackend:
+            defaultBackend: gitlab
+        - bindPort: 10000
+          protocol: HTTP
+          linkBackend:
+            defaultBackend: jenkins
+      backends:
+        - name: ui
+          protocol: HTTP
+          servers:
+            - framework:
+                value: marathon
+              task:
+                value: ui.ui.smartcity.microservices.prod
+              port:
+                name: myp
+        - name: socket
+          protocol: TCP
+          servers:
+            - framework:
+                value: marathon
+              task:
+                value: ui.ui.smartcity.microservices.prod
+              port:
+                name: socket
+        - name: kibana
+          protocol: HTTP
+          miscStrs:
+            - reqrep ^(.*?)service\/\/prod\/dataservices\/kibana\/(.*)     \1\2
+          servers:
+            - framework:
+                value: marathon
+              task:
+                value: ^kibana.*$
+                match: REGEX
+              port:
+                name: kibana
+        - name: loader
+          protocol: HTTP
+          servers:
+            - framework:
+                value: marathon
+              task:
+                value: loader.ui.smartcity.microservices.prod
+              port:
+                name: myp
+        - name: dcos-appstudio-creator
+          protocol: HTTP
+          servers:
+            - framework:
+                value: marathon
+              task:
+                value: dcos-appstudio-creator.microservices.prod
+              port:
+                name: web
+        - name: gitlab
+          protocol: HTTP
+          servers:
+            - framework:
+                value: marathon
+              task:
+                value: gitlab.tools.dev
+              port:
+                name: web
+        - name: jenkins
+          protocol: HTTP
+          servers:
+            - framework:
+                value: marathon
+              task:
+                value: jenkins.tools.dev
+              port:
+                name: nginx
