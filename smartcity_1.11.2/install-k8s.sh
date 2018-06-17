@@ -40,11 +40,14 @@ export PUBLICNODEIP=$(./findpublic_ips.sh | head -1 | sed "s/.$//" )
 echo Public node ip: $PUBLICNODEIP 
 echo ------------------
 
-if [ ${#PUBLICNODEIP} -le 6 ] ;
+if [ -z "$PUBLICNODEIP" ] ;
 then
-	echo Can not find public node ip. JQ in path?  Also, you need to have added the pem for your nodes to your auth agent with the ssh-add command.
-	exit -1
+	echo Can not find public node ip.
+	read -p 'Enter public node ip manually Instead: ' PUBLICNODEIP
+	PUBLICNODEIP=$PUBLICNODEIP
+	echo Public node ip: $PUBLICNODEIP
 fi
+
 cp k8s.yaml k8s.tmp
 sed -ie "s@\$PUBLICNODEIP@$PUBLICNODEIP@g;"  k8s.tmp
 sed -ie "s@CLUSTER_URL_TOKEN@$CLUSTER_URL@g;"  k8s.tmp

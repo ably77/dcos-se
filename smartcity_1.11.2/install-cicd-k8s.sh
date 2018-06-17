@@ -17,10 +17,12 @@ echo Public node ip: $PUBLICNODEIP
 echo ---------------
 
 
-if [ ${#PUBLICNODEIP} -le 6 ] ;
+if [ -z "$PUBLICNODEIP" ] ;
 then
-        echo Can not find a public node ip. JQ in path?
-        exit -1
+	echo Can not find public node ip.
+	read -p 'Enter public node ip manually Instead: ' PUBLICNODEIP
+	PUBLICNODEIP=$PUBLICNODEIP
+	echo Public node ip: $PUBLICNODEIP
 fi
 echo ---------------
 
