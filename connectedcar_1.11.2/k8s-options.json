@@ -1,0 +1,7 @@
+{
+    "service": {
+      "name": "kubernetes",
+      "sleep": 1000,
+      "log_level": "INFO"
+    }
+  }

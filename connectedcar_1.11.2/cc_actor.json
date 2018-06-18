@@ -1,0 +1,39 @@
+{
+			"id": "actor",
+			"instances": 5,
+			"cpus": 0.01,
+			"mem": 64,
+			"disk": 0,
+			"gpus": 0,
+			"backoffSeconds": 1,
+			"backoffFactor": 1.15,
+			"maxLaunchDelaySeconds": 3600,
+			"fetch": [{
+				"uri": "https://raw.githubusercontent.com/fernandosanchezmunoz/DCOS-AppStudio/master/actor/routes/routes.csv"
+			}],
+			"container": {
+				"type": "DOCKER",
+				"docker": {
+					"image": "jhollingerdcos/cc_image",
+					"network": "BRIDGE",
+					"portMappings": [{
+						"containerPort": 0,
+						"hostPort": 0,
+						"protocol": "tcp",
+						"name": "default"
+					}],
+					"privileged": false,
+					"forcePullImage": true
+				}
+			},
+			"killSelection": "YOUNGEST_FIRST",
+			"env": {
+				"APPDEF": "{'name':'Connected Car Portal','showLocation':true,'fields':[{'name':'id','type':'Long','pivot':'false'},{'name':'location','type':'Location','pivot':'false'},{'name':'event_timestamp','type':'Date/time','pivot':'false'},{'name':'carid','pivot':false,'type':'Integer'},{'name':'batterylevel','pivot':false,'type':'Integer'},{'name':'driver','pivot':false,'type':'String'},{'name':'motortemp','pivot':false,'type':'Integer'},{'name':'powerconsumption','pivot':false,'type':'Integer'},{'name':'speed','pivot':false,'type':'Integer'},{'name':'status','pivot':false,'type':'String'}],'transformer':'%09%0A%09%09%0A%09%2F%2F%20Raw%20message%20available%20as%3A%20rawtext%3B%0A%09%2F%2F%20save%20result%20in%20variable%3A%20result%0A%09%2F%2F%20result%20is%20of%20type%20String%0A%09%0A%09%2F%2F%20get%20json%20object%3A%20JSON.parse(rawtext)%3B%0A%09%2F%2F%20also%20available%20fields%5B%5D%20and%20types%5B%5D%3A%0A%09%2F%2F%20e.g.%20fields%5B0%5D%3D%3D%20%22id%22%2C%20%20types%5B0%5D%3D%3D%22Long%22%0A%0A%09%2F%2F%20Transform%20incoming%20xml%20to%20json%3A%20%20json%3D%20parseXML(rawtext)%3B%20result%3D%20JSON.stringify(json)%3B%0A%09%2F%2F%20uses%20npm%20xml2js%0A%09%2F%2F%20Transform%20incoming%20yaml%20to%20json%3A%20let%20json%3DyamlParser.parse(rawtext)%3B%20console.log(%22JSON%3A%20%22%2BJSON.stringify(json))%3B%20result%3D%20JSON.stringify(json)%3B%20%0A%09%2F%2F%20uses%20npm%20yamljs%0A%09%2F%2F%20Rename%20field%3A%20let%20json%3D%20JSON.parse(rawtext)%3B%20json.newname%3D%20json.oldname%3B%20delete%20json.oldname%3B%0A%0A%09console.log(%22In%20%3A%20%22%2Brawtext)%3B%0A%2F*%0A%09let%20json%3D%20JSON.parse(rawtext)%3B%0A%20%20%20%20%20%20%20%20for%20(var%20key%20in%20json)%20%7B%0A%20%20%09%09%09if%20(json.hasOwnProperty(key))%20%7B%0A%09%09%09%09%20%20if(typesByName%5Bkey%5D%3D%3D%3D%20%22String%22)%0A%09%09%09%09%20%20%09json%5Bkey%5D%3D%20%22Great!%22%3B%0A%09%09%09%7D%0A%09%09%7D%0A%0A%09result%3D%20JSON.stringify(json)%3B%0A*%2F%0A%09result%3D%20rawtext%3B%0A%09console.log(%22After%20transformation%3A%20%22%2Bresult)%3B%0A%09%09%09%09%09%0A%09%09%09%09%09','version':'2.0.0','topic':'ccp','table':'ccp','keyspace':'ccp','path':'connectedcar','creator':'http://jhollinge-publicsl-59jr2pa1um8f-386539722.us-west-2.elb.amazonaws.com','byod':'no'}",
+				"LISTENER": "http://prodmicroservicesconnectedcarworkerlistener.marathon.l4lb.thisdcos.directory:80/data",
+				"LATITUDE": "41.411338",
+				"LONGITUDE": "2.226438",
+				"RADIUS": "1000",
+				"TRAJECTORY": "FILE"
+			},
+			"requirePorts": false
+		}

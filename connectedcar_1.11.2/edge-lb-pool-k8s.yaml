@@ -1,0 +1,62 @@
+---
+pools:
+  - name: connectedcar
+    count: 1
+    haproxy:
+      frontends:
+        - bindPort: 10339
+          protocol: HTTP
+          linkBackend:
+            defaultBackend: kibana
+        - bindPort: 8080
+          protocol: HTTP
+          linkBackend:
+            defaultBackend: dcos-appstudio-creator
+        - bindPort: 10080
+          protocol: HTTP
+          linkBackend:
+            defaultBackend: gitlab
+        - bindPort: 10000
+          protocol: HTTP
+          linkBackend:
+            defaultBackend: jenkins
+      backends:
+        - name: kibana
+          protocol: HTTP
+          miscStrs:
+            - reqrep ^(.*?)service\/\/prod\/dataservices\/kibana\/(.*)     \1\2
+          servers:
+            - framework:
+                value: marathon
+              task:
+                value: ^kibana.*$
+                match: REGEX
+              port:
+                name: kibana
+        - name: dcos-appstudio-creator
+          protocol: HTTP
+          servers:
+            - framework:
+                value: marathon
+              task:
+                value: dcos-appstudio-creator.microservices.prod
+              port:
+                name: web
+        - name: gitlab
+          protocol: HTTP
+          servers:
+            - framework:
+                value: marathon
+              task:
+                value: gitlab.tools.dev
+              port:
+                name: web
+        - name: jenkins
+          protocol: HTTP
+          servers:
+            - framework:
+                value: marathon
+              task:
+                value: jenkins.tools.dev
+              port:
+                name: nginx
