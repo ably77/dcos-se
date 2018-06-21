@@ -1,5 +1,16 @@
 # DCOS Useful Commands I've Found:
 
+## Benchmark Test a Linux Vm
+bench.sh
+```
+curl -Lso- bench.sh | bash
+```
+
+nench.sh (new bench)
+```
+(curl -s wget.racing/nench.sh | bash; curl -s wget.racing/nench.sh | bash) 2>&1 | tee nench.log
+```
+
 ## Kill inactive Mesos Framework
 ```
 Run:
