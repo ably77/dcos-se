@@ -1,0 +1,17 @@
+---
+- hosts: bootstrap
+  remote_user: root
+  become: false
+
+  tasks:
+  - name: Generate and write out DC/OS config.yaml
+    template:
+      src: ../files/config.yaml.j2
+      dest: /root/genconf/config.yaml
+
+  - name: Generate DC/OS install bits
+    become: true
+    shell: bash /root/dcos_generate_config.ee.sh
+
+  - name: Start nginx Docker container
+    command: docker run -d -p 80:80 -v /root/genconf/serve:/usr/share/nginx/html:ro nginx

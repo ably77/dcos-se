@@ -1,0 +1,8 @@
+---
+- name: Top level play for the entire installation
+  hosts: all
+  user: root
+
+- include: playbooks/dcos-all-preinstall.yaml
+- include: playbooks/dcos-bootstrap-preinstall.yaml
+- include: playbooks/dcos-cluster-install.yaml
