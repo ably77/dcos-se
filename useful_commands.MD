@@ -1,5 +1,10 @@
 # DCOS Useful Commands I've Found:
 
+## Check Mesos state for reserved resources
+```
+gzcat 5050-master_state.json.gz  | jq ".slaves[].reserved_resources"
+```
+
 ## Benchmark Test a Linux Vm
 bench.sh
 ```
