@@ -1,5 +1,10 @@
 # DCOS Useful Commands I've Found:
 
+## Get the public IP of a DC/OS node
+```
+dcos node ssh --master-proxy --private-ip=10.X.X.X "curl ifconfig.co"
+```
+
 ## Check Mesos state for reserved resources
 ```
 gzcat 5050-master_state.json.gz  | jq ".slaves[].reserved_resources"
