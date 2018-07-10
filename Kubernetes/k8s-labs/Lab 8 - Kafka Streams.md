@@ -1,3 +1,5 @@
+Credit to Andrew Grzeskowiak for creating this demo for DC/OS
+
 ## Kafka Streams Demo
 
 For this demo we will show you how easy it is to run your microservices and dataservices in one single DC/OS cluster using the same resources.
@@ -107,7 +109,5 @@ Class probabilities: 0.5955978728809052,0.40440212711909485
 ```
 
 ### Congratulations! You just deployed a microservice application on DC/OS that easily connects to a Confluent Kafka dataservice running on the same cluster!
-
-
 
 
