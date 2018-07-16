@@ -45,13 +45,13 @@ kubectl get pods -o wide --show-labels --all-namespaces
 ```
 Note: Utilizing the `wide` output gives you more details when investigating and troubleshooting
    
-### Using label selectors to schedule Pods to specific Nodes
+## Using label selectors to schedule Pods to specific Nodes
 
 Using label selectors an operator is able to specify a Pod to be able to run on particular nodes. An example use-case would be to pin a Pod to a node that specifically has SSD storage. There are a few methods that will be outlined below:
 
-## nodeSelector
+### nodeSelector
 
-Taken from (Assigning Pods to Nodes)[https://kubernetes.io/docs/concepts/configuration/assign-pod-node/]
+Taken from [Assigning Pods to Nodes](https://kubernetes.io/docs/concepts/configuration/assign-pod-node/)
 `nodeSelector` is the simplest form of constraint. `nodeSelector` is a field of PodSpec and specifies a map of key-value pairs. Commonly this is used to indicate a key-value pair as labels on a node that we can match and deploy to
 
 Step 1: Attach label to the node
