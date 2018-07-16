@@ -2,7 +2,7 @@ This document is a self-made Lab guide based off of the CKA Curriculum v1.8.0
 
 # Scheduling - 5%
 
-### Use Labels in Pods:
+## Using Labels in Pods:
 
 Example Nginx Deployment:
 ```
@@ -165,3 +165,104 @@ Events:
   ----     ------            ----              ----               -------
   Warning  FailedScheduling  43s (x8 over 1m)  default-scheduler  0/1 nodes are available: 1 node(s) didn't match node selector.
 ```
+
+To remove a label:
+```
+$ kubectl label node kube-node-0-kubelet.kubernetes.mesos disktype-
+node "kube-node-0-kubelet.kubernetes.mesos" labeled
+
+Validate by running:
+$ kubectl get nodes --show-labels
+NAME                                   STATUS    ROLES     AGE       VERSION   LABELS
+kube-node-0-kubelet.kubernetes.mesos   Ready     <none>    2h        v1.10.3   beta.kubernetes.io/arch=amd64,beta.kubernetes.io/os=linux,kubernetes.io/hostname=kube-node-0-kubelet.kubernetes.mesos,name=kube-node-0-kubelet.kubernetes.mesos
+```
+
+## Understand the role of DaemonSets
+Taken from [DaemonSet Documentation](https://kubernetes.io/docs/concepts/workloads/controllers/daemonset/)
+
+A DaemonSet ensures that all (or some) Nodes run a copy of a Pod. As nodes are added to the cluster, Pods are added to them. As nodes are removed from the cluster, those Pods are garbage collected. Deleting a DaemonSet will clean up the Pods it created.
+
+Typical uses of DaemonSet are:
+- running a cluster storage daemon (i.e. glusterd, ceph)
+- running a logs collection daemon on every node (i.e. fluentd, logstash)
+- running a node monitoring daemon on every node (i.e. Prometheus, collectd, New Relic)
+
+Lets set up a simple DaemonSet example
+
+Below is an example DaemonSet we can name `daemonset-nginx.yaml`
+```
+apiVersion: extensions/v1beta1
+kind: DaemonSet
+metadata:
+  name: logging
+spec:
+  template:
+    metadata:
+      labels:
+        app: logging-app
+    spec:
+      nodeSelector:
+        app: logging-node
+      containers:
+        - name: webserver
+          image: nginx
+          ports:
+          - containerPort: 80
+```
+
+This example Daemonset configuration above will create a pod named `logging` on any labeled node with the key-value pair `app:logging-node`
+
+First we need to add a label to our node:
+```
+$ kubectl label node kube-node-0-kubelet.kubernetes.mesos app=logging-node
+node "kube-node-0-kubelet.kubernetes.mesos" labeled
+
+$ kubectl get nodes --show-labels
+NAME                                   STATUS    ROLES     AGE       VERSION   LABELS
+kube-node-0-kubelet.kubernetes.mesos   Ready     <none>    2h        v1.10.3   app=logging-node,beta.kubernetes.io/arch=amd64,beta.kubernetes.io/os=linux,disktype=ssd,kubernetes.io/hostname=kube-node-0-kubelet.kubernetes.mesos,name=kube-node-0-kubelet.kubernetes.mesos
+```
+
+Now we can deploy our `daemonset-nginx.yaml` example:
+```
+$ kubectl create -f daemonset-nginx.yaml
+daemonset.extensions "logging" created
+
+$ kubectl get ds
+NAME      DESIRED   CURRENT   READY     UP-TO-DATE   AVAILABLE   NODE SELECTOR      AGE
+logging   1         1         1         1            1           app=logging-node   11s
+```
+
+You can validate DaemonSet behavior is working correctly by removing the `app=logging-node` label from your node:
+```
+$ kubectl label node kube-node-0-kubelet.kubernetes.mesos app-
+node "kube-node-0-kubelet.kubernetes.mesos" labeled
+
+Verify that the app=logging-node label is removed
+$ kubectl get nodes --show-labels
+NAME                                   STATUS    ROLES     AGE       VERSION   LABELS
+kube-node-0-kubelet.kubernetes.mesos   Ready     <none>    2h        v1.10.3   beta.kubernetes.io/arch=amd64,beta.kubernetes.io/os=linux,disktype=ssd,kubernetes.io/hostname=kube-node-0-kubelet.kubernetes.mesos,name=kube-node-0-kubelet.kubernetes.mesos
+
+Check your Daemonset
+$ kubectl get ds
+NAME      DESIRED   CURRENT   READY     UP-TO-DATE   AVAILABLE   NODE SELECTOR      AGE
+logging   0         0         0         0            0           app=logging-node   7m
+
+$ kubectl get pods
+NAME            READY     STATUS        RESTARTS   AGE
+logging-r9dqz   0/1       Terminating   0          25s
+```
+
+As expected, when removing the node label, our logging DaemonSet pod is Terminated. Adding the label back will result back in a successful pod deployment:
+```
+$ kubectl label node kube-node-0-kubelet.kubernetes.mesos app=logging-node
+node "kube-node-0-kubelet.kubernetes.mesos" labeled
+
+$ kubectl get ds
+NAME      DESIRED   CURRENT   READY     UP-TO-DATE   AVAILABLE   NODE SELECTOR      AGE
+logging   1         1         1         1            1           app=logging-node   12m
+
+$ kubectl get pods
+NAME            READY     STATUS    RESTARTS   AGE
+logging-kqxqk   1/1       Running   0          10s
+```
+
