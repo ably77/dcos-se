@@ -51,7 +51,8 @@ Using label selectors an operator is able to specify a Pod to be able to run on 
 
 ### nodeSelector
 
-Taken from [Assigning Pods to Nodes](https://kubernetes.io/docs/concepts/configuration/assign-pod-node/)
+Reference kubernetes.io - [Assigning Pods to Nodes](https://kubernetes.io/docs/concepts/configuration/assign-pod-node/)
+
 `nodeSelector` is the simplest form of constraint. `nodeSelector` is a field of PodSpec and specifies a map of key-value pairs. Commonly this is used to indicate a key-value pair as labels on a node that we can match and deploy to
 
 Step 1: Attach label to the node
@@ -264,5 +265,136 @@ logging   1         1         1         1            1           app=logging-nod
 $ kubectl get pods
 NAME            READY     STATUS    RESTARTS   AGE
 logging-kqxqk   1/1       Running   0          10s
+```
+
+## Understand how resource limits can affect Pod Scheduling
+Reference kubernetes.io - (Configure Default Memory Requests and Limits for a Namespace)[https://kubernetes.io/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/]
+
+In Kubernetes it is possible to limit resources such as limiting a group of users to a specific Namespace, as well as setting defaults such as CPU, memory, or storage limits. If a Container is created in a namespace that has a default memory limit, and the Container does not specify its own memory limit, then the Container is assigned the default memory limit. This feature will come in handy in situations where we want to control the resources used by multiple groups that are sharing the same cluster.
+
+### Example: Limiting the default memory for a container
+
+First we need to create a new namespace so that resources we create in this exercise are isolated from the rest of the cluster
+```
+$ kubectl create namespace default-mem-example
+namespace "default-mem-example" created
+```
+
+Next we will create a LimitRange object that will specify the default memory request as well as default memory limit for this namespace. We can call this object `memory-limitrange.yaml`:
+```
+apiVersion: v1
+kind: LimitRange
+metadata:
+  name: mem-limit-range
+spec:
+  limits:
+  - default:
+      memory: 512Mi
+    defaultRequest:
+      memory: 256Mi
+    type: Container
+```
+
+Create the LimitRange object in your default-mem-example namespace:
+```
+$ kubectl create -f memory-limitrange.yaml --namespace=default-mem-example
+limitrange "mem-limit-range" created
+
+$ kubectl get limitrange --namespace=default-mem-example
+NAME              AGE
+mem-limit-range   39s
+```
+
+Now if a Container is created in the default-mem-example namespace, and the Container does not specify its own values for memory request and memory limit, the Container is given a default memory request of 256 MiB and a default memory limit of 512 MiB.
+
+Lets test this out by deploying an example Pod that does not specify a memory request and limit. We can name this application `nginx-memorytest.yaml`
+```
+apiVersion: v1
+kind: Pod
+metadata:
+  name: default-mem-demo
+spec:
+  containers:
+  - name: default-mem-demo-ctr
+    image: nginx
+```
+
+Create the Pod:
+```
+$ kubectl create -f nginx-memorytest.yaml --namespace=default-mem-example
+pod "default-mem-demo" created
+```
+
+View detailed information about the Pod:
+```
+$ kubectl get pod default-mem-demo --output=yaml --namespace=default-mem-example
+```
+
+You can see that the output shows that the Pod's container has a memory request of 256 MiB and a memory limit of 512 MiB. These are the default values specified by the LimitRange that we set:
+```
+containers:
+  - image: nginx
+    imagePullPolicy: Always
+    name: default-mem-demo-ctr
+    resources:
+      limits:
+        memory: 512Mi
+      requests:
+        memory: 256Mi
+```
+
+Delete Pod and Namespace to clean up:
+```
+$ kubectl delete pod default-mem-demo --namespace=default-mem-example
+pod "default-mem-demo" deleted
+
+$ kubectl delete namespaces default-mem-example
+namespace "default-mem-example" deleted
+```
+
+## Configuring Multiple Schedulers
+Reference kubernetes.io - (Configure Multiple Schedulers)[https://kubernetes.io/docs/tasks/administer-cluster/configure-multiple-schedulers/]
+
+It is possible to run multiple schedulers simultaneously alongside the default scheduler and instruct Kubernetes what scheduler to use for each of your pods. A common example would be to run a seperate K8s scheduler alongside the default scheduler. The documentation above walks through this example which we will not do, but will try to better understand
+
+At a high level, here are the steps:
+- Package the Scheduler into a container image
+- Define a deployment.yaml for the new scheduler that pulls this newly created image
+- Run the second scheduler in the cluster
+- If RBAC is enabled, update the `system:kube-scheduler` cluster role to include the new scheduler name
+- Create a deployment.yaml for an application that defines which scheduler to use by using the spec `schedulerName: <default-scheduler>`
+- Verify that the application was scheduled using the desired schedulers
+
+
+## Manually schedule a pod without a scheduler
+Reference kubernetes.io - (Static Pods)[https://kubernetes.io/docs/tasks/administer-cluster/static-pod/]
+
+Static pods are managed directly by kubelet daemon on a specific node, without the API server observing it. It does not have an associated replication controller, and kubelet daemon itself watches it and restarts it when it crashes. There is no health check. Static pods are always bound to one kubelet daemon and always run on the same node with it.
+
+Kubelet automatically tries to create a mirror pod on the Kubernetes API server for each static pod. This means that the pods are visible on the API server but cannot be controlled from there.
+
+Rationale from Kelsey Hightower's (Standalone Kubelet Tutorial)[https://github.com/kelseyhightower/standalone-kubelet-tutorial]
+In some cases you just want to run one or more compute instances without the need for the entire Kubernetes feature set. There are many options for managing containers on a single compute instance including docker compose, or some configuration management tool like ansible or chef, however the Kubernetes Kubelet running in standalone mode may be the better option. In standalone mode the Kubelet allows you to manage containers using pod manifests, which brings the benefits of running tightly coupled application as a single unit while leveraging a subset of advanced features including init containers, CNI networking, and built-in health checks.
+
+Running the Kubelet in standalone mode provides a nice on-ramp to a full Kubernetes cluster; if the time comes your pod manifests can be reused.
+
+
+## Display Scheduler Events
+
+To display scheduler events you can explore the `/var/log/kube-scheduler.log` file on the control/master node
+
+OR
+
+Use `kubectl describe pods <POD NAME UNDER Investigation>  | grep -A7 ^Events`:
+```
+$ kubectl describe pods nginx-deployment-75675f5897-59lg2 | grep -A7 ^Events
+Events:
+  Type    Reason                 Age   From                                           Message
+  ----    ------                 ----  ----                                           -------
+  Normal  Scheduled              43s   default-scheduler                              Successfully assigned nginx-deployment-75675f5897-59lg2 to kube-node-1-kubelet.kubernetes.mesos
+  Normal  SuccessfulMountVolume  43s   kubelet, kube-node-1-kubelet.kubernetes.mesos  MountVolume.SetUp succeeded for volume "default-token-lcvwk"
+  Normal  Pulling                43s   kubelet, kube-node-1-kubelet.kubernetes.mesos  pulling image "nginx:1.7.9"
+  Normal  Pulled                 31s   kubelet, kube-node-1-kubelet.kubernetes.mesos  Successfully pulled image "nginx:1.7.9"
+  Normal  Created                31s   kubelet, kube-node-1-kubelet.kubernetes.mesos  Created container
 ```
 
