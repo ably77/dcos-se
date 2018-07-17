@@ -153,6 +153,15 @@ root@redis:/data/redis# cat test-file
 Hello
 ```
 
+Delete the Pod when you're done:
+```
+$ kubectl delete pod redis
+pod "redis" deleted
+
+$ kubectl get pods
+No resources found.
+```
+
 ## Other Useful Storage Information:
 
 ### configMap
