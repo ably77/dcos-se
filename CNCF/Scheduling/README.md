@@ -4,7 +4,7 @@ This document is a self-made Lab guide based off of the CKA Curriculum v1.8.0
 
 ## Using Labels in Pods:
 
-Example Nginx Deployment:
+Example Nginx Deployment, for this example we will call this `nginx-deployment.yaml`:
 ```
 apiVersion: apps/v1beta2 # for versions before 1.8.0 use apps/v1beta1
 kind: Deployment

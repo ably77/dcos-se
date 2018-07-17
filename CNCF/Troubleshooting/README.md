@@ -180,3 +180,141 @@ NAME               DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
 nginx-deployment   2         2         2            2           41m
 ```
 
+### My pod stays waiting
+If a Pod is stuck in the Waiting state, then it has been scheduled to a worker node, but it can’t run on that machine. Again, the information from kubectl describe ... should be informative. The most common cause of Waiting pods is a failure to pull the image. There are three things to check:
+- Make sure that you have the name of the image correct.
+- Have you pushed the image to the repository?
+- Run a manual docker pull <image> on your machine to see if the image can be pulled.
+
+### My pod is having an error pulling image
+
+Lets induce an image pull error by fat-fingering the image name:
+```
+$ kubectl edit deployments/nginx-deployment
+<...>
+containers:
+      - image: nginxx
+        imagePullPolicy: Always
+deployment.extensions "nginx-deployment" edited
+
+$ kubectl get deployments
+NAME               DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+nginx-deployment   2         3         1            2           2m
+
+$ kubectl get pods
+NAME                                READY     STATUS             RESTARTS   AGE
+nginx-deployment-587564b686-msm9n   0/1       ImagePullBackOff   0          1m
+nginx-deployment-66996bc984-55xj7   1/1       Running            0          2m
+nginx-deployment-66996bc984-rjpdj   1/1       Running            0          2m
+```
+
+Exploring the pod with the `ImagePullBackOff` error:
+```
+$ kubectl describe pod nginx-deployment-587564b686-msm9n
+<...>
+Conditions:
+  Type           Status
+  Initialized    True
+  Ready          False
+  PodScheduled   True
+Volumes:
+  default-token-242lk:
+    Type:        Secret (a volume populated by a Secret)
+    SecretName:  default-token-242lk
+    Optional:    false
+QoS Class:       Guaranteed
+Node-Selectors:  <none>
+Tolerations:     node.kubernetes.io/not-ready:NoExecute for 300s
+                 node.kubernetes.io/unreachable:NoExecute for 300s
+Events:
+  Type     Reason                 Age               From                                           Message
+  ----     ------                 ----              ----                                           -------
+  Normal   Scheduled              2m                default-scheduler                              Successfully assigned nginx-deployment-587564b686-msm9n to kube-node-1-kubelet.kubernetes.mesos
+  Normal   SuccessfulMountVolume  2m                kubelet, kube-node-1-kubelet.kubernetes.mesos  MountVolume.SetUp succeeded for volume "default-token-242lk"
+  Normal   Pulling                26s (x4 over 2m)  kubelet, kube-node-1-kubelet.kubernetes.mesos  pulling image "nginxx"
+  Warning  Failed                 25s (x4 over 2m)  kubelet, kube-node-1-kubelet.kubernetes.mesos  Failed to pull image "nginxx": rpc error: code = Unknown desc = Error response from daemon: pull access denied for nginxx, repository does not exist or may require 'docker login'
+  Warning  Failed                 25s (x4 over 2m)  kubelet, kube-node-1-kubelet.kubernetes.mesos  Error: ErrImagePull
+  Normal   BackOff                14s (x6 over 1m)  kubelet, kube-node-1-kubelet.kubernetes.mesos  Back-off pulling image "nginxx"
+  Warning  Failed                 14s (x6 over 1m)  kubelet, kube-node-1-kubelet.kubernetes.mesos  Error: ImagePullBackOff
+```
+
+Fixing this image parameter will fix the deployment:
+```
+$ kubectl edit deployments/nginx-deployment
+<...>
+containers:
+      - image: nginx
+        imagePullPolicy: Always
+deployment.extensions "nginx-deployment" edited
+
+$ kubectl get deployments
+NAME               DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+nginx-deployment   2         2         2            2           4m
+
+$ kubectl get pods
+NAME                                READY     STATUS    RESTARTS   AGE
+nginx-deployment-66996bc984-55xj7   1/1       Running   0          4m
+nginx-deployment-66996bc984-rjpdj   1/1       Running   0          4m
+```
+
+Delete the deployment:
+```
+$ kubectl delete deployment nginx-deployment
+deployment.extensions "nginx-deployment" deleted
+```
+
+### My Pod is crashing or otherwise unhealthy:
+
+First take a look at the logs of the current container
+```
+kubectl logs <pod_name> <container_name>
+```
+
+Or if your container has previously crashed, you can access the previous container's crash log:
+```
+kubectl logs --previous <pod_name> <container_name>
+```
+
+Or you can exec into the running container:
+```
+$ kubectl exec -it nginx-deployment-66996bc984-cl457 bash
+root@nginx-deployment-66996bc984-cl457:/#
+```
+
+## Troubleshoot control plane/worker node failure
+Reference from kubernetes.io:
+- [Troubleshoot Clusters](https://kubernetes.io/docs/tasks/debug-application-cluster/debug-cluster/)
+
+The first thing to debug in your cluster is if your nodes are all registered correctly. Verify that all nodes you expect to see present are in the `Ready` state:
+```
+$ kubectl get nodes
+NAME                                   STATUS    ROLES     AGE       VERSION
+kube-node-0-kubelet.kubernetes.mesos   Ready     <none>    3h        v1.10.3
+kube-node-1-kubelet.kubernetes.mesos   Ready     <none>    3h        v1.10.3
+```
+
+### Looking at Logs
+For now, digging deeper into the cluster requires logging into the relevant machines. Here are the locations of the relevant log files. (note that on systemd-based systems, you may need to use journalctl instead)
+
+Master:
+- /var/log/kube-apiserver.log - API Server, responsible for serving the API
+- /var/log/kube-scheduler.log - Scheduler, responsible for making scheduling decisions
+- /var/log/kube-controller-manager.log - Controller that manages replication controllers
+
+Worker Nodes:
+- /var/log/kubelet.log - Kubelet, responsible for running containers on the node
+- /var/log/kube-proxy.log - Kube Proxy, responsible for service load balancing
+
+Common cluster failure root causes:
+- VM(s) shutdown
+- Network partition within cluster, or between cluster and users
+- Crashes in Kubernetes software
+- Data loss or unavailability of persistent storage (e.g. GCE PD or AWS EBS volume)
+- Operator error, e.g. misconfigured Kubernetes software or application software
+
+## Troubleshoot Networking:
+Reference from kubernetes.io:
+- [Debug Services](https://kubernetes.io/docs/tasks/debug-application-cluster/debug-service/)
+
+WORK IN PROGRESS
+
