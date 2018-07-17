@@ -62,7 +62,7 @@ The general breakdown is below and is what this repo aims to cover:
   - Understand persistent volume claims primitive
   - Understand Kubernetes storage objects
   - Know how to configure applications with persistent storage
-- Troubleshooting - 10%
+- **Troubleshooting - 10%**
   - Troubleshoot application failure
   - Troubleshoot control plane failure
   - Troubleshoot worker node failure
