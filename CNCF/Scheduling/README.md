@@ -268,7 +268,7 @@ logging-kqxqk   1/1       Running   0          10s
 ```
 
 ## Understand how resource limits can affect Pod Scheduling
-Reference kubernetes.io - (Configure Default Memory Requests and Limits for a Namespace)[https://kubernetes.io/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/]
+Reference kubernetes.io - [Configure Default Memory Requests and Limits for a Namespace](https://kubernetes.io/docs/tasks/administer-cluster/manage-resources/memory-default-namespace/)
 
 In Kubernetes it is possible to limit resources such as limiting a group of users to a specific Namespace, as well as setting defaults such as CPU, memory, or storage limits. If a Container is created in a namespace that has a default memory limit, and the Container does not specify its own memory limit, then the Container is assigned the default memory limit. This feature will come in handy in situations where we want to control the resources used by multiple groups that are sharing the same cluster.
 
@@ -353,7 +353,7 @@ namespace "default-mem-example" deleted
 ```
 
 ## Configuring Multiple Schedulers
-Reference kubernetes.io - (Configure Multiple Schedulers)[https://kubernetes.io/docs/tasks/administer-cluster/configure-multiple-schedulers/]
+Reference kubernetes.io - [Configure Multiple Schedulers](https://kubernetes.io/docs/tasks/administer-cluster/configure-multiple-schedulers/)
 
 It is possible to run multiple schedulers simultaneously alongside the default scheduler and instruct Kubernetes what scheduler to use for each of your pods. A common example would be to run a seperate K8s scheduler alongside the default scheduler. The documentation above walks through this example which we will not do, but will try to better understand
 

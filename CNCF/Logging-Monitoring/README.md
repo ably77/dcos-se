@@ -2,9 +2,23 @@ This document is a self-made Lab guide based off of the CKA Curriculum v1.8.0
 
 # Logging/Monitoring - 5%
 
+## Monitoring Kubernetes
+
+Reference from DataDog - [Monitoring in the Kubernetes Era](https://www.datadoghq.com/blog/monitoring-kubernetes-era/)
+
+Reference from kubernetes.io - [Logging Architecture](https://kubernetes.io/docs/concepts/cluster-administration/logging/)
+
+Monitoring Kubernetes effectively requires you to rethink and reorient your monitoring strategies, especially if you are used to monitoring traditional hosts such as VMs or physical machines. Just as containers have completely transformed how we think about running services on virtual machines, Kubernetes has changed the way$
+
+The good news is that with proper monitoring, the abstraction levels inherent to Kubernetes offer you a comprehensive view of your infrastructure, even if your containers are constantly moving. Monitoring Kubernetes is different than traditional monitoring in several ways:
+- Tags and labels become essential
+- You have more components to monitor
+- Your monitoring needs to track applications that are constantly moving
+- Applications may be distributed across multiple cloud providers
 ## Understand how to monitor all cluster components
 Reference from kubernetes.io - (Tools for Monitoring Compute, Storage, and Network Resources)
 
+## Basic Metrics
 To scale and application and provide a reliable service, you need to understand how an application behaves when it is deployed. You can examine application performance in a Kubernetes cluster by examining the containers, pods, services, and the characteristics of the overall cluster. Kubernetes provides detailed information about an application’s resource usage at each of these levels. This information allows you to evaluate your application’s performance and where bottlenecks can be removed to improve overall performance.
 
 For basic CPU/memory usage you can use the `kubectl top` command utility:
@@ -18,28 +32,6 @@ $ kubectl top pod
 NAME      CPU(cores)   MEMORY(bytes)
 counter   1m           2Mi
 ```
-
-### cAdvisor
-cAdvisor is an open source container resource usage and performance analysis agent. It is purpose-built for containers and supports Docker containers natively. In Kubernetes, cAdvisor is integrated into the Kubelet binary. cAdvisor auto-discovers all containers in the machine and collects CPU, memory, filesystem, and network usage statistics. cAdvisor also provides the overall machine usage by analyzing the ‘root’ container on the machine.
-
-On most Kubernetes clusters, cAdvisor exposes a simple UI for on-machine containers on port 4194.
-
-### Full Metric Pipelines
-Many full metrics solutions exist for Kubernetes. Prometheus and Google Cloud Monitoring are among two of the most popular.
-
-## Monitoring Kubernetes
-
-Reference from DataDog - (Monitoring in the Kubernetes Era)[https://www.datadoghq.com/blog/monitoring-kubernetes-era/]
-
-Reference from kubernetes.io - (Logging Architecture)[https://kubernetes.io/docs/concepts/cluster-administration/logging/]
-
-Monitoring Kubernetes effectively requires you to rethink and reorient your monitoring strategies, especially if you are used to monitoring traditional hosts such as VMs or physical machines. Just as containers have completely transformed how we think about running services on virtual machines, Kubernetes has changed the way we interact with containers.
-
-The good news is that with proper monitoring, the abstraction levels inherent to Kubernetes offer you a comprehensive view of your infrastructure, even if your containers are constantly moving. Monitoring Kubernetes is different than traditional monitoring in several ways:
-- Tags and labels become essential
-- You have more components to monitor
-- Your monitoring needs to track applications that are constantly moving
-- Applications may be distributed across multiple cloud providers
 
 ## Basic Pod Logging
 For this example we will use this app definition that we will name `counter.yaml`. The `counter.yaml` file is a simple app that writes date/time data to stdout once per second
@@ -193,8 +185,16 @@ Mon Jul 16 22:50:03 UTC 2018 INFO 4
 Mon Jul 16 22:50:04 UTC 2018 INFO 5
 ```
 
+### cAdvisor
+cAdvisor is an open source container resource usage and performance analysis agent. It is purpose-built for containers and supports Docker containers natively. In Kubernetes, cAdvisor is integrated into the Kubelet binary. cAdvisor auto-discovers all containers in the machine and collects CPU, memory, filesystem, and network$
+
+On most Kubernetes clusters, cAdvisor exposes a simple UI for on-machine containers on port 4194.
+
+### Full Metric Pipelines
+Many full metrics solutions exist for Kubernetes. Prometheus and Google Cloud Monitoring are among two of the most popular.
+
 ## Manage Cluster Component Logs
-Reference from kubernetes.io - (Troubleshoot Clusters)[https://kubernetes.io/docs/tasks/debug-application-cluster/debug-cluster/#looking-at-logs]
+Reference from kubernetes.io - [Troubleshoot Clusters](https://kubernetes.io/docs/tasks/debug-application-cluster/debug-cluster/#looking-at-logs)
 
 ### Looking at Logs
 For now, digging deeper into the cluster requires logging into the relevant machines. Here are the locations of the relevant log files. (note that on systemd-based systems, you may need to use journalctl instead)
