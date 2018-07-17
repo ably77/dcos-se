@@ -60,7 +60,7 @@ The general breakdown is below and is what this repo aims to cover:
   - [Understand persistent volumes and know how to create them](https://github.com/ably77/dcos-se/tree/master/CNCF/Storage-7%25#understand-persistent-volumes-and-know-how-to-create-them)
   - [Understand access modes for volumes](https://github.com/ably77/dcos-se/tree/master/CNCF/Storage-7%25#understand-access-modes-for-volumes)
   - [Understand persistent volume claims primitive](https://github.com/ably77/dcos-se/tree/master/CNCF/Storage-7%25#understand-persistent-volume-claims-primitive)
-  - Understand Kubernetes storage objects
+  - [Understand Kubernetes storage objects](https://kubernetes.io/docs/concepts/storage/volumes/#types-of-volumes)
   - [Know how to configure applications with persistent storage](https://github.com/ably77/dcos-se/tree/master/CNCF/Storage-7%25#know-how-to-configure-applications-with-persistent-storage)
 - **Troubleshooting - 10%**
   - [Troubleshoot application failure](https://github.com/ably77/dcos-se/tree/master/CNCF/Troubleshooting-10%25#troubleshoot-application-failure)
