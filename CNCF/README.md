@@ -3,10 +3,10 @@ This Repo is based off of the [CKA Curriculum v1.8.0](https://github.com/cncf/cu
 The general breakdown is below and is what this repo aims to cover:
 
 - **Application Lifecycle Management - 8%**
-  - Understand Deployments and how to perform rolling updates and rollbacks
-  - Know various ways to configure applications
-  - Know how to scale applications
-  - Understand the primitives necessary to create a self-healing application
+  - [Understand Deployments and how to perform rolling updates and rollbacks](https://github.com/ably77/dcos-se/tree/master/CNCF/AppLifecycleManagement-8%25#deployments)
+  - [Know various ways to configure applications](https://github.com/ably77/dcos-se/tree/master/CNCF/AppLifecycleManagement-8%25#know-various-ways-to-configure-applications)
+  - [Know how to scale applications](https://github.com/ably77/dcos-se/tree/master/CNCF/AppLifecycleManagement-8%25#scaling-a-deployment)
+  - [Understand the primitives necessary to create a self-healing application](https://github.com/ably77/dcos-se/tree/master/CNCF/AppLifecycleManagement-8%25#understand-the-primitives-necessary-to-create-a-self-healing-application)
 - **Installation, Configuration & Validation - 12%**
   - Design a Kubernetes Cluster
   - Install Kubernetes masters and nodes, including the use of TLS bootstrapping
@@ -20,9 +20,9 @@ The general breakdown is below and is what this repo aims to cover:
   - Analyse end-to-end test results
   - Run Node end-to-end tests
 - **Core Concepts - 19%**
-  - Understand the Kubernetes API primitives
-  - Understand the Kubernetes cluster architecture
-  - Understand Services and other network primitives
+  - [Understand the Kubernetes API primitives](https://github.com/ably77/dcos-se/tree/master/CNCF/CoreConcepts-19%25#understand-the-kubernetes-api-primitives)
+  - [Understand the Kubernetes cluster architecture](https://github.com/ably77/dcos-se/tree/master/CNCF/CoreConcepts-19%25#understand-the-kubernetes-cluster-architecture)
+  - [Understand Services and other network primitives](https://github.com/ably77/dcos-se/tree/master/CNCF/CoreConcepts-19%25#understand-services-and-other-network-primitives)
 - **Networking - 11%**
   - Understand Pod networking concepts
   - Understand service networking
@@ -31,13 +31,13 @@ The general breakdown is below and is what this repo aims to cover:
   - Know how to configure and use the cluster DNS
   - Understand CNI
 - **Scheduling - 5%**
-  - Use label selectors to schedule Pods
-  - Understand the role of DaemonSets
-  - Understand how resource limits can affect Pod scheduling
-  - Understand how to run multiple schedulers and how to configure Pods to use them
-  - Manually schedule a pod without a scheduler
-  - Display scheduler events
-  - Know how to configure the Kubernetes scheduler
+  - [Use label selectors to schedule Pods](https://github.com/ably77/dcos-se/tree/master/CNCF/Scheduling-5%25#using-label-selectors-to-schedule-pods-to-specific-nodes)
+  - [Understand the role of DaemonSets](https://github.com/ably77/dcos-se/tree/master/CNCF/Scheduling-5%25#understand-the-role-of-daemonsets)
+  - [Understand how resource limits can affect Pod scheduling](https://github.com/ably77/dcos-se/tree/master/CNCF/Scheduling-5%25#understand-how-resource-limits-can-affect-pod-scheduling)
+  - [Understand how to run multiple schedulers and how to configure Pods to use them](https://github.com/ably77/dcos-se/tree/master/CNCF/Scheduling-5%25#configuring-multiple-schedulers)
+  - [Manually schedule a pod without a scheduler](https://github.com/ably77/dcos-se/tree/master/CNCF/Scheduling-5%25#manually-schedule-a-pod-without-a-scheduler)
+  - [Display scheduler events](https://github.com/ably77/dcos-se/tree/master/CNCF/Scheduling-5%25#display-scheduler-events)
+  - [Know how to configure the Kubernetes scheduler](https://github.com/ably77/dcos-se/tree/master/CNCF/Scheduling-5%25#configuring-multiple-schedulers)
 - **Security - 12%**
   - Know how to configure authentication and authorization
   - Understand Kubernetes security primitives
@@ -48,23 +48,23 @@ The general breakdown is below and is what this repo aims to cover:
   - Secure persistent key value store
   - Work with role-based access control
 - **Cluster Maintenance - 11%**
-  - Understand Kubernetes cluster upgrade process
-  - Facilitate operating system upgrades
-  - Implement backup and restore methodologies
+  - [Understand Kubernetes cluster upgrade process](https://github.com/ably77/dcos-se/tree/master/CNCF/ClusterMaintenance-11%25#understand-the-kubernetes-cluster-upgrade-process)
+  - [Facilitate operating system upgrades](https://github.com/ably77/dcos-se/tree/master/CNCF/ClusterMaintenance-11%25#facilitate-operating-system-upgrades)
+  - [Implement backup and restore methodologies](https://github.com/ably77/dcos-se/tree/master/CNCF/ClusterMaintenance-11%25#implement-backup-and-restore-methodologies)
 - **Logging / Monitoring - 5%**
-  - Understand how to monitor all cluster components
-  - Understand how to monitor applications
-  - Manage cluster component logs
-  - Manage application logs
+  - [Understand how to monitor all cluster components](https://github.com/ably77/dcos-se/tree/master/CNCF/Logging-Monitoring-5%25#understand-how-to-monitor-all-cluster-components)
+  - [Understand how to monitor applications](https://github.com/ably77/dcos-se/tree/master/CNCF/Logging-Monitoring-5%25#basic-metrics)
+  - [Manage cluster component logs](https://github.com/ably77/dcos-se/tree/master/CNCF/Logging-Monitoring-5%25#manage-cluster-component-logs)
+  - [Manage application logs](https://github.com/ably77/dcos-se/tree/master/CNCF/Logging-Monitoring-5%25#manage-cluster-component-logs)
 - **Storage - 7%**
-  - Understand persistent volumes and know how to create them
-  - Understand access modes for volumes
-  - Understand persistent volume claims primitive
-  - Understand Kubernetes storage objects
-  - Know how to configure applications with persistent storage
+  - [Understand persistent volumes and know how to create them](https://github.com/ably77/dcos-se/tree/master/CNCF/Storage-7%25#understand-persistent-volumes-and-know-how-to-create-them)
+  - [Understand access modes for volumes](https://github.com/ably77/dcos-se/tree/master/CNCF/Storage-7%25#understand-access-modes-for-volumes)
+  - [Understand persistent volume claims primitive](https://github.com/ably77/dcos-se/tree/master/CNCF/Storage-7%25#understand-persistent-volume-claims-primitive)
+  - [Understand Kubernetes storage objects](https://kubernetes.io/docs/concepts/storage/volumes/#types-of-volumes)
+  - [Know how to configure applications with persistent storage](https://github.com/ably77/dcos-se/tree/master/CNCF/Storage-7%25#know-how-to-configure-applications-with-persistent-storage)
 - **Troubleshooting - 10%**
-  - Troubleshoot application failure
-  - Troubleshoot control plane failure
-  - Troubleshoot worker node failure
-  - Troubleshoot networking
+  - [Troubleshoot application failure](https://github.com/ably77/dcos-se/tree/master/CNCF/Troubleshooting-10%25#troubleshoot-application-failure)
+  - [Troubleshoot control plane failure](https://github.com/ably77/dcos-se/tree/master/CNCF/Troubleshooting-10%25#troubleshoot-control-planeworker-node-failure)
+  - [Troubleshoot worker node failure](https://github.com/ably77/dcos-se/tree/master/CNCF/Troubleshooting-10%25#troubleshoot-control-planeworker-node-failure)
+  - [Troubleshoot networking](https://github.com/ably77/dcos-se/tree/master/CNCF/Troubleshooting-10%25#troubleshoot-networking)
 
