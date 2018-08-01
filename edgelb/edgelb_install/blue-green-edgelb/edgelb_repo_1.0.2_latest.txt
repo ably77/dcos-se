@@ -1,0 +1,4 @@
+dcos package repo add --index=0 edgelb-aws \
+  https://downloads.mesosphere.com/edgelb/v1.0.2/assets/stub-universe-edgelb.json
+dcos package repo add --index=0 edgelb-pool-aws \
+  https://downloads.mesosphere.com/edgelb-pool/v1.0.2/assets/stub-universe-edgelb-pool.json

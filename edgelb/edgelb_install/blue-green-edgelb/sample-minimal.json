@@ -1,0 +1,31 @@
+{
+  "apiVersion": "V2",
+  "name": "sample-config",
+  "count": 1,
+  "haproxy": {
+    "frontends": [{
+      "bindPort": 80,
+      "protocol": "HTTP",
+      "linkBackend": {
+        "defaultBackend": "svc-blue"
+      }
+    }],
+    "backends": [{
+      "name": "svc-blue",
+      "protocol": "HTTP",
+      "services": [{
+        "marathon": {
+          "serviceID": "/svc-blue"
+          },
+          "endpoint": {
+            "portName": "svc-blue"
+          }
+      }]
+    }],
+    "stats": {
+      "bindAddress": "0.0.0.0",
+      "bindPort": 9090
+    }
+  }
+}
+

@@ -1,0 +1,14 @@
+{
+    "service": {
+        "secretName": "dcos-edgelb/edge-lb-secret",
+        "principal": "edge-lb-principal",
+        "mesosProtocol": "https",
+        "constraints": [
+            [
+                "hostname",
+                "IS",
+                "10.0.0.29"
+            ]
+        ]
+    }
+}
