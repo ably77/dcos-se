@@ -9,6 +9,8 @@ For this guide, the specs of my cluster are as stated below:
 - 1 Public Agent
 - DC/OS CLI Installed and authenticated to your Local Machine
 
+- AWS Instance Type: m3.xlarge - 4vCPU, 15GB RAM, 80GiB SSD Storage, High Network Performance
+
 ## Step 1: Install Confluent Kafka
 ```
 dcos package install confluent-kafka --yes
@@ -314,4 +316,59 @@ producer-topic-metrics:record-retry-rate:{client-id=producer-1, topic=performanc
 producer-topic-metrics:record-retry-total:{client-id=producer-1, topic=performancetest} : 0.000
 producer-topic-metrics:record-send-rate:{client-id=producer-1, topic=performancetest}   : 37157.455
 producer-topic-metrics:record-send-total:{client-id=producer-1, topic=performancetest}  : 2000000.000
+```
+
+## Conclusion
+In this example I have tested the base 3 Kafka broker node deploy on a DC/OS Cluster running on AWS m3.xlarge instances. From my test observations with these fixed parameters set:
+- Number of Records: 20M
+- Throughput: 5M (Set arbitrarily high to "max out")
+
+My Variable parameter was `record-size` in bytes which I averaged across 5 runs:
+
+**record-size: 1**
+```
+20000000 records sent, 540088.034350 records/sec (0.52 MB/sec), 10.84 ms avg latency, 213.00 ms max latency, 3 ms 50th, 39 ms 95th, 56 ms 99th, 80 ms 99.9th.
+20000000 records sent, 527927.357196 records/sec (0.50 MB/sec), 11.80 ms avg latency, 372.00 ms max latency, 4 ms 50th, 36 ms 95th, 50 ms 99th, 63 ms 99.9th.
+20000000 records sent, 494743.351886 records/sec (0.47 MB/sec), 10.65 ms avg latency, 224.00 ms max latency, 3 ms 50th, 33 ms 95th, 52 ms 99th, 80 ms 99.9th.
+20000000 records sent, 523450.586265 records/sec (0.50 MB/sec), 11.30 ms avg latency, 295.00 ms max latency, 4 ms 50th, 38 ms 95th, 78 ms 99th, 262 ms 99.9th.
+20000000 records sent, 488448.200068 records/sec (0.47 MB/sec), 10.64 ms avg latency, 208.00 ms max latency, 3 ms 50th, 34 ms 95th, 49 ms 99th, 80 ms 99.9th.
+
+Average: 514931.5 records/sec (0.492 MB/sec), 11.05 ms avg latency, 262.4 ms avg max latency
+```
+
+**record-size: 10**
+```
+20000000 records sent, 469032.152154 records/sec (4.47 MB/sec), 10.76 ms avg latency, 260.00 ms max latency, 4 ms 50th, 40 ms 95th, 56 ms 99th, 88 ms 99.9th.
+20000000 records sent, 528485.360956 records/sec (5.04 MB/sec), 15.29 ms avg latency, 729.00 ms max latency, 3 ms 50th, 42 ms 95th, 61 ms 99th, 80 ms 99.9th.
+20000000 records sent, 473283.165318 records/sec (4.51 MB/sec), 12.00 ms avg latency, 549.00 ms max latency, 3 ms 50th, 40 ms 95th, 217 ms 99th, 510 ms 99.9th.
+20000000 records sent, 512150.777189 records/sec (4.88 MB/sec), 10.93 ms avg latency, 235.00 ms max latency, 4 ms 50th, 41 ms 95th, 59 ms 99th, 120 ms 99.9th.
+20000000 records sent, 523916.802012 records/sec (5.00 MB/sec), 10.58 ms avg latency, 219.00 ms max latency, 4 ms 50th, 38 ms 95th, 53 ms 99th, 73 ms 99.9th.
+
+Average: 501,373.6 records/sec (4.78 MB/sec), 11.91 ms avg latency, 398.4 ms avg max latency
+```
+
+**record-size: 50**
+```
+20000000 records sent, 439241.868535 records/sec (20.94 MB/sec), 11.36 ms avg latency, 203.00 ms max latency, 4 ms 50th, 42 ms 95th, 58 ms 99th, 80 ms 99.9th.
+20000000 records sent, 446558.153035 records/sec (21.29 MB/sec), 12.56 ms avg latency, 250.00 ms max latency, 4 ms 50th, 40 ms 95th, 71 ms 99th, 212 ms 99.9th.
+20000000 records sent, 457948.847114 records/sec (21.84 MB/sec), 12.41 ms avg latency, 305.00 ms max latency, 4 ms 50th, 45 ms 95th, 89 ms 99th, 136 ms 99.9th.
+20000000 records sent, 448239.539210 records/sec (21.37 MB/sec), 12.02 ms avg latency, 243.00 ms max latency, 3 ms 50th, 39 ms 95th, 74 ms 99th, 154 ms 99.9th.
+20000000 records sent, 508517.670989 records/sec (24.25 MB/sec), 10.81 ms avg latency, 214.00 ms max latency, 4 ms 50th, 39 ms 95th, 60 ms 99th, 112 ms 99.9th.
+
+Average: 460,101.2 records/sec (21.94 MB/sec), 11.83 ms avg latency, 243 ms avg max latency
+```
+
+**record-size: 100**
+```
+20000000 records sent, 454710.803929 records/sec (43.36 MB/sec), 26.16 ms avg latency, 628.00 ms max latency, 9 ms 50th, 391 ms 95th, 573 ms 99th, 619 ms 99.9th.
+20000000 records sent, 421008.314914 records/sec (40.15 MB/sec), 23.00 ms avg latency, 649.00 ms max latency, 7 ms 50th, 336 ms 95th, 518 ms 99th, 630 ms 99.9th.
+20000000 records sent, 432591.439015 records/sec (41.26 MB/sec), 20.11 ms avg latency, 575.00 ms max latency, 5 ms 50th, 51 ms 95th, 109 ms 99th, 173 ms 99.9th.
+20000000 records sent, 387987.894778 records/sec (37.00 MB/sec), 23.93 ms avg latency, 760.00 ms max latency, 4 ms 50th, 55 ms 95th, 108 ms 99th, 159 ms 99.9th.
+20000000 records sent, 415006.640106 records/sec (39.58 MB/sec), 21.72 ms avg latency, 616.00 ms max latency, 5 ms 50th, 46 ms 95th, 86 ms 99th, 123 ms 99.9th.
+
+Average: 422261.0 records/sec (40.27 MB/sec), 22.98 ms avg latency, 645.6 ms avg max latency 
+```
+**record-size: 1000**
+```
+20000000 records sent, 45113.019392 records/sec (43.02 MB/sec), 709.53 ms avg latency, 30154.00 ms max latency, 30 ms 50th, 698 ms 95th, 874 ms 99th, 948 ms 99.9th.
 ```
