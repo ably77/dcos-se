@@ -368,7 +368,7 @@ Average: 460,101.2 records/sec (21.94 MB/sec), 11.83 ms avg latency, 243 ms avg 
 
 Average: 422261.0 records/sec (40.27 MB/sec), 22.98 ms avg latency, 645.6 ms avg max latency 
 ```
-**record-size: 1000**
+**WIP - record-size: 1000**
 ```
 20000000 records sent, 45113.019392 records/sec (43.02 MB/sec), 709.53 ms avg latency, 30154.00 ms max latency, 30 ms 50th, 698 ms 95th, 874 ms 99th, 948 ms 99.9th.
 ```
