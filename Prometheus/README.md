@@ -20,6 +20,8 @@ This will install Prometheus, Grafana, Marathon-LB, and the Prometheus proxy ser
 
 To get started with Prometheus on DC/OS, follow the [Prometheus Quick Start](https://docs.mesosphere.com/services/prometheus/0.1.1-2.3.2/quick-start-guide/#navigate-to-the-service-ui) guide to get started. At this point we have done all of the installation leg work so we can start by accessing the service UIs and creating some dashboards and alerts
 
+### Uninstall
+
 When finished, uninstall by using:
 ```
 ./uninstall.sh
