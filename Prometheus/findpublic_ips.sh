@@ -1,2 +1,24 @@
 #!/bin/bash
-for id in $(dcos node --json | jq --raw-output '.[] | select(.reserved_resources.slave_public != null) | .id'); do dcos node ssh --option StrictHostKeyChecking=no --option LogLevel=quiet --master-proxy --mesos-id=$id "curl -s ifconfig.co" ; done 2>/dev/null
+#set -x #echo on
+
+dcos marathon app add findpublic_ips.json
+
+sleep 5
+
+task_list=`dcos task get-public-agent-ip | grep get-public-agent-ip | awk '{print $5}'`
+
+sleep 5
+
+for task_id in $task_list;
+do
+    public_ip=`dcos task log $task_id stdout | tail -2`
+
+    echo
+    echo " Public agent node found! public IP is:"
+    echo "$public_ip"
+
+done
+
+dcos marathon app remove get-public-agent-ip
+
+
