@@ -16,17 +16,20 @@ read -p 'Enter Master IP: ' masteripvar
 masteripvar=$masteripvar
 
 #### Determine Public Node IP and set variable ####
-echo Determing public node ip...
-export PUBLICNODEIP=$(./findpublic_ips.sh | head -1 | sed "s/.$//" )
-echo Public node ip: $PUBLICNODEIP
-echo ------------------
+#echo Determing public node ip...
+#export PUBLICNODEIP=$(./findpublic_ips.sh | head -1 | sed "s/.$//" )
+#echo Public node ip: $PUBLICNODEIP
+#echo ------------------
 
-if [ ${#PUBLICNODEIP} -le 6 ] ;
-then
-        echo Can not find public node ip. JQ in path?  Also, you need to have added the pem for your nodes to your auth agent with the ssh-add command.
-        exit -1
-fi
+#if [ ${#PUBLICNODEIP} -le 6 ] ;
+#then
+#        echo Can not find public node ip. JQ in path?  Also, you need to have added the pem for your nodes to your auth agent with the ssh-add command.
+#        exit -1
+#fi
 
+#### Give Master IP ####
+read -p 'Enter Master IP: ' PUBLICNODEIP
+PUBLICNODEIP=$PUBLICNODEIP
 
 #### Determine DC/OS Auth Token and set variable ####
 TOKEN=$(dcos config show core.dcos_acs_token)
