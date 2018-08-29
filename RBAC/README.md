@@ -3,7 +3,6 @@
 ## Prerequisites:
 - A running Enterprise Edition DC/OS Cluster
 - Authenticated with the DC/OS CLI
-- Master IP Address
 
 ### Instructions:
 Run the RBAC.sh script
@@ -11,19 +10,20 @@ Run the RBAC.sh script
 This script will create three groups and associated users: Frontend, Backend, and Management and will assign specific permissions to each group
 	 
 ### Permissions Description:
-Frontend:
+Frontend: (Users: frank, federica)
 - Frontend team has permission to view/deploy Marathon and Data Services into the /frontend folder
+- Frontend team has permission to view the Networking tab, but Backend team does not (just to show differentiation and access control)
 
-Backend Group:
+Backend Group: (Users: bobby, berta)
 - Backend team has permission to view/deploy Marathon and Data Services into the /backend folder
-- Backend team has permission to view/deploy Metronome Jobs
+- Backend team has permission to view/deploy Metronome Jobs but Frontend team does not (just to show differentiation and access control)
 
-Management Group:
-- Management has permission to view/deploy Marathon and Data Services into both /frontend and /backend folders
+Management Group: (Users: colin)
+- Management has permission to view/deploy Marathon and Data Services into both /frontend and /backend folders as well as the root folder
 - Management team has permission to view/deploy Metronome Jobs
- - Access to the RBAC tab view and full access to add/remove permissions
- - Access to the Networking tab in Marathon
- - Access to the Components tab in the UI to view system health
+- Access to the RBAC tab view and full access to add/remove permissions
+- Access to the Networking tab
+- Access to the Components tab in the UI to view system health
 
 
 ### Demo Workflow:

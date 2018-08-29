@@ -1,9 +1,9 @@
 #!/bin/bash
 #set -x #echo on
 
-dcos package install prometheus --yes
-dcos package install grafana --yes
-dcos package install marathon-lb --yes
+dcos package install prometheus --package-version=0.1.1-2.3.2 --yes
+dcos package install grafana --package-version=5.5.0-5.1.3 --yes
+dcos package install marathon-lb --package-version=1.12.2 --yes
 dcos marathon app add prometheus-marathonlb.json
 
 ./findpublic_ips.sh

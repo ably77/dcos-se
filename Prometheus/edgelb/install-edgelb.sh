@@ -16,8 +16,8 @@ else
 fi
 
 echo "Installing Repos for EdgeLB and then installing EdgeLB, EdgeLB CLI"
-dcos package repo add --index=0 edgelb https://downloads.mesosphere.com/edgelb/v1.0.3/assets/stub-universe-edgelb.json
-dcos package repo add --index=0 edgelb-pool https://downloads.mesosphere.com/edgelb-pool/v1.0.3/assets/stub-universe-edgelb-pool.json
+dcos package repo add --index=0 edgelb https://downloads.mesosphere.com/edgelb/v1.1.0/assets/stub-universe-edgelb.json
+dcos package repo add --index=0 edgelb-pool https://downloads.mesosphere.com/edgelb-pool/v1.1.0/assets/stub-universe-edgelb-pool.json
 
 dcos security org service-accounts keypair edge-lb-private-key.pem edge-lb-public-key.pem
 
@@ -32,7 +32,6 @@ dcos security org groups add_user superusers edge-lb-principal
 
 dcos package install --options=edge-lb-options.json edgelb --yes
 dcos package install edgelb --cli --yes
-dcos package install edgelb-pool --yes
 echo "Waiting for edge-lb to come up ..."
 until dcos edgelb ping; do sleep 1; done
 
