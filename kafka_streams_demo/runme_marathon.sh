@@ -32,14 +32,6 @@ echo "Create topic called AirlineInputTopic with 10 partitions and 3 replication
 dcos confluent-kafka --name confluent-kafka topic create AirlineOutputTopic --partitions 10 --replication 3
 dcos confluent-kafka --name confluent-kafka topic create AirlineInputTopic --partitions 10 --replication 3
 
-### Deploy Kafka yaml files into Kubernetes
-#echo ====================================================================================================
-#echo
-#echo "Deploying ML Streaming Service to Kubernetes using kubectl command: kubectl create -f <app.yaml>"
-
-#kubectl create -f k8s-kafka-streams-deployment.yaml 
-#kubectl create -f k8s-kafka-streams-workload-generator-deployment.yaml 
-
 ### Deploy Kafka json files into Marathon
 echo ====================================================================================================
 echo

@@ -1,0 +1,17 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: kafka-streams
+spec:
+  selector:
+    matchLabels:
+      app: kafka-streams
+  replicas: 2 # tells deployment to run 2 pods matching the template
+  template: # create pods using pod definition in this template
+    metadata:
+      labels:
+        app: kafka-streams
+    spec:
+      containers:
+      - name: kafka-streams
+        image: greshwalk/kafka-streams:latest
