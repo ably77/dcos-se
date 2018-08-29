@@ -33,9 +33,9 @@ dcos confluent-kafka --name confluent-kafka topic create AirlineOutputTopic --pa
 dcos confluent-kafka --name confluent-kafka topic create AirlineInputTopic --partitions 10 --replication 3
 
 ### Deploy Kafka yaml files into Kubernetes
-#echo ====================================================================================================
-#echo
-#echo "Deploying ML Streaming Service to Kubernetes using kubectl command: kubectl create -f <app.yaml>"
+echo ====================================================================================================
+echo
+echo "Deploying ML Streaming Service to Kubernetes using kubectl command: kubectl create -f <app.yaml>"
 
 kubectl create -f kafka-streams-k8s-loadgenerator.yaml
 kubectl create -f kafka-streams-k8s.yaml
@@ -43,8 +43,8 @@ kubectl create -f kafka-streams-k8s.yaml
 ### Show streams logs
 echo ====================================================================================================
 echo
-echo "To see ML analysis in the logs you can also use the `kubectl log` command. First list running pods:
-echo "kubectl get pods"
+echo "To see ML analysis in the logs you can also use the `kubectl log` command. First list running pods:"
+echo "Using the command: kubectl get pods"
 echo
 echo "Output logs in streaming format (-f):"
 echo "kubectl logs -f kafka-streams-<PodID>"
