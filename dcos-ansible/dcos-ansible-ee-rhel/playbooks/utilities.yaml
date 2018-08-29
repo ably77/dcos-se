@@ -1,9 +1,0 @@
----
-- hosts: all
-  remote_user: ec2-user
-  become: true
-
-  tasks:
-  - name: Install utility dependencies
-    yum:
-      name: tar, xz, unzip, curl, ipset, docker-python

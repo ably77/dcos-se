@@ -1,9 +1,0 @@
-- hosts: all
-  remote_user: ec2-user
-  become: true
-
-  tasks:
-  - name: Create nogroup system group
-    group:
-      name: nogroup
-      system: yes

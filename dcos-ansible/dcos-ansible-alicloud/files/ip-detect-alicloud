@@ -1,5 +1,0 @@
-#!/bin/sh
-# Example ip-detect script using an external authority
-# Uses the AliCloud Metadata Service to get the node's internal
-# ipv4 address
-curl -fsSL http://100.100.100.200/latest/meta-data/private-ipv4

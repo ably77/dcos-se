@@ -33,17 +33,17 @@ dcos confluent-kafka --name confluent-kafka topic create AirlineOutputTopic --pa
 dcos confluent-kafka --name confluent-kafka topic create AirlineInputTopic --partitions 10 --replication 3
 
 ### Deploy Kafka yaml files into Kubernetes
-echo ====================================================================================================
-echo
-echo "Deploying Kafka yaml files using kubectl command: kubectl create -f <app.yaml>"
+#echo ====================================================================================================
+#echo
+#echo "Deploying ML Streaming Service to Kubernetes using kubectl command: kubectl create -f <app.yaml>"
 
-kubectl create -f k8s-kafka-streams-deployment.yaml 
-kubectl create -f k8s-kafka-streams-workload-generator-deployment.yaml 
+#kubectl create -f k8s-kafka-streams-deployment.yaml 
+#kubectl create -f k8s-kafka-streams-workload-generator-deployment.yaml 
 
 ### Deploy Kafka json files into Marathon
 echo ====================================================================================================
 echo
-echo "Deploying Kafka json files using marathon command: dcos marathon app add <app.json>"
+echo "Deploying ML Streaming Service using command: dcos marathon app add <app.json>"
 
 dcos marathon app add kafka-streams-loadgenerator.json
 dcos marathon app add kafka-streams-marathon.json
@@ -51,7 +51,6 @@ dcos marathon app add kafka-streams-marathon.json
 ### Show streams logs
 echo ====================================================================================================
 echo
-echo "Pull up pod log in K8s Dashboard to see Kafka streams"
 echo "Pull up Marathon log in Dashboard to see Kafka streams"
 echo
 echo "or"

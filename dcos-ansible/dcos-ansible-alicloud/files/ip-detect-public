@@ -1,4 +1,0 @@
-#!/bin/sh
-# Example ip-detect script using an external authority
-# Public ipv4 address
-curl -fsSL http://ipinfo.io/ip
