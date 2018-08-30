@@ -1,0 +1,53 @@
+---
+- hosts: all
+  remote_user: centos
+  become: true
+
+  tasks:
+  - name: Add official Docker yum repository
+    yum_repository:
+      name: docker
+      file: docker
+      description: Official Docker yum repo
+      baseurl: https://yum.dockerproject.org/repo/main/centos/$releasever/
+      gpgcheck: yes
+      gpgkey: https://yum.dockerproject.org/gpg
+
+  - name: Enable OverlayFS
+    lineinfile:
+      dest: /etc/modules-load.d/overlay.conf
+      state: present
+      create: yes
+      line: 'overlay'
+
+  - name: Load OverlayFS kernel module
+    modprobe:
+      name: overlay
+      state: present
+
+  - name: Create Docker service config directory
+    file:
+      dest: /etc/systemd/system/docker.service.d
+      state: directory
+      mode: 0755
+
+  - name: Configure Docker to use OverlayFS
+    blockinfile:
+      dest: /etc/systemd/system/docker.service.d/override.conf
+      state: present
+      create: yes
+      block: |
+        [Service]
+        ExecStart=
+        ExecStart=/usr/bin/dockerd --storage-driver=overlay
+
+  - name: Install Docker 1.13.1
+    yum:
+      name: docker-engine-1.13.1, docker-engine-selinux-1.13.1
+      state: present
+
+  - name: Start and enable Docker
+    systemd:
+      name: docker
+      state: started
+      enabled: True

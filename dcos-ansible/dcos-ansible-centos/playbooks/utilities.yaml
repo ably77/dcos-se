@@ -1,0 +1,9 @@
+---
+- hosts: all
+  remote_user: centos
+  become: true
+
+  tasks:
+  - name: Install utility dependencies
+    yum:
+      name: tar, xz, unzip, curl, ipset, docker-python

@@ -1,0 +1,27 @@
+---
+- hosts: all
+  remote_user: root
+  become: false
+
+  tasks:
+  - name: Create genconf directory
+    file:
+      dest: /root/genconf
+      state: directory
+      mode: 0755
+
+  - name: Distribute ip-detect script
+    copy:
+      src: ../files/ip-detect-alicloud
+      dest: /root/genconf/ip-detect
+
+  - name: Distribute public ip-detect script
+    copy:
+      src: ../files/ip-detect-public
+      dest: /root/genconf/ip-detect-public
+
+  - name: Create /tmp/dcos
+    file:
+      dest: /tmp/dcos
+      state: directory
+      mode: 0755
