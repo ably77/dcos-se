@@ -1,0 +1,11 @@
+{
+  "service": {
+    "name": "marathon-frontend",
+    "group": "frontend",
+    "cpus": 2,
+    "mem": 1536,
+    "instances": 1,
+    "uris": []
+ }
+}
+

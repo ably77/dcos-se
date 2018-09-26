@@ -1,7 +1,7 @@
 {
   "apiVersion": "V2",
   "name": "prometheus",
-  "count": 1,
+  "count": 3,
   "haproxy": {
     "frontends": [
       {
