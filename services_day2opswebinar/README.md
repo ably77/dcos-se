@@ -114,6 +114,6 @@ uiservice            1         1         1            1           13m
 
 In the DC/OS UI, navigate to the Services --> prod --> dataservices --> Cassandra service and select Edit
 
-
+![](https://github.com/ably77/dcos-se/blob/master/services_day2opswebinar/resources/cassandra1.png)
 
 
