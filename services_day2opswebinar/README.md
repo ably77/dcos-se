@@ -112,8 +112,158 @@ uiservice            1         1         1            1           13m
 
 ### Data Service - Cassandra
 
+Use Case: As applications scale up, data services also need to be scaled up to meet the demand
+
+Challenges: Developing automation to scale for many data services can be a challenge for some Operations teams.
+
+Solution: DC/OS provides and supports automation for Scaling data service frameworks out-of-the-box for all of our Certified Data Services Frameworks through both UI and CLI
+
 In the DC/OS UI, navigate to the Services --> prod --> dataservices --> Cassandra service and select Edit
 
 ![](https://github.com/ably77/dcos-se/blob/master/services_day2opswebinar/resources/cassandra1.png)
 
+Navigate to the Nodes tab and change the count from the default 3 --> 4 nodes:
 
+![](https://github.com/ably77/dcos-se/blob/master/services_day2opswebinar/resources/cassandra2.png)
+
+Select Review and Run --> Run Service to initiate scaling of the Cassandra service:
+
+![](https://github.com/ably77/dcos-se/blob/master/services_day2opswebinar/resources/cassandra3.png)
+
+Using the DC/OS Cassandra CLI you can also check the status of your Cassandra service
+```
+dcos cassandra plan status deploy --name=/prod/dataservices/cassandra
+```
+
+Output should look like below:
+```
+$ dcos cassandra plan status deploy --name=/prod/dataservices/cassandra
+deploy (<UNKNOWN> strategy) (IN_PROGRESS)
+└─ node-deploy (<UNKNOWN> strategy) (IN_PROGRESS)
+   ├─ node-0:[server] (COMPLETE)
+   ├─ node-1:[server] (COMPLETE)
+   ├─ node-2:[server] (COMPLETE)
+   └─ node-3:[server] (STARTING)
+
+$ dcos cassandra plan status deploy --name=/prod/dataservices/cassandra
+deploy (<UNKNOWN> strategy) (COMPLETE)
+└─ node-deploy (<UNKNOWN> strategy) (COMPLETE)
+   ├─ node-0:[server] (COMPLETE)
+   ├─ node-1:[server] (COMPLETE)
+   ├─ node-2:[server] (COMPLETE)
+   └─ node-3:[server] (COMPLETE)
+```
+
+## Step 3: Upgrading Services - Kafka & SmartCity App using CI/CD (Jenkins)
+
+### Upgrading Kafka Data Service
+
+Use Case: As data services frameworks mature, developers will request that the Operations teams stay up to date with the latest versions in a non-disruptive manner. Upgrades also should be able to be rolled back in the case that there is an issue.
+
+Challenges: Learning and developing cookbooks for each data services is a burden for Operations at scale, especially when the requirement is to be non-disruptive.
+
+Solution: DC/OS provides and supports automation for non-disruptive upgrade/rollback of data service frameworks out-of-the-box for all of our Certified Data Services Frameworks
+
+Install the Kafka CLI:
+```
+dcos package install kafka --cli --yes
+```
+
+Display upgrade options:
+```
+dcos kafka update package-versions --name=prod/dataservices/kafka
+```
+
+Output should look similar to below:
+```
+$ dcos kafka update package-versions --name=prod/dataservices/kafka
+Current package version is: "2.0.2-0.11.0"
+Package can be downgraded to: ["2.0.1-0.11.0"]
+Package can be upgraded to: ["2.0.3-0.11.0"]
+```
+
+Upgrade Kafka Service:
+```
+dcos kafka update start --package-version=2.0.3-0.11.0 --name=prod/dataservices/kafka
+```
+
+View Progress:
+```
+dcos kafka --name=prod/dataservices/kafka update status
+```
+
+Display version to validate upgrade:
+```
+$ dcos kafka update package-versions --name=prod/dataservices/kafka
+Current package version is: "2.0.3-0.11.0"
+Package can be downgraded to: ["2.0.2-0.11.0"]
+Package can be upgraded to: ["2.0.4-1.0.0"]
+```
+
+Note: During the upgrade of the backend data service, the SmartCity app continues to run properly without any service hiccups
+
+
+### Upgrading SmartCity App using a Jenkins CI/CD pipeline
+
+Use Case: Developers demand automation and visibility through tools such as a CI/CD pipeline to commit application updates by simply just checking in code. Operations teams must meet the demand of updates to many applications in a timeley fashion
+
+Challenges: Increasing visibility and automation of the Developer --> Operations handoff
+
+Solution: DC/OS is a proven platform for integrating a CI/CD pipleine to complete the full lifecycle automation of an application
+
+
+In the Smartcity App UI, navigate to the About tab to show that the application is at version 1.0
+
+![](https://github.com/ably77/dcos-se/blob/master/services_day2opswebinar/resources/cicd1.png)
+
+In your Local terminal, navigate to the folder where you set up the SmartCity Jenkins (typically ./tmp/smartcity)
+```
+cd ./tmp/smartcity
+```
+
+Show the Upgrade Script:
+```
+$ cat upgrade-k8s.sh
+#!/bin/bash
+cp -r versions/2.0.0/* .
+cp versions/Jenkinsfile-k8s-v2.0.0 ./Jenkinsfile
+
+APPNAME=$(jq .id config.json | sed 's|.*/||' | sed 's|"||')
+echo Upgrading $APPNAME
+
+sed -ie "s@APPNAME@$APPNAME@g;" Jenkinsfile
+sed -ie "s@ENV@/prod/microservices@g;" Jenkinsfile
+
+
+git add .
+git commit -m "Upgraded to version 2.0.0"
+git push origin master
+```
+
+Run the script:
+```
+./upgrade-k8s.sh
+```
+
+Output should look similar to below:
+```
+$ ./upgrade-k8s.sh
+Upgrading smartcity
+[master 75bd8c0] Upgraded to version 2.0.0
+ 3 files changed, 11 insertions(+), 11 deletions(-)
+Counting objects: 4, done.
+Delta compression using up to 8 threads.
+Compressing objects: 100% (4/4), done.
+Writing objects: 100% (4/4), 554 bytes | 554.00 KiB/s, done.
+Total 4 (delta 2), reused 0 (delta 0)
+To http://gitlab.smartcity.mesosphere.io:10080/root/DCOSAppStudio-CICD.git
+   74b6806..75bd8c0  master -> master
+```
+
+Navigate to the Jenkins UI to see that the pipeline has been triggered and initiated:
+
+![](https://github.com/ably77/dcos-se/blob/master/services_day2opswebinar/resources/cicd2.png)
+
+Once complete, navigate back to the Smartcity UI --> About page to see that the service is now at Version: 2.0.0
+
+![](https://github.com/ably77/dcos-se/blob/master/services_day2opswebinar/resources/cicd3.png)
