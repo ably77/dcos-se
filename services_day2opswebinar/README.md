@@ -3,7 +3,7 @@
 - The audience of this webinar is geared towards Systems Admins and Operators
 - The focus data services will be Spark, K8s, and HDFS as examples, but the concepts can easily be adapted to all of the other Certified SDK data services in the DC/OS Universe
 
-## Step 1: Deploy Smartcity Demo
+## PRE-LAB: Deploy Smartcity Demo
 
 Link to the DC/OS Appstudio Smartcity Demo [here](https://wiki.mesosphere.com/display/~esiemes/DCOS+AppStudio)
 
@@ -31,7 +31,7 @@ Carefully follow the instructions in the terminal to complete the install of the
 - Show persisted data in Cassandra
 - Show Dynamic dashboards in Elastic + Kibana
 
-## Step 2: Scaling - Containerized App & Cassandra Service
+## Demo 1: Scaling - Containerized App & Cassandra Service
 
 ### Containerized App - Message Listener
 
@@ -154,7 +154,7 @@ deploy (<UNKNOWN> strategy) (COMPLETE)
    └─ node-3:[server] (COMPLETE)
 ```
 
-## Step 3: Upgrading Services - Kafka & SmartCity App using CI/CD (Jenkins)
+## Demo 2: Upgrading Services - Kafka & SmartCity App using CI/CD (Jenkins)
 
 ### Upgrading Kafka Data Service
 
@@ -268,7 +268,7 @@ Once complete, navigate back to the Smartcity UI --> About page to see that the 
 
 ![](https://github.com/ably77/dcos-se/blob/master/services_day2opswebinar/resources/cicd3.png)
 
-## Failure Recovery - Kubernetes
+## Demo 3: Failure Recovery - Kubernetes
 
 Use Case: Distributed Systems are built to be fault-tolerant and HA - however still they often fail, and when they do it is the job of the platform or Operations team to recover from these situations
 
@@ -276,3 +276,49 @@ Challenges: As the number of data services and frameworks grow at scale it becom
 
 Solution: DC/OS Day 2 Operations focuses on auto-recovery logic in our certified data services frameworks
 
+Navigate to the DC/OS UI --> Services --> Kubernetes service
+
+Clear the search bar and enter `etcd`:
+
+![](https://github.com/ably77/dcos-se/blob/master/services_day2opswebinar/resources/kubernetes1.png)
+
+Keep this screen visibile so that you can see the process in the next steps
+
+In your local terminal, manually kill the etcd-0 process to simulate a failure scenario:
+```
+dcos task exec -it etcd-0-peer pkill etcd
+```
+
+Show Recovery Plan in the DC/OS Kubernetes CLI:
+```
+$ dcos kubernetes plan status recovery
+recovery (parallel strategy) (STARTED)
+└─ etcd-0:[peer] (parallel strategy) (STARTED)
+   └─ etcd-0:[peer] (STARTED)
+```
+
+![](https://github.com/ably77/dcos-se/blob/master/services_day2opswebinar/resources/kubernetes2.png)
+
+## Demo 4: Extend Services - Enhance SmartCity application by adding Zeppelin notebook service
+
+Use case: As developers add more features to their applications, it should be easy to integrate new services into the running application without downtime
+
+Challenges: Providing distinct and non-cryptic endpoints for services as they are added into the platform to promote service-discovery and avoid hardcoding is a challenge for traditional Operations teams
+
+Solution: DC/OS provides distinct endpoints for all of our services with syntax that is non-cryptic (provided by Mesos DNS) so that developers can write code and not worry about service-discovery
+
+Navigate to the Smartcity App UI --> Zeppelin tab to show that the service is not working (because it is not installed):
+
+![](https://github.com/ably77/dcos-se/blob/master/services_day2opswebinar/resources/zeppelin1.png)
+
+Navigate to the DC/OS UI --> Catalog --> Zeppelin:
+
+![](https://github.com/ably77/dcos-se/blob/master/services_day2opswebinar/resources/zeppelin2.png)
+
+Deploy Zeppelin version 0.6.0:
+
+![](https://github.com/ably77/dcos-se/blob/master/services_day2opswebinar/resources/zeppelin3.png)
+
+Once deployed, navigate back to the SmartCity App UI --> Zeppelin to see that the Zeppelin service now appears in the app:
+
+![](https://github.com/ably77/dcos-se/blob/master/services_day2opswebinar/resources/zeppelin4.png)
