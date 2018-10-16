@@ -267,3 +267,12 @@ Navigate to the Jenkins UI to see that the pipeline has been triggered and initi
 Once complete, navigate back to the Smartcity UI --> About page to see that the service is now at Version: 2.0.0
 
 ![](https://github.com/ably77/dcos-se/blob/master/services_day2opswebinar/resources/cicd3.png)
+
+## Failure Recovery - Kubernetes
+
+Use Case: Distributed Systems are built to be fault-tolerant and HA - however still they often fail, and when they do it is the job of the platform or Operations team to recover from these situations
+
+Challenges: As the number of data services and frameworks grow at scale it becomes a challenge for an Operations team to build and maintain operational playbooks for failure recovery
+
+Solution: DC/OS Day 2 Operations focuses on auto-recovery logic in our certified data services frameworks
+
