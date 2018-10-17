@@ -3,7 +3,7 @@
 - The audience of this webinar is geared towards Systems Admins and Operators
 - The focus data services will be Spark, K8s, and HDFS as examples, but the concepts can easily be adapted to all of the other Certified SDK data services in the DC/OS Universe
 
-## PRE-LAB: Deploy Smartcity Demo
+## [PRE-LAB]: Deploy Smartcity Demo
 
 Link to the DC/OS Appstudio Smartcity Demo [here](https://wiki.mesosphere.com/display/~esiemes/DCOS+AppStudio)
 
@@ -24,7 +24,18 @@ Install the K8s + CI/CD Smartcity Demo
 
 Carefully follow the instructions in the terminal to complete the install of the DC/OS Appstudio Demo + K8s + CI/CD
 
-## Walkthrough Smartcity Demo
+## [Start of Webinar] 
+
+### Walkthrough of DC/OS UI
+- Dashboard Page
+- Node Page
+	- Discuss 1.11 Fault Domain Awareness / Hybrid Cloud /w Regions, Zones, and multiple cloud providers (optional)
+	- [Donut View] Discuss bin packing benefits of increasing utilization, point out that workloads are being run on the same nodes and not statically partitioned
+- Secrets Store
+- RBAC
+- Services Page 
+
+### Walkthrough Smartcity Demo
 - Review Application Architecture Diagram
 - Review SmartCity IoT usecase and components (Containerized Microservices on K8s + Data Services on DC/OS)
 - Show Kafka Streams
@@ -36,6 +47,10 @@ Carefully follow the instructions in the terminal to complete the install of the
 ### Containerized App - Message Listener
 
 Use Case: As more smart IoT devices are added to system, an operator would have to scale up the message listener service to meet the load demand
+
+Challenges: As more services are added to the platform, each with unique demands, an Operations team needs to have the ability to scale workloads in an easy manner. 
+
+Solution: Through both Marathon and Kubernetes, DC/OS provides commandline as well as GUI tools to scale your applications as well as do any other day 2 operational tasks to complete the Service Lifecycle Management of your application
 
 First show the running services on K8s:
 ```
@@ -114,9 +129,9 @@ uiservice            1         1         1            1           13m
 
 Use Case: As applications scale up, data services also need to be scaled up to meet the demand
 
-Challenges: Developing automation to scale for many data services can be a challenge for some Operations teams.
+Challenges: Developing automation to scale for many data services can be a challenge for some Operations teams. Traditional method is to overprovision stateful services, but this is a waste of resource utilization
 
-Solution: DC/OS provides and supports automation for Scaling data service frameworks out-of-the-box for all of our Certified Data Services Frameworks through both UI and CLI
+Solution: DC/OS provides and supports automation for Scaling data service frameworks out-of-the-box for all of our Certified Data Services Frameworks through both UI and CLI. Scaling up is non-disruptive so it solves both Challenge 1 (Cluster management) and Challenge 2 (Service Lifecycle Management) management goals for Operations teams.
 
 In the DC/OS UI, navigate to the Services --> prod --> dataservices --> Cassandra service and select Edit
 
@@ -162,7 +177,7 @@ Use Case: As data services frameworks mature, developers will request that the O
 
 Challenges: Learning and developing cookbooks for each data services is a burden for Operations at scale, especially when the requirement is to be non-disruptive.
 
-Solution: DC/OS provides and supports automation for non-disruptive upgrade/rollback of data service frameworks out-of-the-box for all of our Certified Data Services Frameworks
+Solution: DC/OS provides and supports automation for non-disruptive upgrade/rollback of data service frameworks out-of-the-box for all of our Certified Data Services Frameworks. This solves Challenge 2 (Service Lifecycle Management) as well as Challenge 3 (Multitenancy) because each team can have their own cluster that runs on it's own independent lifecycle; while still being easy for an Operations team to manage
 
 Install the Kafka CLI:
 ```
