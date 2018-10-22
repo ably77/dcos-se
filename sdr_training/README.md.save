@@ -1,0 +1,27 @@
+# Task 1 - Scale Cassandra from 3 --> 4 nodes
+
+Use Case: As applications scale up, data services also need to be scaled up to meet the demand
+
+Challenges: Developing automation to scale for many data services can be a challenge for some Operations teams. Traditional method is to overprovision stateful services, but this is a waste of resource utilization
+
+Solution: DC/OS provides and supports automation for Scaling data service frameworks out-of-the-box for all of our Certified Data Services Frameworks through both UI and CLI. Scaling up is non-disruptive so it solves both Challenge 1 (Cluster management) and Challenge 2 (Service Lifecycle Management) management goals for Operations teams.
+
+In the DC/OS UI, navigate to the Services --> prod --> dataservices --> Cassandra service and select Edit
+
+
+
+# Task 2
+
+# Task 3
+
+# Task 4
+
+# Task 5
+
+# Task 6
+
+# Task 7
+
+# Task 8
+
+
