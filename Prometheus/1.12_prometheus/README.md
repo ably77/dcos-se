@@ -36,7 +36,9 @@ or
 
 dcos node ssh --master-proxy --leader
 
-or dcos node ssh --master-proxy --mesos-id=<mesos-id>
+or
+
+dcos node ssh --master-proxy --mesos-id=<mesos-id>
 ```
 
 Navigate to the `/opt/mesosphere/etc/telegraf/telegraf.d` directory
