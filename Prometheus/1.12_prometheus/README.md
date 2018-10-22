@@ -1,7 +1,7 @@
 # Demo Prometheus Framework on DC/OS
 
 ## Prerequisites:
-- DC/OS 1.11 Cluster (Note: This guide uses m3.xlarge instances - 4vCPU / 15GB MEM)
+- DC/OS 1.12 Cluster (Note: This guide uses m3.xlarge instances - 4vCPU / 15GB MEM)
 	- 1 Master
 	- 1 Public Agent
 	- 4 Private Agents
