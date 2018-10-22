@@ -16,9 +16,6 @@ Run:
 
 This will install Prometheus, Grafana, Marathon-LB, and the Prometheus proxy service to access the UIs
 
-### Getting Started
-
-To get started with Prometheus on DC/OS, follow the [Prometheus Quick Start](https://docs.mesosphere.com/services/prometheus/0.1.1-2.3.2/quick-start-guide/#navigate-to-the-service-ui) guide to get started. At this point we have done all of the installation leg work so we can start by accessing the service UIs and creating some dashboards and alerts
 
 ### Adding Mesos Master Metrics
 
@@ -100,6 +97,26 @@ sudo systemctl restart dcos-telegraf
 ```
 
 At this point, Mesos Master metrics will start to pipe into Prometheus
+
+### Getting Started
+
+To get started with Prometheus on DC/OS, follow the [Prometheus Quick Start](https://docs.mesosphere.com/services/prometheus/0.1.1-2.3.2/quick-start-guide/#navigate-to-the-service-ui) guide to get started. At this point we have done all $
+
+### Dashboards
+
+[Dashboards](https://github.com/ably77/dcos-se/tree/master/Prometheus/dashboards)
+
+To use the dashboards above, once you have correctly set up your data source you can import the dashboard.json files
+
+Select the + button --> import:
+![](https://github.com/ably77/dcos-se/blob/master/Prometheus/resources/import1.png)
+
+Copy/Paste the JSON:
+![](https://github.com/ably77/dcos-se/blob/master/Prometheus/resources/import2.png)
+
+Select your Dashboard Name and Data Source:
+![](https://github.com/ably77/dcos-se/blob/master/Prometheus/resources/import3.png)
+
 
 ### Uninstall
 
