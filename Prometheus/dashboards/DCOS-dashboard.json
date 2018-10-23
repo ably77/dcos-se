@@ -466,8 +466,8 @@
           "format": "percentunit",
           "label": "Percent",
           "logBase": 1,
-          "max": null,
-          "min": null,
+          "max": "1",
+          "min": "0",
           "show": true
         },
         {
@@ -548,11 +548,12 @@
       },
       "yaxes": [
         {
+          "decimals": 1,
           "format": "percentunit",
           "label": "Percent",
           "logBase": 1,
-          "max": null,
-          "min": null,
+          "max": "1",
+          "min": "0",
           "show": true
         },
         {
@@ -632,11 +633,12 @@
       },
       "yaxes": [
         {
+          "decimals": 1,
           "format": "percentunit",
           "label": "Percent",
           "logBase": 1,
-          "max": null,
-          "min": null,
+          "max": "1",
+          "min": "0",
           "show": true
         },
         {
@@ -720,7 +722,7 @@
           "label": "Percent",
           "logBase": 1,
           "max": null,
-          "min": null,
+          "min": "0",
           "show": true
         },
         {
@@ -787,7 +789,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "(cpu_usage_user + cpu_usage_guest)",
+          "expr": "sum by(instance)(cpu_usage_system + cpu_usage_user + cpu_usage_guest)",
           "format": "heatmap",
           "instant": false,
           "intervalFactor": 1,
@@ -814,11 +816,11 @@
       },
       "yaxes": [
         {
-          "format": "short",
+          "format": "percent",
           "label": null,
           "logBase": 1,
           "max": null,
-          "min": null,
+          "min": "0",
           "show": true
         },
         {
@@ -883,7 +885,7 @@
       "thresholds": [],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Memory Usage (total)",
+      "title": "Memory Usage Per Node",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -903,7 +905,7 @@
           "label": null,
           "logBase": 1,
           "max": null,
-          "min": null,
+          "min": "0",
           "show": true
         },
         {
@@ -957,16 +959,17 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "disk_used",
+          "expr": "sum by(instance)(disk_used)",
           "format": "time_series",
           "intervalFactor": 1,
+          "legendFormat": "{{instance}}",
           "refId": "A"
         }
       ],
       "thresholds": [],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Disk Used",
+      "title": "Disk Used Per Node",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -1067,11 +1070,11 @@
       },
       "yaxes": [
         {
-          "format": "short",
+          "format": "percentunit",
           "label": null,
           "logBase": 1,
-          "max": null,
-          "min": null,
+          "max": "1",
+          "min": "0",
           "show": true
         },
         {
