@@ -106,7 +106,7 @@ At this point, Mesos Master metrics will start to pipe into Prometheus
 
 ### Getting Started
 
-To get started with Prometheus on DC/OS, follow the [Prometheus Quick Start](https://docs.mesosphere.com/services/prometheus/0.1.1-2.3.2/quick-start-guide/#navigate-to-the-service-ui) guide to get started. At this point we have done all $
+To get started with Prometheus on DC/OS, follow the [Prometheus Quick Start](https://docs.mesosphere.com/services/prometheus/0.1.1-2.3.2/quick-start-guide/#navigate-to-the-service-ui) guide to get started on setting up your Data Source and some getting started examples
 
 ### Dashboards
 
