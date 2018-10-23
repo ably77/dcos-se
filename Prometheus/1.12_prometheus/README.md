@@ -120,13 +120,13 @@ Select your Dashboard Name and Data Source:
 ### Examples of Working Dashboards:
 
 DC/OS Overview Dashboard:
-~[](https://github.com/ably77/dcos-se/blob/master/Prometheus/resources/dashboard1.png)
+![](https://github.com/ably77/dcos-se/blob/master/Prometheus/resources/dashboard1.png)
 
 DC/OS Node Dashboard:
-~[](https://github.com/ably77/dcos-se/blob/master/Prometheus/resources/dashboard2.png)
+![](https://github.com/ably77/dcos-se/blob/master/Prometheus/resources/dashboard2.png)
 
 DC/OS Mesos Master Dashboard:
-~[](https://github.com/ably77/dcos-se/blob/master/Prometheus/resources/dashboard3.png)
+![](https://github.com/ably77/dcos-se/blob/master/Prometheus/resources/dashboard3.png)
 
 ### Uninstall
 
