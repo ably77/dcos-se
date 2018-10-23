@@ -91,6 +91,12 @@ Add the Mesos conf file to the directory - be sure to replace `<MASTER_INTERNAL_
 
 **Note:** If you are running DC/OS Strict mode or need the Optional TLS Configs added, uncomment these parameters from the conf file
 
+Directory should now look like this:
+```
+$ ls
+master.conf  mesos.conf
+```
+
 Restart the `dcos-telegraf` service:
 ```
 sudo systemctl restart dcos-telegraf
