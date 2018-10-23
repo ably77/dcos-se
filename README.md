@@ -15,7 +15,6 @@ DC/OS Enterprise Edition Features Demos:
 - Misc. DC/OS Guides
 - Kafka Streams Demo
 - Logging/Metrics API Demo
-- Package Registry Demo
 - SDR Training
 - Secrets
 - Tensorflow Demo
