@@ -1,5 +1,0 @@
-{
-    "service": {
-        "secret_name": "edgelb-secret"
-    }
-}
