@@ -49,8 +49,8 @@ Add the Mesos conf file to the directory - be sure to replace `<MASTER_INTERNAL_
 [[inputs.mesos]]
   ## Timeout, in ms.
   timeout = 100
-  ## A list of Mesos masters.
-  masters = ["http://<MASTER_INTERNAL_IP>:5050"]
+  ## Replace with a List of Mesos Masters
+  masters = ["http://<INSERT_MASTER_INTERNAL_IP_HERE>:5050"]
   ## Master metrics groups to be collected, by default, all enabled.
   master_collections = [
     "resources",
@@ -65,17 +65,6 @@ Add the Mesos conf file to the directory - be sure to replace `<MASTER_INTERNAL_
     "registrar",
     "allocator",
   ]
-  ## A list of Mesos slaves, default is []
-  # slaves = []
-  ## Slave metrics groups to be collected, by default, all enabled.
-  # slave_collections = [
-  #   "resources",
-  #   "agent",
-  #   "system",
-  #   "executors",
-  #   "tasks",
-  #   "messages",
-  # ]
 
   ## Optional TLS Config
   # tls_ca = "/etc/telegraf/ca.pem"
