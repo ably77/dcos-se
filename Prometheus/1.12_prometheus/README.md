@@ -93,9 +93,26 @@ sudo systemctl restart dcos-telegraf
 
 At this point, Mesos Master metrics will start to pipe into Prometheus
 
-### Getting Started
+## Getting Started
 
-To get started with Prometheus on DC/OS, follow the [Prometheus Quick Start](https://docs.mesosphere.com/services/prometheus/0.1.1-2.3.2/quick-start-guide/#navigate-to-the-service-ui) guide to get started on setting up your Data Source and some getting started examples
+Navigate to the Marathon-LB Public Agent serving the Grafana UI using the credentials `admin/admin`:
+```
+http://<public-agent-ip>:9094
+```
+
+This takes you to the Grafana console
+![](https://github.com/ably77/dcos-se/blob/master/Prometheus/resources/grafana1.png)
+
+Select `Add a Data Source` and add Prometheus as a data source
+
+The default installation VIP hostname is `http://prometheus-0-server.prometheus.autoip.dcos.thisdcos.directory:1025`
+
+**Note:** your data source will not register without http:// in front of the URL
+
+![](https://github.com/ably77/dcos-se/blob/master/Prometheus/resources/grafana2.png)
+
+Select Save and Test. Now you are ready to use Prometheus as a data source in Grafana.
+
 
 ### Dashboards
 
@@ -129,3 +146,5 @@ When finished, uninstall by using:
 ```
 ./uninstall.sh
 ```
+
+For more examples on getting started with Prometheus on DC/OS, follow the [Prometheus Quick Start](https://docs.mesosphere.com/services/prometheus/0.1.1-2.3.2/quick-start-guide/) guide or read more on the [Prometheus Service Docs](https://docs.mesosphere.com/services/prometheus/0.1.1-2.3.2/)
