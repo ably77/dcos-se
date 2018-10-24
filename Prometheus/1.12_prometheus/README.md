@@ -102,6 +102,35 @@ Restart the `dcos-telegraf` service:
 sudo systemctl restart dcos-telegraf
 ```
 
+Healthy Output Shown Below:
+```
+$ sudo systemctl status dcos-telegraf
+● dcos-telegraf.service - Telegraf: collects and reports metrics
+   Loaded: loaded (/etc/systemd/system/dcos-telegraf.service; enabled; vendor preset: disabled)
+   Active: active (running) since Wed 2018-10-24 17:53:24 UTC; 3min 24s ago
+  Process: 16175 ExecStartPre=/opt/mesosphere/bin/bootstrap dcos-telegraf-master (code=exited, status=0/SUCCESS)
+  Process: 16171 ExecStartPre=/bin/bash -c chown root:dcos_telegraf /run/dcos/telegraf (code=exited, status=0/SUCCESS)
+  Process: 16168 ExecStartPre=/bin/bash -c chmod 775 /run/dcos/telegraf (code=exited, status=0/SUCCESS)
+  Process: 16159 ExecStartPre=/bin/bash -c mkdir -p /run/dcos/telegraf (code=exited, status=0/SUCCESS)
+ Main PID: 16193 (telegraf)
+    Tasks: 15
+   Memory: 23.5M
+      CPU: 3.870s
+   CGroup: /system.slice/dcos-telegraf.service
+           └─16193 /opt/mesosphere/bin/telegraf --config /opt/mesosphere/etc/telegraf/telegraf.conf --config-directory /opt/mesosphere/etc/telegraf/telegraf.d/
+
+Oct 24 17:53:24 ip-10-0-5-43.us-west-2.compute.internal start_telegraf.sh[16193]: + exec /opt/mesosphere/bin/telegraf --config /opt/mesosphere/etc/telegraf/telegraf.conf --config-directory /opt/mesosphere/etc/telegraf/telegraf.d/
+Oct 24 17:53:24 ip-10-0-5-43.us-west-2.compute.internal start_telegraf.sh[16193]: 2018-10-24T17:53:24Z I! Starting Telegraf v1.7.0~ccb5eb8c
+Oct 24 17:53:24 ip-10-0-5-43.us-west-2.compute.internal start_telegraf.sh[16193]: 2018-10-24T17:53:24Z I! Loaded inputs: inputs.system inputs.cpu inputs.mem inputs.disk inputs.swap inputs.net inputs.processes inputs.mesos
+Oct 24 17:53:24 ip-10-0-5-43.us-west-2.compute.internal start_telegraf.sh[16193]: 2018-10-24T17:53:24Z I! Loaded aggregators:
+Oct 24 17:53:24 ip-10-0-5-43.us-west-2.compute.internal start_telegraf.sh[16193]: 2018-10-24T17:53:24Z I! Loaded processors:
+Oct 24 17:53:24 ip-10-0-5-43.us-west-2.compute.internal start_telegraf.sh[16193]: 2018-10-24T17:53:24Z I! Loaded outputs: prometheus_client dcos_metrics
+Oct 24 17:53:24 ip-10-0-5-43.us-west-2.compute.internal start_telegraf.sh[16193]: 2018-10-24T17:53:24Z I! Tags enabled: dcos_cluster_id=fb0a45bc-66ce-44a5-af1c-3ed38df424c1 dcos_cluster_name=aly-yjt9dzr host=ip-10-0-5-43.us-west-2.compute.internal
+Oct 24 17:53:24 ip-10-0-5-43.us-west-2.compute.internal start_telegraf.sh[16193]: 2018-10-24T17:53:24Z I! Agent Config: Interval:10s, Quiet:false, Hostname:"ip-10-0-5-43.us-west-2.compute.internal", Flush Interval:10s
+Oct 24 17:53:24 ip-10-0-5-43.us-west-2.compute.internal start_telegraf.sh[16193]: time="2018-10-24T17:53:24Z" level=info msg="Starting HTTP producer garbage collection service" producer=http
+Oct 24 17:53:24 ip-10-0-5-43.us-west-2.compute.internal start_telegraf.sh[16193]: time="2018-10-24T17:53:24Z" level=info msg="http producer serving requests on systemd socket: /run/dcos/telegraf-dcos-metrics.sock" producer=http
+```
+
 At this point, Mesos Master metrics will start to pipe into Prometheus
 
 ## Getting Started
@@ -162,7 +191,7 @@ For more examples on getting started with Prometheus on DC/OS, follow the [Prome
 
 ### Troubleshooting Tips
 
-If Mesos metrics are not showing, check the systemd `dcos-telegraf` component on your master node
+If Mesos metrics are not showing, check the systemd `dcos-telegraf` component on your master node for logs
 ```
 sudo systemctl status dcos-telegraf
 ```
