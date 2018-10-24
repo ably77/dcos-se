@@ -386,7 +386,7 @@
           {
             "evaluator": {
               "params": [
-                0.8
+                0.5
               ],
               "type": "gt"
             },
@@ -454,6 +454,7 @@
           "expr": "mesos_master_mem_percent",
           "format": "time_series",
           "intervalFactor": 1,
+          "legendFormat": "",
           "refId": "A"
         }
       ],
@@ -463,7 +464,7 @@
           "fill": true,
           "line": true,
           "op": "gt",
-          "value": 0.8
+          "value": 0.5
         }
       ],
       "timeFrom": null,
@@ -829,7 +830,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "mem_active",
+          "expr": "sum by(instance)(mem_active)",
           "format": "heatmap",
           "interval": "",
           "intervalFactor": 1,
@@ -864,7 +865,7 @@
       },
       "yaxes": [
         {
-          "format": "bytes",
+          "format": "decbytes",
           "label": null,
           "logBase": 1,
           "max": "16000000000",
