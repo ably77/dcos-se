@@ -80,14 +80,14 @@
       "decimals": 0,
       "format": "percentunit",
       "gauge": {
-        "maxValue": 100,
-        "minValue": 0,
+        "maxValue": null,
+        "minValue": null,
         "show": false,
         "thresholdLabels": false,
         "thresholdMarkers": true
       },
       "gridPos": {
-        "h": 2,
+        "h": 4,
         "w": 6,
         "x": 0,
         "y": 1
@@ -121,10 +121,10 @@
         }
       ],
       "sparkline": {
-        "fillColor": "rgba(31, 118, 189, 0.18)",
-        "full": false,
+        "fillColor": "#052b51",
+        "full": true,
         "lineColor": "rgb(31, 120, 193)",
-        "show": false
+        "show": true
       },
       "tableColumn": "",
       "targets": [
@@ -170,7 +170,7 @@
         "thresholdMarkers": true
       },
       "gridPos": {
-        "h": 2,
+        "h": 4,
         "w": 6,
         "x": 6,
         "y": 1
@@ -205,9 +205,9 @@
       ],
       "sparkline": {
         "fillColor": "rgba(31, 118, 189, 0.18)",
-        "full": false,
+        "full": true,
         "lineColor": "rgb(31, 120, 193)",
-        "show": false
+        "show": true
       },
       "tableColumn": "",
       "targets": [
@@ -253,7 +253,7 @@
         "thresholdMarkers": true
       },
       "gridPos": {
-        "h": 2,
+        "h": 4,
         "w": 6,
         "x": 12,
         "y": 1
@@ -288,9 +288,9 @@
       ],
       "sparkline": {
         "fillColor": "rgba(31, 118, 189, 0.18)",
-        "full": false,
+        "full": true,
         "lineColor": "rgb(31, 120, 193)",
-        "show": false
+        "show": true
       },
       "tableColumn": "",
       "targets": [
@@ -336,7 +336,7 @@
         "thresholdMarkers": true
       },
       "gridPos": {
-        "h": 2,
+        "h": 4,
         "w": 6,
         "x": 18,
         "y": 1
@@ -371,9 +371,9 @@
       ],
       "sparkline": {
         "fillColor": "rgba(31, 118, 189, 0.18)",
-        "full": false,
+        "full": true,
         "lineColor": "rgb(31, 120, 193)",
-        "show": false
+        "show": true
       },
       "tableColumn": "",
       "targets": [
@@ -408,10 +408,10 @@
       "description": "",
       "fill": 1,
       "gridPos": {
-        "h": 4,
+        "h": 5,
         "w": 6,
         "x": 0,
-        "y": 3
+        "y": 5
       },
       "id": 18,
       "legend": {
@@ -493,10 +493,10 @@
       "description": "",
       "fill": 1,
       "gridPos": {
-        "h": 4,
+        "h": 5,
         "w": 6,
         "x": 6,
-        "y": 3
+        "y": 5
       },
       "id": 19,
       "legend": {
@@ -578,10 +578,10 @@
       "datasource": "${DS_PROMETHEUS}",
       "fill": 1,
       "gridPos": {
-        "h": 4,
+        "h": 5,
         "w": 6,
         "x": 12,
-        "y": 3
+        "y": 5
       },
       "id": 20,
       "legend": {
@@ -663,10 +663,10 @@
       "datasource": "${DS_PROMETHEUS}",
       "fill": 1,
       "gridPos": {
-        "h": 4,
+        "h": 5,
         "w": 6,
         "x": 18,
-        "y": 3
+        "y": 5
       },
       "id": 28,
       "legend": {
@@ -745,7 +745,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 7
+        "y": 10
       },
       "id": 45,
       "panels": [],
@@ -763,7 +763,7 @@
         "h": 9,
         "w": 12,
         "x": 0,
-        "y": 8
+        "y": 11
       },
       "id": 10,
       "legend": {
@@ -848,7 +848,7 @@
         "h": 9,
         "w": 12,
         "x": 12,
-        "y": 8
+        "y": 11
       },
       "id": 12,
       "legend": {
@@ -933,7 +933,7 @@
         "h": 9,
         "w": 12,
         "x": 0,
-        "y": 17
+        "y": 20
       },
       "id": 16,
       "legend": {
@@ -1017,7 +1017,7 @@
         "h": 9,
         "w": 12,
         "x": 12,
-        "y": 17
+        "y": 20
       },
       "id": 36,
       "legend": {
@@ -1096,7 +1096,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 26
+        "y": 29
       },
       "id": 35,
       "title": "Cluster Details",
@@ -1124,7 +1124,7 @@
         "h": 4,
         "w": 8,
         "x": 0,
-        "y": 27
+        "y": 30
       },
       "id": 53,
       "interval": null,
@@ -1204,7 +1204,7 @@
         "h": 4,
         "w": 8,
         "x": 8,
-        "y": 27
+        "y": 30
       },
       "id": 49,
       "interval": null,
@@ -1284,7 +1284,7 @@
         "h": 4,
         "w": 8,
         "x": 16,
-        "y": 27
+        "y": 30
       },
       "id": 51,
       "interval": null,
@@ -1347,7 +1347,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 31
+        "y": 34
       },
       "id": 33,
       "title": "Framework Details",
@@ -1375,7 +1375,7 @@
         "h": 3,
         "w": 12,
         "x": 0,
-        "y": 32
+        "y": 35
       },
       "id": 6,
       "interval": null,
@@ -1431,7 +1431,7 @@
           "value": "null"
         }
       ],
-      "valueName": "avg"
+      "valueName": "current"
     },
     {
       "cacheTimeout": null,
@@ -1455,7 +1455,7 @@
         "h": 3,
         "w": 12,
         "x": 12,
-        "y": 32
+        "y": 35
       },
       "id": 37,
       "interval": null,
@@ -1511,7 +1511,7 @@
           "value": "null"
         }
       ],
-      "valueName": "avg"
+      "valueName": "current"
     },
     {
       "collapsed": false,
@@ -1519,7 +1519,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 35
+        "y": 38
       },
       "id": 31,
       "panels": [],
@@ -1548,7 +1548,7 @@
         "h": 3,
         "w": 4,
         "x": 0,
-        "y": 36
+        "y": 39
       },
       "id": 8,
       "interval": null,
@@ -1604,7 +1604,7 @@
           "value": "null"
         }
       ],
-      "valueName": "avg"
+      "valueName": "current"
     },
     {
       "cacheTimeout": null,
@@ -1628,7 +1628,7 @@
         "h": 3,
         "w": 4,
         "x": 4,
-        "y": 36
+        "y": 39
       },
       "id": 43,
       "interval": null,
@@ -1684,7 +1684,7 @@
           "value": "null"
         }
       ],
-      "valueName": "avg"
+      "valueName": "current"
     },
     {
       "cacheTimeout": null,
@@ -1708,7 +1708,7 @@
         "h": 3,
         "w": 4,
         "x": 8,
-        "y": 36
+        "y": 39
       },
       "id": 29,
       "interval": null,
@@ -1764,7 +1764,7 @@
           "value": "null"
         }
       ],
-      "valueName": "avg"
+      "valueName": "current"
     },
     {
       "cacheTimeout": null,
@@ -1788,7 +1788,7 @@
         "h": 3,
         "w": 4,
         "x": 12,
-        "y": 36
+        "y": 39
       },
       "id": 39,
       "interval": null,
@@ -1844,7 +1844,7 @@
           "value": "null"
         }
       ],
-      "valueName": "avg"
+      "valueName": "current"
     },
     {
       "cacheTimeout": null,
@@ -1868,7 +1868,7 @@
         "h": 3,
         "w": 4,
         "x": 16,
-        "y": 36
+        "y": 39
       },
       "id": 40,
       "interval": null,
@@ -1924,7 +1924,7 @@
           "value": "null"
         }
       ],
-      "valueName": "avg"
+      "valueName": "current"
     },
     {
       "cacheTimeout": null,
@@ -1948,7 +1948,7 @@
         "h": 3,
         "w": 4,
         "x": 20,
-        "y": 36
+        "y": 39
       },
       "id": 38,
       "interval": null,
@@ -2004,7 +2004,7 @@
           "value": "null"
         }
       ],
-      "valueName": "avg"
+      "valueName": "current"
     }
   ],
   "schemaVersion": 16,
@@ -2014,7 +2014,7 @@
     "list": []
   },
   "time": {
-    "from": "now-15m",
+    "from": "now-5m",
     "to": "now"
   },
   "timepicker": {
