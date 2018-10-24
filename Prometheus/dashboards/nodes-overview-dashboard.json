@@ -564,7 +564,7 @@
       "gridPos": {
         "h": 6,
         "w": 4,
-        "x": 15,
+        "x": 16,
         "y": 4
       },
       "id": 26,
@@ -645,7 +645,7 @@
       "gridPos": {
         "h": 6,
         "w": 4,
-        "x": 19,
+        "x": 20,
         "y": 4
       },
       "id": 30,
@@ -1197,8 +1197,8 @@
       "description": "Allocation and utilization",
       "fill": 1,
       "gridPos": {
-        "h": 9,
-        "w": 8,
+        "h": 8,
+        "w": 24,
         "x": 0,
         "y": 10
       },
@@ -1238,7 +1238,7 @@
       "thresholds": [],
       "timeFrom": null,
       "timeShift": null,
-      "title": "CPU",
+      "title": "CPU Usage (%)",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -1257,7 +1257,7 @@
           "format": "percent",
           "label": null,
           "logBase": 1,
-          "max": "125",
+          "max": null,
           "min": "0",
           "show": true
         },
@@ -1283,10 +1283,10 @@
       "datasource": "${DS_PROMETHEUS}",
       "fill": 1,
       "gridPos": {
-        "h": 9,
-        "w": 8,
-        "x": 8,
-        "y": 10
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 18
       },
       "id": 4,
       "legend": {
@@ -1322,7 +1322,7 @@
       "thresholds": [],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Memory",
+      "title": "Memory Usage (%)",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -1338,7 +1338,7 @@
       },
       "yaxes": [
         {
-          "format": "short",
+          "format": "percent",
           "label": null,
           "logBase": 1,
           "max": null,
@@ -1367,10 +1367,10 @@
       "datasource": "${DS_PROMETHEUS}",
       "fill": 1,
       "gridPos": {
-        "h": 9,
-        "w": 8,
-        "x": 16,
-        "y": 10
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 18
       },
       "id": 6,
       "legend": {
@@ -1396,7 +1396,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum by(instance)(disk_used_percent)",
+          "expr": "count by(instance)(disk_used_percent)",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "{{instance}}",
@@ -1406,7 +1406,7 @@
       "thresholds": [],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Disk",
+      "title": "Disk Usage (%)",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -1422,7 +1422,7 @@
       },
       "yaxes": [
         {
-          "format": "short",
+          "format": "percent",
           "label": null,
           "logBase": 1,
           "max": null,
@@ -1435,7 +1435,7 @@
           "logBase": 1,
           "max": null,
           "min": null,
-          "show": true
+          "show": false
         }
       ],
       "yaxis": {
@@ -1454,7 +1454,7 @@
         "h": 9,
         "w": 8,
         "x": 0,
-        "y": 19
+        "y": 26
       },
       "id": 9,
       "legend": {
@@ -1489,7 +1489,7 @@
       "thresholds": [],
       "timeFrom": null,
       "timeShift": null,
-      "title": "GPU",
+      "title": "GPU Usage (%)",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -1505,11 +1505,12 @@
       },
       "yaxes": [
         {
-          "format": "short",
+          "decimals": null,
+          "format": "percentunit",
           "label": null,
           "logBase": 1,
           "max": null,
-          "min": null,
+          "min": "0",
           "show": true
         },
         {
@@ -1534,7 +1535,7 @@
         "h": 9,
         "w": 16,
         "x": 8,
-        "y": 19
+        "y": 26
       },
       "hideTimeOverride": false,
       "id": 13,
@@ -1585,6 +1586,7 @@
       "type": "table"
     }
   ],
+  "refresh": "5s",
   "schemaVersion": 16,
   "style": "dark",
   "tags": [],
@@ -1592,7 +1594,7 @@
     "list": []
   },
   "time": {
-    "from": "now-15m",
+    "from": "now-5m",
     "to": "now"
   },
   "timepicker": {
