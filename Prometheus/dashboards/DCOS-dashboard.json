@@ -148,7 +148,7 @@
           "value": "null"
         }
       ],
-      "valueName": "avg"
+      "valueName": "current"
     },
     {
       "cacheTimeout": null,
@@ -231,7 +231,7 @@
           "value": "null"
         }
       ],
-      "valueName": "avg"
+      "valueName": "current"
     },
     {
       "cacheTimeout": null,
@@ -314,7 +314,7 @@
           "value": "null"
         }
       ],
-      "valueName": "avg"
+      "valueName": "current"
     },
     {
       "cacheTimeout": null,
@@ -397,7 +397,7 @@
           "value": "null"
         }
       ],
-      "valueName": "avg"
+      "valueName": "current"
     },
     {
       "aliasColors": {},
@@ -1107,90 +1107,9 @@
       "colorBackground": false,
       "colorValue": false,
       "colors": [
-        "#3f6833",
+        "#299c46",
         "rgba(237, 129, 40, 0.89)",
         "#d44a3a"
-      ],
-      "datasource": "${DS_PROMETHEUS}",
-      "format": "none",
-      "gauge": {
-        "maxValue": 10,
-        "minValue": 0,
-        "show": false,
-        "thresholdLabels": false,
-        "thresholdMarkers": false
-      },
-      "gridPos": {
-        "h": 3,
-        "w": 8,
-        "x": 0,
-        "y": 27
-      },
-      "id": 2,
-      "interval": null,
-      "links": [],
-      "mappingType": 1,
-      "mappingTypes": [
-        {
-          "name": "value to text",
-          "value": 1
-        },
-        {
-          "name": "range to text",
-          "value": 2
-        }
-      ],
-      "maxDataPoints": 100,
-      "nullPointMode": "connected",
-      "nullText": null,
-      "postfix": "",
-      "postfixFontSize": "50%",
-      "prefix": "",
-      "prefixFontSize": "50%",
-      "rangeMaps": [
-        {
-          "from": "null",
-          "text": "N/A",
-          "to": "null"
-        }
-      ],
-      "sparkline": {
-        "fillColor": "rgba(31, 118, 189, 0.18)",
-        "full": false,
-        "lineColor": "rgb(31, 120, 193)",
-        "show": false
-      },
-      "tableColumn": "__name__",
-      "targets": [
-        {
-          "expr": "mesos_master_slaves_active",
-          "format": "time_series",
-          "instant": false,
-          "intervalFactor": 1,
-          "refId": "A"
-        }
-      ],
-      "thresholds": "",
-      "title": "Active Nodes",
-      "type": "singlestat",
-      "valueFontSize": "80%",
-      "valueMaps": [
-        {
-          "op": "=",
-          "text": "N/A",
-          "value": "null"
-        }
-      ],
-      "valueName": "avg"
-    },
-    {
-      "cacheTimeout": null,
-      "colorBackground": true,
-      "colorValue": false,
-      "colors": [
-        "#3f6833",
-        "#cca300",
-        "#58140c"
       ],
       "datasource": "${DS_PROMETHEUS}",
       "format": "none",
@@ -1202,12 +1121,12 @@
         "thresholdMarkers": true
       },
       "gridPos": {
-        "h": 3,
+        "h": 4,
         "w": 8,
-        "x": 8,
+        "x": 0,
         "y": 27
       },
-      "id": 41,
+      "id": 53,
       "interval": null,
       "links": [],
       "mappingType": 1,
@@ -1244,14 +1163,14 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "mesos_master_slaves_inactive",
+          "expr": "mesos_master_slaves_active",
           "format": "time_series",
           "intervalFactor": 1,
           "refId": "A"
         }
       ],
-      "thresholds": "1,2",
-      "title": "Inactive Nodes",
+      "thresholds": "",
+      "title": "Active Agents",
       "type": "singlestat",
       "valueFontSize": "80%",
       "valueMaps": [
@@ -1261,7 +1180,7 @@
           "value": "null"
         }
       ],
-      "valueName": "avg"
+      "valueName": "current"
     },
     {
       "cacheTimeout": null,
@@ -1269,7 +1188,7 @@
       "colorValue": false,
       "colors": [
         "#3f6833",
-        "#99440a",
+        "#c15c17",
         "#58140c"
       ],
       "datasource": "${DS_PROMETHEUS}",
@@ -1282,12 +1201,12 @@
         "thresholdMarkers": true
       },
       "gridPos": {
-        "h": 3,
+        "h": 4,
         "w": 8,
-        "x": 16,
+        "x": 8,
         "y": 27
       },
-      "id": 42,
+      "id": 49,
       "interval": null,
       "links": [],
       "mappingType": 1,
@@ -1330,8 +1249,8 @@
           "refId": "A"
         }
       ],
-      "thresholds": "1,2",
-      "title": "Unreachable Nodes",
+      "thresholds": "1,1",
+      "title": "Unreachable Agents",
       "type": "singlestat",
       "valueFontSize": "80%",
       "valueMaps": [
@@ -1341,14 +1260,94 @@
           "value": "null"
         }
       ],
-      "valueName": "avg"
+      "valueName": "current"
+    },
+    {
+      "cacheTimeout": null,
+      "colorBackground": true,
+      "colorValue": false,
+      "colors": [
+        "#3f6833",
+        "#c15c17",
+        "#58140c"
+      ],
+      "datasource": "${DS_PROMETHEUS}",
+      "format": "none",
+      "gauge": {
+        "maxValue": 100,
+        "minValue": 0,
+        "show": false,
+        "thresholdLabels": false,
+        "thresholdMarkers": true
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 8,
+        "x": 16,
+        "y": 27
+      },
+      "id": 51,
+      "interval": null,
+      "links": [],
+      "mappingType": 1,
+      "mappingTypes": [
+        {
+          "name": "value to text",
+          "value": 1
+        },
+        {
+          "name": "range to text",
+          "value": 2
+        }
+      ],
+      "maxDataPoints": 100,
+      "nullPointMode": "connected",
+      "nullText": null,
+      "postfix": "",
+      "postfixFontSize": "50%",
+      "prefix": "",
+      "prefixFontSize": "50%",
+      "rangeMaps": [
+        {
+          "from": "null",
+          "text": "N/A",
+          "to": "null"
+        }
+      ],
+      "sparkline": {
+        "fillColor": "rgba(31, 118, 189, 0.18)",
+        "full": false,
+        "lineColor": "rgb(31, 120, 193)",
+        "show": false
+      },
+      "tableColumn": "",
+      "targets": [
+        {
+          "expr": "mesos_master_slaves_inactive",
+          "format": "time_series",
+          "intervalFactor": 1,
+          "refId": "A"
+        }
+      ],
+      "thresholds": "1,1",
+      "title": "Deactivated Agents",
+      "type": "singlestat",
+      "valueFontSize": "80%",
+      "valueMaps": [
+        {
+          "op": "=",
+          "text": "N/A",
+          "value": "null"
+        }
+      ],
+      "valueName": "current"
     },
     {
       "gridPos": {
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 30
+        "y": 31
       },
       "id": 33,
       "title": "Framework Details",
@@ -1376,7 +1375,7 @@
         "h": 3,
         "w": 12,
         "x": 0,
-        "y": 31
+        "y": 32
       },
       "id": 6,
       "interval": null,
@@ -1456,7 +1455,7 @@
         "h": 3,
         "w": 12,
         "x": 12,
-        "y": 31
+        "y": 32
       },
       "id": 37,
       "interval": null,
@@ -1520,7 +1519,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 34
+        "y": 35
       },
       "id": 31,
       "panels": [],
@@ -1549,7 +1548,7 @@
         "h": 3,
         "w": 4,
         "x": 0,
-        "y": 35
+        "y": 36
       },
       "id": 8,
       "interval": null,
@@ -1629,7 +1628,7 @@
         "h": 3,
         "w": 4,
         "x": 4,
-        "y": 35
+        "y": 36
       },
       "id": 43,
       "interval": null,
@@ -1709,7 +1708,7 @@
         "h": 3,
         "w": 4,
         "x": 8,
-        "y": 35
+        "y": 36
       },
       "id": 29,
       "interval": null,
@@ -1789,7 +1788,7 @@
         "h": 3,
         "w": 4,
         "x": 12,
-        "y": 35
+        "y": 36
       },
       "id": 39,
       "interval": null,
@@ -1869,7 +1868,7 @@
         "h": 3,
         "w": 4,
         "x": 16,
-        "y": 35
+        "y": 36
       },
       "id": 40,
       "interval": null,
@@ -1949,7 +1948,7 @@
         "h": 3,
         "w": 4,
         "x": 20,
-        "y": 35
+        "y": 36
       },
       "id": 38,
       "interval": null,
