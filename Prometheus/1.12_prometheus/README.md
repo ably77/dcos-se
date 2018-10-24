@@ -49,8 +49,8 @@ Add the Mesos conf file to the directory - be sure to replace `<MASTER_INTERNAL_
 [[inputs.mesos]]
   ## Timeout, in ms.
   timeout = 100
-  ## Replace with a List of Mesos Masters
-  masters = ["http://<INSERT_MASTER_INTERNAL_IP_HERE>:5050"]
+  ## A list of Mesos masters.
+  masters = ["http://<MASTER_INTERNAL_IP>:5050"]
   ## Master metrics groups to be collected, by default, all enabled.
   master_collections = [
     "resources",
@@ -65,6 +65,17 @@ Add the Mesos conf file to the directory - be sure to replace `<MASTER_INTERNAL_
     "registrar",
     "allocator",
   ]
+  ## A list of Mesos slaves, default is []
+  # slaves = []
+  ## Slave metrics groups to be collected, by default, all enabled.
+  # slave_collections = [
+  #   "resources",
+  #   "agent",
+  #   "system",
+  #   "executors",
+  #   "tasks",
+  #   "messages",
+  # ]
 
   ## Optional TLS Config
   # tls_ca = "/etc/telegraf/ca.pem"
@@ -148,3 +159,12 @@ When finished, uninstall by using:
 ```
 
 For more examples on getting started with Prometheus on DC/OS, follow the [Prometheus Quick Start](https://docs.mesosphere.com/services/prometheus/0.1.1-2.3.2/quick-start-guide/) guide or read more on the [Prometheus Service Docs](https://docs.mesosphere.com/services/prometheus/0.1.1-2.3.2/)
+
+### Troubleshooting Tips
+
+If Mesos metrics are not showing, check the systemd `dcos-telegraf` component on your master node
+```
+sudo systemctl status dcos-telegraf
+```
+
+
