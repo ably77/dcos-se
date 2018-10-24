@@ -1226,7 +1226,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "sum by(instance)(cpu_usage_system + cpu_usage_user + cpu_usage_guest)",
+          "expr": "sum by(instance)((cpu_usage_system + cpu_usage_user + cpu_usage_guest)/3)",
           "format": "time_series",
           "hide": false,
           "interval": "",
