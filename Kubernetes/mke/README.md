@@ -160,6 +160,7 @@ Create options2.json:
 ```
 {
   "service": {
+    "name": "kubernetes-cluster2",
     "service_account": "kubernetes-cluster2",
     "service_account_secret": "kubernetes-cluster2/sa"
   }
