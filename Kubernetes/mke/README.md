@@ -106,7 +106,7 @@ dcos marathon app add https://raw.githubusercontent.com/ably77/dcos-se/master/Ku
 
 Connect to Kubernetes API:
 ```
-dcos kubernetes cluster kubeconfig --insecure-skip-tls-verify --apiserver-url=<MARATHON_PUBLIC_AGENT_IP>:6443
+dcos kubernetes cluster kubeconfig --insecure-skip-tls-verify --apiserver-url=https://<MARATHON_PUBLIC_AGENT_IP>:6443
 ```
 
 Test:
@@ -206,7 +206,7 @@ dcos marathon app add https://raw.githubusercontent.com/ably77/dcos-se/master/Ku
 
 Connect to the Kubernetes API:
 ```
-dcos kubernetes cluster kubeconfig --insecure-skip-tls-verify --apiserver-url=<MARATHON_PUBLIC_AGENT_IP>:6444
+dcos kubernetes cluster kubeconfig --insecure-skip-tls-verify --apiserver-url=https://<MARATHON_PUBLIC_AGENT_IP>:6444
 ```
 
 
