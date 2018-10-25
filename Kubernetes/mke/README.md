@@ -72,10 +72,10 @@ Install Marathon-LB:
 dcos package install marathon-lb --yes
 ```
 
-Deploy kubectl-proxy:
+Deploy the `kubernetes-cluster-proxy`:
 ```
 {
-  "id": "/marathon-lb-kubernetes-cluster",
+  "id": "/kubernetes-cluster-proxy",
   "instances": 1,
   "cpus": 0.001,
   "mem": 16,
