@@ -56,6 +56,7 @@ Create options.json:
 ```
 {
   "service": {
+    "name": "kubernetes-cluster",
     "service_account": "kubernetes-cluster",
     "service_account_secret": "kubernetes-cluster/sa"
   }
