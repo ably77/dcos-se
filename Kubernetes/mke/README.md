@@ -99,6 +99,11 @@ Deploy kubectl-proxy:
 }
 ```
 
+You can also deploy using the below:
+```
+dcos marathon app add https://raw.githubusercontent.com/ably77/dcos-se/master/Kubernetes/mke/resources/kubernetes-cluster-proxy.json
+```
+
 Connect to Kubernetes API:
 ```
 dcos kubernetes cluster kubeconfig --insecure-skip-tls-verify --apiserver-url=<MARATHON_PUBLIC_AGENT_IP>:6443
@@ -107,4 +112,14 @@ dcos kubernetes cluster kubeconfig --insecure-skip-tls-verify --apiserver-url=<M
 Test:
 ```
 kubectl get nodes
+```
+
+Create a NGINX deployment:
+```
+kubectl apply -f https://k8s.io/examples/application/deployment.yaml
+```
+
+Describe NGINX deployment:
+```
+kubectl describe deployment nginx-deployment
 ```
