@@ -1,0 +1,6 @@
+{
+  "service": {
+    "service_account": "/dev/kubernetes-cluster",
+    "service_account_secret": "/dev/kubernetes-cluster/sa"
+  }
+}

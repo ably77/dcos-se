@@ -102,33 +102,39 @@ Restart the `dcos-telegraf` service:
 sudo systemctl restart dcos-telegraf
 ```
 
+Check the status of the `dcos-telegraf` service:
+```
+sudo systemctl status dcos-telegraf
+```
+
 Healthy Output Shown Below:
 ```
 $ sudo systemctl status dcos-telegraf
 ● dcos-telegraf.service - Telegraf: collects and reports metrics
    Loaded: loaded (/etc/systemd/system/dcos-telegraf.service; enabled; vendor preset: disabled)
-   Active: active (running) since Wed 2018-10-24 17:53:24 UTC; 3min 24s ago
-  Process: 16175 ExecStartPre=/opt/mesosphere/bin/bootstrap dcos-telegraf-master (code=exited, status=0/SUCCESS)
-  Process: 16171 ExecStartPre=/bin/bash -c chown root:dcos_telegraf /run/dcos/telegraf (code=exited, status=0/SUCCESS)
-  Process: 16168 ExecStartPre=/bin/bash -c chmod 775 /run/dcos/telegraf (code=exited, status=0/SUCCESS)
-  Process: 16159 ExecStartPre=/bin/bash -c mkdir -p /run/dcos/telegraf (code=exited, status=0/SUCCESS)
- Main PID: 16193 (telegraf)
-    Tasks: 15
-   Memory: 23.5M
-      CPU: 3.870s
+   Active: active (running) since Thu 2018-10-25 16:46:30 UTC; 55s ago
+  Process: 9044 ExecStartPre=/opt/mesosphere/bin/bootstrap dcos-telegraf-master (code=exited, status=0/SUCCESS)
+  Process: 9037 ExecStartPre=/bin/bash -c chown -R dcos_telegraf:dcos_telegraf ${LEGACY_CONTAINERS_PARENT_DIR} || true (code=exited, status=0/SUCCESS)
+  Process: 9033 ExecStartPre=/bin/bash -c chown dcos_telegraf:dcos_telegraf /run/dcos/telegraf (code=exited, status=0/SUCCESS)
+  Process: 9030 ExecStartPre=/bin/bash -c chmod 775 /run/dcos/telegraf (code=exited, status=0/SUCCESS)
+  Process: 9023 ExecStartPre=/bin/bash -c mkdir -p /run/dcos/telegraf (code=exited, status=0/SUCCESS)
+ Main PID: 9060 (telegraf)
+    Tasks: 14
+   Memory: 17.5M
+      CPU: 2.544s
    CGroup: /system.slice/dcos-telegraf.service
-           └─16193 /opt/mesosphere/bin/telegraf --config /opt/mesosphere/etc/telegraf/telegraf.conf --config-directory /opt/mesosphere/etc/telegraf/telegraf.d/
+           └─9060 /opt/mesosphere/bin/telegraf --config /opt/mesosphere/etc/telegraf/telegraf.conf --config-directory /opt/mesosphere/etc/telegraf/telegraf.d/
 
-Oct 24 17:53:24 ip-10-0-5-43.us-west-2.compute.internal start_telegraf.sh[16193]: + exec /opt/mesosphere/bin/telegraf --config /opt/mesosphere/etc/telegraf/telegraf.conf --config-directory /opt/mesosphere/etc/telegraf/telegraf.d/
-Oct 24 17:53:24 ip-10-0-5-43.us-west-2.compute.internal start_telegraf.sh[16193]: 2018-10-24T17:53:24Z I! Starting Telegraf v1.7.0~ccb5eb8c
-Oct 24 17:53:24 ip-10-0-5-43.us-west-2.compute.internal start_telegraf.sh[16193]: 2018-10-24T17:53:24Z I! Loaded inputs: inputs.system inputs.cpu inputs.mem inputs.disk inputs.swap inputs.net inputs.processes inputs.mesos
-Oct 24 17:53:24 ip-10-0-5-43.us-west-2.compute.internal start_telegraf.sh[16193]: 2018-10-24T17:53:24Z I! Loaded aggregators:
-Oct 24 17:53:24 ip-10-0-5-43.us-west-2.compute.internal start_telegraf.sh[16193]: 2018-10-24T17:53:24Z I! Loaded processors:
-Oct 24 17:53:24 ip-10-0-5-43.us-west-2.compute.internal start_telegraf.sh[16193]: 2018-10-24T17:53:24Z I! Loaded outputs: prometheus_client dcos_metrics
-Oct 24 17:53:24 ip-10-0-5-43.us-west-2.compute.internal start_telegraf.sh[16193]: 2018-10-24T17:53:24Z I! Tags enabled: dcos_cluster_id=fb0a45bc-66ce-44a5-af1c-3ed38df424c1 dcos_cluster_name=aly-yjt9dzr host=ip-10-0-5-43.us-west-2.compute.internal
-Oct 24 17:53:24 ip-10-0-5-43.us-west-2.compute.internal start_telegraf.sh[16193]: 2018-10-24T17:53:24Z I! Agent Config: Interval:10s, Quiet:false, Hostname:"ip-10-0-5-43.us-west-2.compute.internal", Flush Interval:10s
-Oct 24 17:53:24 ip-10-0-5-43.us-west-2.compute.internal start_telegraf.sh[16193]: time="2018-10-24T17:53:24Z" level=info msg="Starting HTTP producer garbage collection service" producer=http
-Oct 24 17:53:24 ip-10-0-5-43.us-west-2.compute.internal start_telegraf.sh[16193]: time="2018-10-24T17:53:24Z" level=info msg="http producer serving requests on systemd socket: /run/dcos/telegraf-dcos-metrics.sock" producer=http
+Oct 25 16:46:30 ip-10-0-7-75.us-west-2.compute.internal start_telegraf.sh[9060]: + exec /opt/mesosphere/bin/telegraf --config /opt/mesosphere/etc/telegraf/telegraf.conf --config-directory /opt/mesosphere/etc/telegraf/telegraf.d/
+Oct 25 16:46:30 ip-10-0-7-75.us-west-2.compute.internal start_telegraf.sh[9060]: 2018-10-25T16:46:30Z I! Starting Telegraf v1.7.0~20ed7151
+Oct 25 16:46:30 ip-10-0-7-75.us-west-2.compute.internal start_telegraf.sh[9060]: 2018-10-25T16:46:30Z I! Loaded inputs: inputs.disk inputs.swap inputs.net inputs.processes inputs.system inputs.cpu inputs.mem inputs.mesos
+Oct 25 16:46:30 ip-10-0-7-75.us-west-2.compute.internal start_telegraf.sh[9060]: time="2018-10-25T16:46:30Z" level=info msg="Starting HTTP producer garbage collection service" producer=http
+Oct 25 16:46:30 ip-10-0-7-75.us-west-2.compute.internal start_telegraf.sh[9060]: time="2018-10-25T16:46:30Z" level=info msg="http producer serving requests on systemd socket: /run/dcos/telegraf-dcos-metrics.sock" producer=http
+Oct 25 16:46:30 ip-10-0-7-75.us-west-2.compute.internal start_telegraf.sh[9060]: 2018-10-25T16:46:30Z I! Loaded aggregators:
+Oct 25 16:46:30 ip-10-0-7-75.us-west-2.compute.internal start_telegraf.sh[9060]: 2018-10-25T16:46:30Z I! Loaded processors: lowercase
+Oct 25 16:46:30 ip-10-0-7-75.us-west-2.compute.internal start_telegraf.sh[9060]: 2018-10-25T16:46:30Z I! Loaded outputs: prometheus_client dcos_metrics
+Oct 25 16:46:30 ip-10-0-7-75.us-west-2.compute.internal start_telegraf.sh[9060]: 2018-10-25T16:46:30Z I! Tags enabled: dcos_cluster_id=e70b3d81-8017-4641-9680-4b2f44bb2918 dcos_cluster_name=aly-uafttmu host=ip-10-0-7-75.us-west-2.compute.internal
+Oct 25 16:46:30 ip-10-0-7-75.us-west-2.compute.internal start_telegraf.sh[9060]: 2018-10-25T16:46:30Z I! Agent Config: Interval:10s, Quiet:false, Hostname:"ip-10-0-7-75.us-west-2.compute.internal", Flush Interval:10s
 ```
 
 At this point, Mesos Master metrics will start to pipe into Prometheus
