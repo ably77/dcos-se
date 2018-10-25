@@ -116,7 +116,7 @@ Create options2.json:
 Install `kubernetes-cluster2` Cluster:
 ```
 dcos kubernetes cluster create --options=options2.json --yes
-
+```
 
 ## Connecting to Kubernetes API:
 
