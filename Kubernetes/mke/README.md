@@ -5,7 +5,7 @@ Below are instructions on how to get a multiple MKE cluster up and running
 ## Prerequisites
 - DC/OS 1.12
 - 1 Master
-- 3 Agents
+- 4 Agents
 
 If not already done, authenticate to the DC/OS CLI using `https` instead of `http`
 ```
@@ -208,6 +208,26 @@ dcos marathon app add https://raw.githubusercontent.com/ably77/dcos-se/master/Ku
 Connect to the Kubernetes API:
 ```
 dcos kubernetes cluster kubeconfig --insecure-skip-tls-verify --apiserver-url=https://<MARATHON_PUBLIC_AGENT_IP>:6444
+```
+
+## Switching Clusters in `kubectl`
+
+To get your contexts:
+```
+kubectl config get-contexts
+```
+
+Output should look like below:
+```
+$ kubectl config get-contexts
+CURRENT   NAME              CLUSTER           AUTHINFO          NAMESPACE
+          342201611936443   342201611936443   342201611936443
+*         342201611936444   342201611936444   342201611936444
+```
+
+Switch contexts:
+```
+kubectl config use-context <context_name>
 ```
 
 
