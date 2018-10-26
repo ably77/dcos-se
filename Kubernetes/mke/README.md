@@ -118,7 +118,9 @@ Install `kubernetes-cluster2` Cluster:
 dcos kubernetes cluster create --options=options2.json --yes
 ```
 
-## Connecting to the Kubernetes API using Edge-LB:
+## Connecting to the Kubernetes API
+
+### Option #1 - Using Edge-LB
 
 Add the Edge-LB Repository (Get links from the DC/OS Support Page):
 ```
@@ -265,7 +267,7 @@ Describe NGINX deployment:
 kubectl describe deployment nginx-deployment
 ```
 
-## Connecting to the Kubernetes API using Marathon-LB:
+### Option #2 - Using Marathon-LB
 
 Install Marathon-LB:
 ```
@@ -378,7 +380,7 @@ Describe NGINX deployment:
 kubectl describe deployment nginx-deployment
 ```
 
-## Switching Clusters in `kubectl`
+## Switching Clusters using kubectl
 
 To get your contexts:
 ```
