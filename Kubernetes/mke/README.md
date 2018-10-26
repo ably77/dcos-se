@@ -178,14 +178,37 @@ dcos security org users grant kubernetes-cluster2 dcos:mesos:master:framework:ro
 dcos security org users grant kubernetes-cluster2 dcos:mesos:agent:framework:role:slave_public read
 ```
 
-Create options2.json:
+Create `options2.json`, note that this options JSON provides examples of how to set cluster size. For our example we will be deploying a `"kube_cpus": 1,` instead of the default `"kube_cpus": 2`
 ```
 {
-  "service": {
-    "name": "kubernetes-cluster2",
-    "service_account": "kubernetes-cluster2",
-    "service_account_secret": "kubernetes-cluster2/sa"
-  }
+    "service": {
+        "name": "kubernetes-cluster2",
+        "service_account": "kubernetes-cluster2",
+        "service_account_secret": "kubernetes-cluster2/sa"
+    },
+    "kubernetes": {
+        "authorization_mode": "AlwaysAllow",
+        "control_plane_placement": "[[\"hostname\", \"UNIQUE\"]]",
+        "control_plane_reserved_resources": {
+            "cpus": 1.5,
+            "disk": 10240,
+            "mem": 4096
+        },
+        "high_availability": false,
+        "private_node_count": 1,
+        "private_node_placement": "",
+        "private_reserved_resources": {
+            "kube_cpus": 1,
+            "kube_disk": 10240,
+            "kube_mem": 2048,
+            "system_cpus": 1,
+            "system_mem": 1024
+        }
+    },
+    "etcd": {
+        "cpus": 0.5,
+        "mem": 1024
+    }
 }
 ```
 
