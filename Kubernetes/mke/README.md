@@ -472,7 +472,7 @@ dcos marathon app add https://raw.githubusercontent.com/ably77/dcos-se/master/Ku
 
 Connect to the Kubernetes API for kubernetes-cluster2:
 ```
-dcos kubernetes cluster kubeconfig --insecure-skip-tls-verify --apiserver-url=https://<MARATHON_PUBLIC_AGENT_IP>:6444 --context-name=kubernetes-cluster --cluster-name=kubernetes-cluster2
+dcos kubernetes cluster kubeconfig --insecure-skip-tls-verify --apiserver-url=https://<MARATHON_PUBLIC_AGENT_IP>:6444 --context-name=kubernetes-cluster2 --cluster-name=kubernetes-cluster2
 ```
 
 Test:
