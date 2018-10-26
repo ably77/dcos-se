@@ -51,6 +51,11 @@ done
 
 Note: Save this output somewhere as we will need them later
 
+Remove Public Agent IP Service:
+```
+dcos marathon app remove get-public-agent-ip
+```
+
 ### Install the Kubernetes Control Plane Manager:
 ```
 dcos package install kubernetes --yes
