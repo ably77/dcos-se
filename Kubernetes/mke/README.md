@@ -285,6 +285,7 @@ dcos package install marathon-lb --yes
 ```
 
 ### Connecting to Cluster 1:
+
 Deploy the `kubernetes-cluster-proxy`:
 ```
 {
@@ -317,6 +318,7 @@ You can also deploy using the below:
 dcos marathon app add https://raw.githubusercontent.com/ably77/dcos-se/master/Kubernetes/mke/resources/kubernetes-cluster-proxy.json
 ```
 
+Connect to the Kubernetes API for kubernetes-cluster:
 ```
 dcos kubernetes cluster kubeconfig --insecure-skip-tls-verify --apiserver-url=https://<MARATHON_PUBLIC_AGENT_IP>:6443 --cluster-name=kubernetes-cluster
 ```
@@ -342,7 +344,6 @@ kubectl delete deployment nginx-deployment
 ```
 
 ### Connecting to Cluster 2:
-
 Deploy kubernetes-cluster2-proxy:
 ```
 {
@@ -375,7 +376,7 @@ You can also deploy using the below:
 dcos marathon app add https://raw.githubusercontent.com/ably77/dcos-se/master/Kubernetes/mke/resources/kubernetes-cluster2-proxy.json
 ```
 
-Connect to the Kubernetes API:
+Connect to the Kubernetes API for kubernetes-cluster2:
 ```
 dcos kubernetes cluster kubeconfig --insecure-skip-tls-verify --apiserver-url=https://<MARATHON_PUBLIC_AGENT_IP>:6444 --cluster-name=kubernetes-cluster2
 ```
