@@ -118,7 +118,154 @@ Install `kubernetes-cluster2` Cluster:
 dcos kubernetes cluster create --options=options2.json --yes
 ```
 
-## Connecting to Kubernetes API:
+## Connecting to the Kubernetes API using Edge-LB:
+
+Add the Edge-LB Repository (Get links from the DC/OS Support Page):
+```
+dcos package repo add --index=0 edgelb  https://<insert download link>/stub-universe-edgelb.json
+dcos package repo add --index=0 edgelb-pool https://<insert download link>/stub-universe-edgelb-pool.json
+```
+
+Create Edge-LB Service Account:
+```
+dcos security org service-accounts keypair edge-lb-private-key.pem edge-lb-public-key.pem
+dcos security org service-accounts create -p edge-lb-public-key.pem -d "Edge-LB service account" edge-lb-principal
+dcos security org service-accounts show edge-lb-principal
+dcos security secrets create-sa-secret --strict edge-lb-private-key.pem edge-lb-principal dcos-edgelb/edge-lb-secret
+dcos security org groups add_user superusers edge-lb-principal
+```
+
+Create `edge-lb-options.json`:
+```
+{
+    "service": {
+        "secretName": "dcos-edgelb/edge-lb-secret",
+        "principal": "edge-lb-principal",
+        "mesosProtocol": "https"
+    }
+}
+```
+
+Install Edge-LB:
+```
+dcos package install --options=edge-lb-options.json edgelb --yes
+```
+
+Install EdgeLB CLI:
+```
+dcos package install edgelb --cli --yes
+```
+
+Save Kubernetes Edge-LB Service Config as `edgelb.json`:
+```
+{
+    "apiVersion": "V2",
+    "name": "edgelb-kubernetes-cluster-proxy",
+    "count": 1,
+    "autoCertificate": true,
+    "haproxy": {
+        "frontends": [{
+                "bindPort": 6443,
+                "protocol": "HTTPS",
+                "certificates": [
+                    "$AUTOCERT"
+                ],
+                "linkBackend": {
+                    "defaultBackend": "kubernetes-cluster"
+                }
+            },
+            {
+                "bindPort": 6444,
+                "protocol": "HTTPS",
+                "certificates": [
+                    "$AUTOCERT"
+                ],
+                "linkBackend": {
+                    "defaultBackend": "kubernetes-cluster2"
+                }
+            }
+        ],
+        "backends": [{
+                "name": "kubernetes-cluster",
+                "protocol": "HTTPS",
+                "services": [{
+                    "mesos": {
+                        "frameworkName": "kubernetes-cluster",
+                        "taskNamePattern": "kube-control-plane"
+                    },
+                    "endpoint": {
+                        "portName": "apiserver"
+                    }
+                }]
+            },
+            {
+                "name": "kubernetes-cluster2",
+                "protocol": "HTTPS",
+                "services": [{
+                    "mesos": {
+                        "frameworkName": "kubernetes-cluster2",
+                        "taskNamePattern": "kube-control-plane"
+                    },
+                    "endpoint": {
+                        "portName": "apiserver"
+
+                    }
+                }]
+            }
+        ],
+        "stats": {
+            "bindPort": 6090
+        }
+    }
+}
+```
+
+To Deploy:
+```
+dcos edgelb create edgelb.json
+```
+
+Connect to Kubernetes Cluster #1:
+```
+dcos kubernetes cluster kubeconfig --insecure-skip-tls-verify --apiserver-url=https://<EDGELB_PUBLIC_AGENT_IP>:6443 --cluster-name=kubernetes-cluster
+```
+
+Test:
+```
+kubectl get nodes
+```
+
+Create a NGINX deployment:
+```
+kubectl apply -f https://k8s.io/examples/application/deployment.yaml
+```
+
+Describe NGINX deployment:
+```
+kubectl describe deployment nginx-deployment
+```
+
+Connect to Kubernetes Cluster #2:
+```
+dcos kubernetes cluster kubeconfig --insecure-skip-tls-verify --apiserver-url=https://<EDGELB_PUBLIC_AGENT_IP>:6444 --cluster-name=kubernetes-cluster2
+```
+
+Test:
+```
+kubectl get nodes
+```
+
+Create a NGINX deployment:
+```
+kubectl apply -f https://k8s.io/examples/application/deployment.yaml
+```
+
+Describe NGINX deployment:
+```
+kubectl describe deployment nginx-deployment
+```
+
+## Connecting to the Kubernetes API using Marathon-LB:
 
 Install Marathon-LB:
 ```
