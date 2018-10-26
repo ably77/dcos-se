@@ -5,7 +5,7 @@ Below are instructions on how to get a multiple MKE cluster up and running
 ## Prerequisites
 - DC/OS 1.12
 - 1 Master
-- 4 Agents
+- 5 Agents
 
 If not already done, authenticate to the DC/OS CLI using `https` instead of `http`
 ```
