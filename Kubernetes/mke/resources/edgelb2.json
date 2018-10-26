@@ -5,7 +5,7 @@
   "autoCertificate": true,
   "haproxy": {
     "frontends": [{
-      "bindPort": 6444,
+      "bindPort": 6443,
       "protocol": "HTTPS",
       "certificates": [
         "$AUTOCERT"
