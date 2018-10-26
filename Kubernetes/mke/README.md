@@ -227,7 +227,7 @@ To Deploy:
 dcos edgelb create edgelb.json
 ```
 
-Connect to Kubernetes Cluster #1:
+### Connect to Kubernetes Cluster #1:
 ```
 dcos kubernetes cluster kubeconfig --insecure-skip-tls-verify --apiserver-url=https://<EDGELB_PUBLIC_AGENT_IP>:6443 --cluster-name=kubernetes-cluster
 ```
@@ -252,7 +252,7 @@ Delete NGINX deployment:
 kubectl delete deployment nginx-deployment
 ```
 
-Connect to Kubernetes Cluster #2:
+### Connect to Kubernetes Cluster #2:
 ```
 dcos kubernetes cluster kubeconfig --insecure-skip-tls-verify --apiserver-url=https://<EDGELB_PUBLIC_AGENT_IP>:6444 --cluster-name=kubernetes-cluster2
 ```
