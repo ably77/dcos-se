@@ -522,6 +522,18 @@ Delete NGINX deployment:
 kubectl delete deployment nginx-deployment
 ```
 
+## Accessing the Dashboard
+
+Once kubectl is configured correctly, access the dashboard using:
+```
+kubectl proxy
+```
+
+Point your browser at the following URL:
+```
+http://127.0.0.1:8001/api/v1/namespaces/kube-system/services/https:kubernetes-dashboard:/proxy/
+```
+
 ## Switching Clusters using kubectl
 
 To get your contexts:
