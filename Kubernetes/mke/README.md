@@ -17,7 +17,41 @@ Install the Enterprise DC/OS CLI:
 dcos package install dcos-enterprise-cli --yes
 ```
 
-Install the Kubernetes Control Plane Manager:
+### Determine Public Agent IP addresses:
+{
+  "id": "/get-public-agent-ip",
+  "cmd": "PUBLIC_IP=`curl http://169.254.169.254/latest/meta-data/public-ipv4` && PRIVATE_IP=`hostname -i` && echo $PUBLIC_IP && echo $PRIVATE_IP && sleep 3600",
+  "cpus": 0.1,
+  "mem": 32,
+  "instances": 5,
+  "acceptedResourceRoles": [
+    "slave_public"
+  ],
+  "constraints": [
+    [
+      "hostname",
+      "UNIQUE"
+    ]
+  ]
+}
+```
+
+Get your Public IPs:
+```
+task_list=`dcos task get-public-agent-ip | grep get-public-agent-ip | awk '{print $5}'`
+for task_id in $task_list;
+do
+    public_ip=`dcos task log $task_id stdout | tail -2`
+
+    echo
+    echo " Public agent node found! public IP is:"
+    echo "$public_ip"
+done
+```
+
+Note: Save this output somewhere as we will need them later
+
+### Install the Kubernetes Control Plane Manager:
 ```
 dcos package install kubernetes --yes
 ```
