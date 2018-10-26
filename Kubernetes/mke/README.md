@@ -247,6 +247,11 @@ Describe NGINX deployment:
 kubectl describe deployment nginx-deployment
 ```
 
+Delete NGINX deployment:
+```
+kubectl delete deployment nginx-deployment
+```
+
 Connect to Kubernetes Cluster #2:
 ```
 dcos kubernetes cluster kubeconfig --insecure-skip-tls-verify --apiserver-url=https://<EDGELB_PUBLIC_AGENT_IP>:6444 --cluster-name=kubernetes-cluster2
@@ -265,6 +270,11 @@ kubectl apply -f https://k8s.io/examples/application/deployment.yaml
 Describe NGINX deployment:
 ```
 kubectl describe deployment nginx-deployment
+```
+
+Delete NGINX deployment:
+```
+kubectl delete deployment nginx-deployment
 ```
 
 ### Option #2 - Using Marathon-LB
@@ -326,6 +336,11 @@ Describe NGINX deployment:
 kubectl describe deployment nginx-deployment
 ```
 
+Delete NGINX deployment:
+```
+kubectl delete deployment nginx-deployment
+```
+
 ### Connecting to Cluster 2:
 
 Deploy kubernetes-cluster2-proxy:
@@ -378,6 +393,11 @@ kubectl apply -f https://k8s.io/examples/application/deployment.yaml
 Describe NGINX deployment:
 ```
 kubectl describe deployment nginx-deployment
+```
+
+Delete NGINX deployment:
+```
+kubectl delete deployment nginx-deployment
 ```
 
 ## Switching Clusters using kubectl
