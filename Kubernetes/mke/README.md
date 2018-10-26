@@ -39,7 +39,7 @@ Save this service as `get-public-agent-ip.json`
 }
 ```
 
-Or alternatively you can run the below command:
+Or alternatively you can run the below command to deploy the service:
 ```
 dcos marathon app add https://raw.githubusercontent.com/ably77/dcos-se/master/Kubernetes/mke/resources/get-public-agent-ip.json
 ```
@@ -57,7 +57,31 @@ do
 done
 ```
 
-Note: Save this output somewhere as we will need them later
+Output should look similar to below depending on how many public agents you have in your DC/OS Cluster:
+```
+$ for task_id in $task_list;
+> do
+>     public_ip=`dcos task log $task_id stdout | tail -2`
+>
+>     echo
+>     echo " Public agent node found! public IP is:"
+>     echo "$public_ip"
+> done
+
+ Public agent node found! public IP is:
+34.220.161.193
+10.0.5.186
+
+ Public agent node found! public IP is:
+34.222.246.171
+10.0.6.172
+
+ Public agent node found! public IP is:
+54.213.52.125
+10.0.6.8
+```
+
+**Note:** Save this output somewhere as we will need them later
 
 Remove Public Agent IP Service:
 ```
@@ -274,6 +298,17 @@ To Deploy:
 dcos edgelb create edgelb.json
 ```
 
+Find the `edgelb-pool-0-server` private IP address and cross check the Private IP with your Public IP agent list to get the correct `EDGELB_PUBLIC_AGENT_IP` used in the next steps:
+```
+dcos task | grep edgelb-pool-0-server
+```
+
+Output should look like below:
+```
+$ dcos task | grep edgelb-pool-0-server
+edgelb-pool-0-server                               10.0.6.172   root     R    edgelb-pool-0-server__97631d50-09af-4f44-ad13-44564e37a403                                       e8a41984-fa99-417b-8640-1453c240a2c8-S1   aws/us-west-2  aws/us-west-2a
+```
+
 ### Connect to Kubernetes Cluster #1:
 ```
 dcos kubernetes cluster kubeconfig --insecure-skip-tls-verify --apiserver-url=https://<EDGELB_PUBLIC_AGENT_IP>:6443 --cluster-name=kubernetes-cluster
@@ -363,6 +398,17 @@ Deploy the `kubernetes-cluster-proxy`:
 You can also deploy using the below:
 ```
 dcos marathon app add https://raw.githubusercontent.com/ably77/dcos-se/master/Kubernetes/mke/resources/kubernetes-cluster-proxy.json
+```
+
+Find the `marathon-lb` private IP address and cross check the Private IP with your Public IP agent list to get the correct `MARATHON_PUBLIC_AGENT_IP` used in the next steps:
+```
+dcos task | grep marathon-lb
+```
+
+Output should look like below:
+```
+$ dcos task | grep marathon-lb
+marathon-lb                                    10.0.6.8     root     S    marathon-lb.8d2afb0b-d8be-11e8-9f25-5a26e0c9f3ae                                                 e8a41984-fa99-417b-8640-1453c240a2c8-S7   aws/us-west-2  aws/us-west-2a
 ```
 
 Connect to the Kubernetes API for kubernetes-cluster:
