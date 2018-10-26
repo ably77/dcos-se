@@ -251,5 +251,15 @@ Switch contexts:
 kubectl config use-context <context_name>
 ```
 
+Rename your contexts:
+```
+kubectl config rename-context 342201611936443 kubernetes-cluster
+```
 
-
+Output should look similar to below:
+```
+$ kubectl config get-contexts
+CURRENT   NAME                  CLUSTER           AUTHINFO          NAMESPACE
+*         kubernetes-cluster    342201611936443   342201611936443
+          kubernetes-cluster2   342201611936444   342201611936444
+```
