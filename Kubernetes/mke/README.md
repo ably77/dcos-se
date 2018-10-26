@@ -18,6 +18,9 @@ dcos package install dcos-enterprise-cli --yes
 ```
 
 ### Determine Public Agent IP addresses:
+
+Save this service as `get-public-agent-ip.json`
+```
 {
   "id": "/get-public-agent-ip",
   "cmd": "PUBLIC_IP=`curl http://169.254.169.254/latest/meta-data/public-ipv4` && PRIVATE_IP=`hostname -i` && echo $PUBLIC_IP && echo $PRIVATE_IP && sleep 3600",
@@ -36,7 +39,12 @@ dcos package install dcos-enterprise-cli --yes
 }
 ```
 
-Get your Public IPs:
+Or alternatively you can run the below command:
+```
+dcos marathon app add https://raw.githubusercontent.com/ably77/dcos-se/master/Kubernetes/mke/resources/get-public-agent-ip.json
+```
+
+To get your Public IPs run the commands below:
 ```
 task_list=`dcos task get-public-agent-ip | grep get-public-agent-ip | awk '{print $5}'`
 for task_id in $task_list;
