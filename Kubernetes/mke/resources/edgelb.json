@@ -1,34 +1,60 @@
 {
-  "apiVersion": "V2",
-  "name": "edgelb-kubernetes-cluster-proxy",
-  "count": 1,
-  "autoCertificate": true,
-  "haproxy": {
-    "frontends": [{
-      "bindPort": 6443,
-      "protocol": "HTTPS",
-      "certificates": [
-        "$AUTOCERT"
-      ],
-      "linkBackend": {
-        "defaultBackend": "kubernetes-cluster"
-      }
-    }],
-    "backends": [{
-      "name": "kubernetes-cluster",
-      "protocol": "HTTPS",
-      "services": [{
-        "mesos": {
-          "frameworkName": "kubernetes-cluster",
-          "taskNamePattern": "kube-control-plane"
-        },
-        "endpoint": {
-          "portName": "apiserver"
+    "apiVersion": "V2",
+    "name": "edgelb-kubernetes-cluster-proxy",
+    "count": 1,
+    "autoCertificate": true,
+    "haproxy": {
+        "frontends": [{
+                "bindPort": 6443,
+                "protocol": "HTTPS",
+                "certificates": [
+                    "$AUTOCERT"
+                ],
+                "linkBackend": {
+                    "defaultBackend": "kubernetes-cluster"
+                }
+            },
+            {
+                "bindPort": 6444,
+                "protocol": "HTTPS",
+                "certificates": [
+                    "$AUTOCERT"
+                ],
+                "linkBackend": {
+                    "defaultBackend": "kubernetes-cluster2"
+                }
+            }
+        ],
+        "backends": [{
+                "name": "kubernetes-cluster",
+                "protocol": "HTTPS",
+                "services": [{
+                    "mesos": {
+                        "frameworkName": "kubernetes-cluster",
+                        "taskNamePattern": "kube-control-plane"
+                    },
+                    "endpoint": {
+                        "portName": "apiserver"
+                    }
+                }]
+            },
+            {
+                "name": "kubernetes-cluster2",
+                "protocol": "HTTPS",
+                "services": [{
+                    "mesos": {
+                        "frameworkName": "kubernetes-cluster2",
+                        "taskNamePattern": "kube-control-plane"
+                    },
+                    "endpoint": {
+                        "portName": "apiserver"
+
+                    }
+                }]
+            }
+        ],
+        "stats": {
+            "bindPort": 6090
         }
-      }]
-    }],
-    "stats": {
-      "bindPort": 6090
     }
-  }
 }
