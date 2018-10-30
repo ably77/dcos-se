@@ -339,7 +339,7 @@ edgelb-pool-0-server                               10.0.6.172   root     R    ed
 
 ### Connect to Kubernetes Cluster #1:
 ```
-dcos kubernetes cluster kubeconfig --insecure-skip-tls-verify --apiserver-url=https://<EDGELB_PUBLIC_AGENT_IP>:6443 --context-name=kubernetes-cluster --cluster-name=kubernetes-cluster
+dcos kubernetes cluster kubeconfig --insecure-skip-tls-verify --context-name=kubernetes-cluster --cluster-name=kubernetes-cluster --apiserver-url=https://<EDGELB_PUBLIC_AGENT_IP>:6443
 ```
 
 Test:
@@ -364,7 +364,7 @@ kubectl delete deployment nginx-deployment
 
 ### Connect to Kubernetes Cluster #2:
 ```
-dcos kubernetes cluster kubeconfig --insecure-skip-tls-verify --apiserver-url=https://<EDGELB_PUBLIC_AGENT_IP>:6444 --context-name=kubernetes-cluster2 --cluster-name=kubernetes-cluster2
+dcos kubernetes cluster kubeconfig --insecure-skip-tls-verify --context-name=kubernetes-cluster2 --cluster-name=kubernetes-cluster2 --apiserver-url=https://<EDGELB_PUBLIC_AGENT_IP>:6444
 ```
 
 Test:
@@ -441,7 +441,7 @@ marathon-lb                                    10.0.6.8     root     S    marath
 
 Connect to the Kubernetes API for kubernetes-cluster:
 ```
-dcos kubernetes cluster kubeconfig --insecure-skip-tls-verify --apiserver-url=https://<MARATHON_PUBLIC_AGENT_IP>:6443 --context-name=kubernetes-cluster --cluster-name=kubernetes-cluster
+dcos kubernetes cluster kubeconfig --insecure-skip-tls-verify --context-name=kubernetes-cluster --cluster-name=kubernetes-cluster --apiserver-url=https://<MARATHON_PUBLIC_AGENT_IP>:6443
 ```
 
 Test:
@@ -499,7 +499,7 @@ dcos marathon app add https://raw.githubusercontent.com/ably77/dcos-se/master/Ku
 
 Connect to the Kubernetes API for kubernetes-cluster2:
 ```
-dcos kubernetes cluster kubeconfig --insecure-skip-tls-verify --apiserver-url=https://<MARATHON_PUBLIC_AGENT_IP>:6444 --context-name=kubernetes-cluster2 --cluster-name=kubernetes-cluster2
+dcos kubernetes cluster kubeconfig --insecure-skip-tls-verify --context-name=kubernetes-cluster2 --cluster-name=kubernetes-cluster2 --apiserver-url=https://<MARATHON_PUBLIC_AGENT_IP>:6444
 ```
 
 Test:
