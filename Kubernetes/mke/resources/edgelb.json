@@ -5,26 +5,19 @@
     "autoCertificate": true,
     "haproxy": {
         "frontends": [{
-                "bindPort": 6443,
-                "protocol": "HTTPS",
-                "certificates": [
-                    "$AUTOCERT"
-                ],
-                "linkBackend": {
-                    "defaultBackend": "kubernetes-cluster"
-                }
-            },
-            {
-                "bindPort": 6444,
-                "protocol": "HTTPS",
-                "certificates": [
-                    "$AUTOCERT"
-                ],
-                "linkBackend": {
-                    "defaultBackend": "kubernetes-cluster2"
-                }
+            "bindPort": 6443,
+            "protocol": "HTTPS",
+            "certificates": [
+                "$AUTOCERT"
+            ],
+            "linkBackend": {
+                "defaultBackend": "kubernetes-cluster",
+                "map": [{
+                    "pathBeg": "/kube2",
+                    "backend": "kubernetes-cluster2"
+                }]
             }
-        ],
+        }],
         "backends": [{
                 "name": "kubernetes-cluster",
                 "protocol": "HTTPS",
@@ -41,6 +34,12 @@
             {
                 "name": "kubernetes-cluster2",
                 "protocol": "HTTPS",
+                "rewriteHttp": {
+                    "path": {
+                        "fromPath": "/kube2",
+                        "toPath": "/"
+                    }
+                },
                 "services": [{
                     "mesos": {
                         "frameworkName": "kubernetes-cluster2",
@@ -58,3 +57,4 @@
         }
     }
 }
+
