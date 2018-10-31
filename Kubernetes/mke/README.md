@@ -344,7 +344,7 @@ edgelb-pool-0-server                               10.0.6.172   root     R    ed
 dcos kubernetes cluster kubeconfig --insecure-skip-tls-verify --context-name=kubernetes-cluster --cluster-name=kubernetes-cluster --apiserver-url=https://<EDGELB_PUBLIC_AGENT_IP>:6443
 ```
 
-Test:
+### Quick Test for Kubernetes Cluster #1
 ```
 kubectl get nodes
 ```
@@ -354,9 +354,16 @@ Create a NGINX deployment:
 kubectl apply -f https://k8s.io/examples/application/deployment.yaml
 ```
 
-Describe NGINX deployment:
+View NGINX deployment:
 ```
-kubectl describe deployment nginx-deployment
+kubectl get deployments
+```
+
+Output should look similar to below:
+```
+$ kubectl get deployments
+NAME               DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+nginx-deployment   2         2         2            2           23s
 ```
 
 Delete NGINX deployment:
@@ -369,9 +376,17 @@ kubectl delete deployment nginx-deployment
 dcos kubernetes cluster kubeconfig --insecure-skip-tls-verify --context-name=kubernetes-cluster2 --cluster-name=kubernetes-cluster2 --apiserver-url=https://<EDGELB_PUBLIC_AGENT_IP>:6443/kube2
 ```
 
-Test:
+### Quick Test for Kubernetes Cluster #2:
 ```
 kubectl get nodes
+```
+
+Note that the output should show that you are now using `kubernetes-cluster2`:
+```
+$ kubectl get nodes
+NAME                                                      STATUS   ROLES    AGE    VERSION
+kube-control-plane-0-instance.kubernetes-cluster2.mesos   Ready    master   145m   v1.12.1
+kube-node-0-kubelet.kubernetes-cluster2.mesos             Ready    <none>   142m   v1.12.1
 ```
 
 Create a NGINX deployment:
@@ -379,9 +394,16 @@ Create a NGINX deployment:
 kubectl apply -f https://k8s.io/examples/application/deployment.yaml
 ```
 
-Describe NGINX deployment:
+View NGINX deployment:
 ```
-kubectl describe deployment nginx-deployment
+kubectl get deployments
+```
+
+Output should look similar to below:
+```
+$ kubectl get deployments
+NAME               DESIRED   CURRENT   UP-TO-DATE   AVAILABLE   AGE
+nginx-deployment   2         2         2            2           23s
 ```
 
 Delete NGINX deployment:
