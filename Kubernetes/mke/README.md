@@ -22,7 +22,7 @@ dcos config show core.dcos_url
 
 In case the returned URL doesn't start with `https://` run: 
 ```
-dcos cluster setup https://<master_public_IP_or_ELB_address>
+dcos config set core.dcos_url https://<master_public_IP_or_ELB_address>
 ```
 
 Additionally, if the TLS certificate used by DC/OS is not trusted, you can run the following command to disable TLS verification:
@@ -593,3 +593,102 @@ Rename your contexts:
 ```
 kubectl config rename-context <CURRENT_CONTEXT_NAME> <NEW_CONTEXT_NAME>
 ```
+
+## Troubleshooting
+
+#### Issue: The custom manager: kubernetes, is not installed for this package
+
+Input:
+```
+dcos kubernetes cluster create --yes
+```
+
+Output:
+```
+dcos kubernetes: error: the custom manager: '/kubernetes', is not installed for this package'
+```
+
+Resolution:
+The MKE package requires the Kubernetes Controller Manager component to be deployed before any Kubernetes clusters can be created
+
+Install the kubernetes package manager and try again:
+```
+dcos package install kubernetes --yes
+```
+
+#### Issue: When connecting kubectl client to the `kube-apiserver` I get the following error:
+
+Input:
+```
+dcos kubernetes cluster kubeconfig \
+    --insecure-skip-tls-verify \
+    --context-name=kubernetes-cluster1 \
+    --cluster-name=kubernetes-cluster1 \
+    --apiserver-url=https://${MARATHON_PUB_IP}:6443
+```
+
+Output:
+```
+Using Kubernetes cluster: kubernetes-cluster1
+2018/10/30 23:19:47 failed to update kubeconfig context 'kubernetes-cluster1': HTTP GET Query for http://gregpalme-elasticl-6dgiof9yfl5k-1319560420.us-west-2.elb.amazonaws.com/service/kubernetes-cluster1/v1/auth/data failed: 403 Forbidden
+Response: the service account secret cannot be served over an insecure connection
+Response data (71 bytes): the service account secret cannot be served over an insecure connection
+HTTP query failed
+```
+
+Resolution:
+The Mesosphere Kubernetes Engine (MKE) requires access over `HTTPS` in order to connect to the `kubernetes-apiserver` using `kubectl`.
+
+To ensure that you are authenticated to the DC/OS CLI using `HTTPS:` run:
+```
+dcos config show core.dcos_url
+```
+
+In case the returned URL doesn't start with `https://` run:
+```
+dcos config set core.dcos_url https://<master_public_IP_or_ELB_address>
+```
+
+Additionally, if the TLS certificate used by DC/OS is not trusted, you can run the following command to disable TLS verification:
+```
+dcos config set core.ssl_verify false
+```
+
+#### Issue: When connecting kubectl client to the `kube-apiserver` I get the following error when running kubectl commands:
+
+Input:
+```
+kubectl get nodes
+```
+
+Output:
+```
+error: You must be logged in to the server (Unauthorized)
+```
+
+Resolution:
+Make sure that you are authenticated to the correct port. If using the example above, kubernetes-cluster maps to `<PUBLIC_AGENT_IP>:6443` and kubernetes-cluster2 maps to `<PUBLIC_AGENT_IP>:6444`
+
+Example:
+```
+$ dcos kubernetes cluster kubeconfig --insecure-skip-tls-verify --context-name=kubernetes-cluster2 --cluster-name=kubernetes-cluster2 --apiserver-url=https://52.11.246.189:6443
+Using Kubernetes cluster: kubernetes-cluster2
+kubeconfig context 'kubernetes-cluster2' updated successfully
+
+$ kubectl get nodes
+error: the server doesn't have a resource type "nodes"
+
+<...>
+<remove the config entry>
+
+$ dcos kubernetes cluster kubeconfig --insecure-skip-tls-verify --context-name=kubernetes-cluster2 --cluster-name=kubernetes-cluster2 --apiserver-url=https://52.11.246.189:6444
+Using Kubernetes cluster: kubernetes-cluster2
+kubeconfig context 'kubernetes-cluster2' updated successfully
+
+$ kubectl get nodes
+NAME                                                      STATUS   ROLES    AGE    VERSION
+kube-control-plane-0-instance.kubernetes-cluster2.mesos   Ready    master   140m   v1.12.1
+kube-node-0-kubelet.kubernetes-cluster2.mesos             Ready    <none>   138m   v1.12.1
+```
+
+
