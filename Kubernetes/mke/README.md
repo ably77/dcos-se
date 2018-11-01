@@ -7,14 +7,22 @@ Below are instructions on how to get a multiple MKE cluster up and running
 - 1 Master
 - 5 Agents
 
-If not already done, authenticate to the DC/OS CLI using `https` instead of `http`
-```
-dcos cluster setup https://<MASTER_IP_OR_ELB_ADDRESS>
-```
-
 Install the Enterprise DC/OS CLI:
 ```
 dcos package install dcos-enterprise-cli --yes
+```
+
+### Kubernetes HTTPS Requirement:
+The Mesosphere Kubernetes Engine (MKE) requires access over `HTTPS` in order to connect to the `kubernetes-apiserver` using `kubectl`.
+
+To ensure that you are authenticated to the DC/OS CLI using `HTTPS:` run:
+```
+dcos config show core.dcos_url
+```
+
+In case the returned URL doesn't start with `https://` run: 
+```
+dcos cluster setup https://<master_public_IP_or_ELB_address>
 ```
 
 ### Determine Public Agent IP addresses:
