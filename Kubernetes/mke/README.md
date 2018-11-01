@@ -626,6 +626,8 @@ Follow the format at the [Creating Kubernetes Cluster #1](https://github.com/abl
 Modify the `kubernetes-cluster` name to match the name of your designated kubernetes-cluster (i.e. `kubernetes-dev`,`kubernetes-prod`, etc.) in the Service Accounts and Permissions
 
 Modify the `options.json` file to match the name of your designated kubernetes-cluster (i.e. `kubernetes-dev`,`kubernetes-prod`, etc.):
+
+Example:
 ```
 {
   "service": {
