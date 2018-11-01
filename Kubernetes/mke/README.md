@@ -616,6 +616,26 @@ Install the kubernetes package manager and try again:
 dcos package install kubernetes --yes
 ```
 
+#### Issue: When creating a cluster, the kubernetes-cluster scheduler flaps:
+
+Resolution:
+Make sure that the Service Accounts and Permissions are assigned correctly. Following our example, for each Kubernetes cluster a seperate Service Account and permissions need to be created along with the proper cluster `options.json` in order for the cluster to be provisioned
+
+Follow the format at the [Creating Kubernetes Cluster #1](https://github.com/ably77/dcos-se/tree/master/Kubernetes/mke#creating-kubernetes-cluster-1) section above
+
+Modify the `kubernetes-cluster` name to match the name of your designated kubernetes-cluster (i.e. `kubernetes-dev`,`kubernetes-prod`, etc.) in the Service Accounts and Permissions
+
+Modify the `options.json` file to match the name of your designated kubernetes-cluster (i.e. `kubernetes-dev`,`kubernetes-prod`, etc.):
+```
+{
+  "service": {
+    "name": "kubernetes-prod",
+    "service_account": "kubernetes-prod",
+    "service_account_secret": "kubernetes-prod/sa"
+  }
+}
+```
+
 #### Issue: When connecting kubectl client to the `kube-apiserver` I get the following error:
 
 Input:
