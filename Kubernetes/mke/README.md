@@ -25,6 +25,11 @@ In case the returned URL doesn't start with `https://` run:
 dcos cluster setup https://<master_public_IP_or_ELB_address>
 ```
 
+Additionally, if the TLS certificate used by DC/OS is not trusted, you can run the following command to disable TLS verification:
+```
+dcos config set core.ssl_verify false
+```
+
 ### Determine Public Agent IP addresses:
 
 Save this service as `get-public-agent-ip.json`
