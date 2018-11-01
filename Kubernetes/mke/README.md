@@ -321,9 +321,6 @@ Save Kubernetes Edge-LB Service Config as `edgelb.json`:
 }
 ```
 
-### More Details on the above Edge-LB Configuration
-The above Edge-LB configuration allows for connection to multiple Kubernetes clusters (currently `kubernetes-cluster` and `kubernetes-cluster2` for our demo) and can be extensible to many more. The example uses `PATH` based routing so that we can maintain port `:6443` as a static endpoint, but can add more paths as we spin up more MKE clusters (i.e. `/kube1`, `/kube2`, etc.)
-
 To Deploy:
 ```
 dcos edgelb create edgelb.json
