@@ -261,24 +261,31 @@ Save Kubernetes Edge-LB Service Config as `edgelb.json`:
 ```
 {
     "apiVersion": "V2",
-    "name": "edgelb-kubernetes-cluster-proxy",
+    "name": "edgelb-kubernetes-cluster-proxy-basic",
     "count": 1,
     "autoCertificate": true,
     "haproxy": {
         "frontends": [{
-            "bindPort": 6443,
-            "protocol": "HTTPS",
-            "certificates": [
-                "$AUTOCERT"
-            ],
-            "linkBackend": {
-                "defaultBackend": "kubernetes-cluster",
-                "map": [{
-                    "pathBeg": "/kube2",
-                    "backend": "kubernetes-cluster2"
-                }]
+                "bindPort": 6443,
+                "protocol": "HTTPS",
+                "certificates": [
+                    "$AUTOCERT"
+                ],
+                "linkBackend": {
+                    "defaultBackend": "kubernetes-cluster"
+                }
+            },
+            {
+                "bindPort": 6444,
+                "protocol": "HTTPS",
+                "certificates": [
+                    "$AUTOCERT"
+                ],
+                "linkBackend": {
+                    "defaultBackend": "kubernetes-cluster2"
+                }
             }
-        }],
+        ],
         "backends": [{
                 "name": "kubernetes-cluster",
                 "protocol": "HTTPS",
@@ -295,12 +302,6 @@ Save Kubernetes Edge-LB Service Config as `edgelb.json`:
             {
                 "name": "kubernetes-cluster2",
                 "protocol": "HTTPS",
-                "rewriteHttp": {
-                    "path": {
-                        "fromPath": "/kube2",
-                        "toPath": "/"
-                    }
-                },
                 "services": [{
                     "mesos": {
                         "frameworkName": "kubernetes-cluster2",
@@ -373,7 +374,7 @@ kubectl delete deployment nginx-deployment
 
 ### Connect to Kubernetes Cluster #2:
 ```
-dcos kubernetes cluster kubeconfig --insecure-skip-tls-verify --context-name=kubernetes-cluster2 --cluster-name=kubernetes-cluster2 --apiserver-url=https://<EDGELB_PUBLIC_AGENT_IP>:6443/kube2
+dcos kubernetes cluster kubeconfig --insecure-skip-tls-verify --context-name=kubernetes-cluster2 --cluster-name=kubernetes-cluster2 --apiserver-url=https://<EDGELB_PUBLIC_AGENT_IP>:6444
 ```
 
 ### Quick Test for Kubernetes Cluster #2:
