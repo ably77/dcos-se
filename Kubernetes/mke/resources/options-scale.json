@@ -1,0 +1,35 @@
+{
+    "service": {
+        "name": "kubernetes-cluster",
+        "service_account": "kubernetes-cluster",
+        "service_account_secret": "kubernetes-cluster/sa"
+    },
+    "kubernetes": {
+        "authorization_mode": "AlwaysAllow",
+        "control_plane_placement": "[[\"hostname\", \"UNIQUE\"]]",
+        "control_plane_reserved_resources": {
+            "cpus": 1.5,
+            "disk": 10240,
+            "mem": 4096
+        },
+        "high_availability": false,
+        "private_node_count": 2,
+        "private_node_placement": "",
+        "private_reserved_resources": {
+            "kube_cpus": 2,
+            "kube_disk": 10240,
+            "kube_mem": 2048,
+            "system_cpus": 1,
+            "system_mem": 1024
+        }
+    },
+    "public_node_count": 1,
+    "public_node_placement": "",
+    "public_reserved_resources": {
+        "kube_cpus": 0.5,
+        "kube_disk": 2048,
+        "kube_mem": 512,
+        "system_cpus": 1,
+        "system_mem": 1024
+    }
+}

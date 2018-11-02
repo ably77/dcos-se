@@ -594,6 +594,134 @@ Rename your contexts:
 kubectl config rename-context <CURRENT_CONTEXT_NAME> <NEW_CONTEXT_NAME>
 ```
 
+## Scaling your Kubernetes Cluster
+
+### Using the UI
+From the UI, go to Services > kubernetes-cluster and select edit
+![](https://github.com/ably77/dcos-se/blob/master/Kubernetes/mke/resources/images/scaling1.png)
+
+Under "kubernetes" in left hand menu, make your cluster adjustments
+
+For this exercise, change the number of `private_node_count` to 2 and `public_node_count` to 1:
+
+![](https://github.com/ably77/dcos-se/blob/master/Kubernetes/mke/resources/images/scaling2.png)
+
+![](https://github.com/ably77/dcos-se/blob/master/Kubernetes/mke/resources/images/scaling3.png)
+
+Click Review and Run > Run Service to complete scaling your Kubernetes cluster. Check the UI afterwards to see that the cluster scaled:
+![](https://github.com/ably77/dcos-se/blob/master/Kubernetes/mke/resources/images/scaling4.png)
+
+## Using the CLI:
+Modify your designated `options.json` to make your cluster adjustments and save as `options-scale.json`
+
+For this exercise, change the number of `private_node_count` to 2 and `public_node_count` to 1.
+```
+{
+    "service": {
+        "name": "kubernetes-cluster",
+        "service_account": "kubernetes-cluster",
+        "service_account_secret": "kubernetes-cluster/sa"
+    },
+    "kubernetes": {
+        "authorization_mode": "AlwaysAllow",
+        "control_plane_placement": "[[\"hostname\", \"UNIQUE\"]]",
+        "control_plane_reserved_resources": {
+            "cpus": 1.5,
+            "disk": 10240,
+            "mem": 4096
+        },
+        "high_availability": false,
+        "private_node_count": 2,
+        "private_node_placement": "",
+        "private_reserved_resources": {
+            "kube_cpus": 2,
+            "kube_disk": 10240,
+            "kube_mem": 2048,
+            "system_cpus": 1,
+            "system_mem": 1024
+        }
+    },
+    "public_node_count": 1,
+    "public_node_placement": "",
+    "public_reserved_resources": {
+        "kube_cpus": 0.5,
+        "kube_disk": 2048,
+        "kube_mem": 512,
+        "system_cpus": 1,
+        "system_mem": 1024
+    }
+}
+```
+
+Scale your Cluster:
+```
+dcos kubernetes cluster update --cluster-name=kubernetes-cluster --options=options-scale.json
+```
+
+The output should look similar to below:
+```
+$ dcos kubernetes cluster update --cluster-name=kubernetes-cluster --options=options-scale.json
+Using Kubernetes cluster: kubernetes-cluster
+The following differences were detected between service configurations (CHANGED, CURRENT):
+ {
+   "kubernetes": {
+     "authorization_mode": "AlwaysAllow",
+     "control_plane_placement": "[["hostname", "UNIQUE"]]",
+     "control_plane_reserved_resources": {
+       "cpus": 1.5,
+       "disk": 10240,
+       "mem": 4096
+     },
+     "high_availability": false,
+-    "private_node_count": 1,
++    "private_node_count": 2,
+     "private_node_placement": "",
+     "private_reserved_resources": {
+       "kube_cpus": 2,
+       "kube_disk": 10240,
+       "kube_mem": 2048,
+       "system_cpus": 1,
+       "system_mem": 1024
+     }
+   },
++  "public_node_count": 1,
++  "public_node_placement": "",
++  "public_reserved_resources": {
++    "kube_cpus": 0.5,
++    "kube_disk": 2048,
++    "kube_mem": 512,
++    "system_cpus": 1,
++    "system_mem": 1024
++  },
+   "service": {
+     "name": "kubernetes-cluster",
+     "service_account": "kubernetes-cluster",
+     "service_account_secret": "kubernetes-cluster/sa"
+   },
++  "public_node_count": 1,
++  "public_node_placement": "",
++  "public_reserved_resources": {
++    "kube_cpus": 0.5,
++    "kube_disk": 2048,
++    "kube_mem": 512,
++    "system_cpus": 1,
++    "system_mem": 1024
++  }
+ }
+
+The components of the cluster will be updated according to the changes in the
+options file [options-scale.json].
+
+Updating these components means the Kubernetes cluster may experience some
+downtime or, in the worst-case scenario, cease to function properly.
+Before updating proceed cautiously and always backup your data.
+This operation is long-running and has to run to completion.
+Continue cluster update? [yes/no]: yes
+2018/11/01 17:03:53 starting update process...
+2018/11/01 17:03:54 waiting for update to finish...
+2018/11/01 17:05:25 update complete!
+```
+
 ## Troubleshooting
 
 #### Issue: The custom manager: kubernetes, is not installed for this package
