@@ -637,7 +637,7 @@ Navigate to the DC/OS UI > Services > Kubernetes tab and open next to the termin
 
 ![](https://github.com/ably77/dcos-se/blob/master/Kubernetes/mke/resources/images/etcd1.png)
 
-Run the command below to kill the `etcd-0` component::
+Run the command below to kill the `etcd-0` component of `kubernetes-cluster`:
 ```
 dcos task exec -it kubernetes-cluster__etcd-0 bash -c 'kill -9 $(pidof etcd)'
 ```
