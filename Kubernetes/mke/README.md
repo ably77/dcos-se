@@ -918,4 +918,6 @@ kube-node-0-kubelet.kubernetes-cluster2.mesos             Ready    <none>   138m
 
 ### Additional Troubleshooting Tips
 See the Official Kubernetes Service Docs > Troubleshooting page for more examples on how to troubleshoot the Kubernetes deployment
+
 [Kubernetes Service Docs - Troubleshooting](https://docs.mesosphere.com/services/kubernetes/2.0.0-1.12.1/operations/troubleshooting/)
+
