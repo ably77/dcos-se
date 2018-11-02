@@ -7,6 +7,7 @@ Below are instructions on how to deploy and operate multi-kubernetes clusters us
 	- [Kubernetes HTTPS Requirement](https://github.com/ably77/dcos-se/tree/master/Kubernetes/mke#kubernetes-https-requirement)
 	- [Determine Public Agent IP Addresses](https://github.com/ably77/dcos-se/tree/master/Kubernetes/mke#determine-public-agent-ip-addresses)
 - [Install the Kubernetes Control Plane Manager](https://github.com/ably77/dcos-se/tree/master/Kubernetes/mke#install-the-kubernetes-control-plane-manager)
+	- [Install the latest DC/OS Kubernetes CLI](https://github.com/ably77/dcos-se/tree/master/Kubernetes/mke#install-the-latest-dcos-kubernetes-cli)
 	- [Creating Kubernetes Cluster #1](https://github.com/ably77/dcos-se/tree/master/Kubernetes/mke#creating-kubernetes-cluster-1)
 	- [Creating Kubernetes Cluster #2](https://github.com/ably77/dcos-se/tree/master/Kubernetes/mke#installing-kubernetes-cluster-2)
 - [Connecting to the Kubernetes API](https://github.com/ably77/dcos-se/tree/master/Kubernetes/mke#connecting-to-the-kubernetes-api)
@@ -130,6 +131,10 @@ dcos package install kubernetes --yes
 ```
 dcos package install kubernetes --cli --yes
 ```
+
+The DC/OS Kubernetes CLI is provided as a way to interact with the cluster manager and allow complete control over the life-cycle of Kubernetes clusters running on DC/OS.
+
+For more information on the CLI management commands for DC/OS Kubernetes see [here](https://docs.mesosphere.com/services/kubernetes/2.0.0-1.12.1/cli/)
 
 ### Creating Kubernetes Cluster #1
 
