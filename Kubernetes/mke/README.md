@@ -1,6 +1,6 @@
 # Mesosphere Kubernetes Engine Guide
 
-Below are instructions on how to get a multiple MKE cluster up and running
+Below are instructions on how to deploy and operate multi-kubernetes clusters using DC/OS and MKE
 
 ## Table of Contents
 - [Prerequisites](https://github.com/ably77/dcos-se/tree/master/Kubernetes/mke#prerequisites)
