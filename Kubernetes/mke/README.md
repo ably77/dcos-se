@@ -341,7 +341,9 @@ To Deploy:
 dcos edgelb create edgelb.json
 ```
 
-Find the `edgelb-pool-0-server` private IP address and cross check the Private IP with your Public IP agent list to get the correct `EDGELB_PUBLIC_AGENT_IP` used in the next steps:
+### Find the edgelb-pool Public Agent IP
+
+List your edgelb tasks:
 ```
 dcos task | grep edgelb-pool-0-server
 ```
@@ -352,7 +354,7 @@ $ dcos task | grep edgelb-pool-0-server
 edgelb-pool-0-server                               10.0.6.172   root     R    edgelb-pool-0-server__97631d50-09af-4f44-ad13-44564e37a403                                       e8a41984-fa99-417b-8640-1453c240a2c8-S1   aws/us-west-2  aws/us-west-2a
 ```
 
-Find the public IP:
+To find the public IP:
 ```
 dcos task exec -it edgelb-pool-0-server curl ifconfig.co
 ```
