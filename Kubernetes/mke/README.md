@@ -1,4 +1,4 @@
-# Mesosphere Kubernetes Engine Quickstart
+# Mesosphere Kubernetes Engine Guide
 
 Below are instructions on how to get a multiple MKE cluster up and running
 
