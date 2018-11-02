@@ -17,6 +17,7 @@ Below are instructions on how to get a multiple MKE cluster up and running
 - [Scaling Your Kubernetes Cluster](https://github.com/ably77/dcos-se/tree/master/Kubernetes/mke#scaling-your-kubernetes-cluster)
 	- [Using the UI](https://github.com/ably77/dcos-se/tree/master/Kubernetes/mke#using-the-ui)
 	- [Using the CLI](https://github.com/ably77/dcos-se/tree/master/Kubernetes/mke#using-the-cli)
+- [Automated Self Healing](https://github.com/ably77/dcos-se/tree/master/Kubernetes/mke#automated-self-healing)
 - [Troubleshooting](https://github.com/ably77/dcos-se/tree/master/Kubernetes/mke#troubleshooting)
 
 ## Prerequisites
@@ -764,7 +765,6 @@ dcos task exec -i kubernetes-cluster__etcd-0 bash -c 'pidof etcd'
 Output should resemble below:
 ```
 $ dcos task exec -i kubernetes-cluster__etcd-0 bash -c 'pidof etcd'
-Overwriting environment variable 'PATH'
 26
 ```
 
