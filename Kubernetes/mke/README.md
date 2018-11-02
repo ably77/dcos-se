@@ -639,16 +639,16 @@ For this exercise, change the number of `private_node_count` to 2 and `public_no
             "kube_mem": 2048,
             "system_cpus": 1,
             "system_mem": 1024
+        },
+        "public_node_count": 1,
+        "public_node_placement": "",
+        "public_reserved_resources": {
+            "kube_cpus": 0.5,
+            "kube_disk": 2048,
+            "kube_mem": 512,
+            "system_cpus": 1,
+            "system_mem": 1024
         }
-    },
-    "public_node_count": 1,
-    "public_node_placement": "",
-    "public_reserved_resources": {
-        "kube_cpus": 0.5,
-        "kube_disk": 2048,
-        "kube_mem": 512,
-        "system_cpus": 1,
-        "system_mem": 1024
     }
 }
 ```
