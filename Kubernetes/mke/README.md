@@ -19,8 +19,11 @@ Below are instructions on how to deploy and operate multi-kubernetes clusters us
 	- [Using the UI](https://github.com/ably77/dcos-se/tree/master/Kubernetes/mke#using-the-ui)
 	- [Using the CLI](https://github.com/ably77/dcos-se/tree/master/Kubernetes/mke#using-the-cli)
 - [Automated Self Healing](https://github.com/ably77/dcos-se/tree/master/Kubernetes/mke#automated-self-healing)
-- [Troubleshooting](https://github.com/ably77/dcos-se/tree/master/Kubernetes/mke#troubleshooting)
-- [Additional Kubernetes Exercises](https://github.com/ably77/dcos-se/tree/master/Kubernetes/mke#additional-kubernetes-exercises)
+- [Troubleshooting the Kubernetes Deployment](https://github.com/ably77/dcos-se/tree/master/Kubernetes/mke#troubleshooting)
+
+## Additional Tutorials
+- [Additional Kubernetes Exercises - Based on the CNCF Curriculum](https://github.com/ably77/dcos-se/tree/master/Kubernetes/mke#additional-kubernetes-exercises)
+- [Tutorial: Example of Setting up Kubernetes External Ingress using Traefik](https://github.com/ably77/kubernetes-labs/blob/master/Lab%207%20-%20Add%20External%20Ingress.md)
 
 ## Prerequisites
 - DC/OS 1.12
