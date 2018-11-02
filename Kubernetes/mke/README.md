@@ -362,6 +362,9 @@ Save the IP as a variable:
 EDGELB_PUBLIC_AGENT_IP=<output_of_above>
 ```
 
+### Finding Public IP if the above doesnt work
+If the above commands do not work (maybe due to security reasons, etc.) we can determine the Public Agent IPs that we need by [following the Find Public Agent IP Guide Here](https://github.com/ably77/dcos-se/tree/master/Kubernetes/mke/public_ip)
+
 ### Connect to Kubernetes Cluster #1 at port `:6443`
 ```
 dcos kubernetes cluster kubeconfig \
@@ -441,6 +444,9 @@ Delete NGINX deployment:
 ```
 kubectl delete deployment nginx-deployment
 ```
+
+## Option #2 - Using Marathon-LB
+If trying to connect to the Kubernetes API through Marathon-LB instead of Edge-LB, [Click here for the guide on how to use Marathon-LB](https://github.com/ably77/dcos-se/tree/master/Kubernetes/mke/marathon_lb)
 
 ## Accessing the Dashboard
 
