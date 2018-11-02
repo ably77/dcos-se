@@ -5,7 +5,7 @@ Below are instructions on how to deploy and operate multi-kubernetes clusters us
 ## Table of Contents
 - [Prerequisites](https://github.com/ably77/dcos-se/tree/master/Kubernetes/mke#prerequisites)
 	- [Kubernetes HTTPS Requirement](https://github.com/ably77/dcos-se/tree/master/Kubernetes/mke#kubernetes-https-requirement)
-	- [Determine Public Agent IP Addresses](https://github.com/ably77/dcos-se/tree/master/Kubernetes/mke#determine-public-agent-ip-addresses)
+	- [Determine Public Agent IP Addresses](https://github.com/ably77/dcos-se/tree/master/Kubernetes/mke/public_ip)
 - [Install the Kubernetes Control Plane Manager](https://github.com/ably77/dcos-se/tree/master/Kubernetes/mke#install-the-kubernetes-control-plane-manager)
 	- [Install the latest DC/OS Kubernetes CLI](https://github.com/ably77/dcos-se/tree/master/Kubernetes/mke#install-the-latest-dcos-kubernetes-cli)
 	- [Creating Kubernetes Cluster #1](https://github.com/ably77/dcos-se/tree/master/Kubernetes/mke#creating-kubernetes-cluster-1)
