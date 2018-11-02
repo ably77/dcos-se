@@ -424,9 +424,13 @@ $ dcos task | grep edgelb-pool-0-server
 edgelb-pool-0-server                               10.0.6.172   root     R    edgelb-pool-0-server__97631d50-09af-4f44-ad13-44564e37a403                                       e8a41984-fa99-417b-8640-1453c240a2c8-S1   aws/us-west-2  aws/us-west-2a
 ```
 
-### Connect to Kubernetes Cluster #1:
+### Connect to Kubernetes Cluster #1 at port `:6443`
 ```
-dcos kubernetes cluster kubeconfig --insecure-skip-tls-verify --context-name=kubernetes-cluster --cluster-name=kubernetes-cluster --apiserver-url=https://<EDGELB_PUBLIC_AGENT_IP>:6443
+dcos kubernetes cluster kubeconfig \
+    --insecure-skip-tls-verify \
+    --context-name=kubernetes-cluster \
+    --cluster-name=kubernetes-cluster \
+    --apiserver-url=https://${EDGELB_PUBLIC_AGENT_IP}:6443
 ```
 
 ### Quick Test for Kubernetes Cluster #1
@@ -456,9 +460,13 @@ Delete NGINX deployment:
 kubectl delete deployment nginx-deployment
 ```
 
-### Connect to Kubernetes Cluster #2:
+### Connect to Kubernetes Cluster #2 at port `:6444`:
 ```
-dcos kubernetes cluster kubeconfig --insecure-skip-tls-verify --context-name=kubernetes-cluster2 --cluster-name=kubernetes-cluster2 --apiserver-url=https://<EDGELB_PUBLIC_AGENT_IP>:6444
+dcos kubernetes cluster kubeconfig \
+    --insecure-skip-tls-verify \
+    --context-name=kubernetes-cluster2 \
+    --cluster-name=kubernetes-cluster2 \
+    --apiserver-url=https://${EDGELB_PUBLIC_AGENT_IP}:6444
 ```
 
 ### Quick Test for Kubernetes Cluster #2:

@@ -52,9 +52,13 @@ $ dcos task | grep marathon-lb
 marathon-lb                                    10.0.6.8     root     S    marathon-lb.8d2afb0b-d8be-11e8-9f25-5a26e0c9f3ae                                                 e8a41984-fa99-417b-8640-1453c240a2c8-S7   aws/us-west-2  aws/us-west-2a
 ```
 
-Connect to the Kubernetes API for kubernetes-cluster:
+Connect to the Kubernetes API for kubernetes-cluster at port `:6443`:
 ```
-dcos kubernetes cluster kubeconfig --insecure-skip-tls-verify --context-name=kubernetes-cluster --cluster-name=kubernetes-cluster --apiserver-url=https://<MARATHON_PUBLIC_AGENT_IP>:6443
+dcos kubernetes cluster kubeconfig \
+    --insecure-skip-tls-verify \
+    --context-name=kubernetes-cluster \
+    --cluster-name=kubernetes-cluster \
+    --apiserver-url=https://${MARATHON_PUBLIC_AGENT_IP}:6443
 ```
 
 Test:
@@ -110,9 +114,13 @@ You can also deploy using the below:
 dcos marathon app add https://raw.githubusercontent.com/ably77/dcos-se/master/Kubernetes/mke/resources/kubernetes-cluster2-proxy.json
 ```
 
-Connect to the Kubernetes API for kubernetes-cluster2:
+Connect to the Kubernetes API for kubernetes-cluster2 at port `:6444`
 ```
-dcos kubernetes cluster kubeconfig --insecure-skip-tls-verify --context-name=kubernetes-cluster2 --cluster-name=kubernetes-cluster2 --apiserver-url=https://<MARATHON_PUBLIC_AGENT_IP>:6444
+dcos kubernetes cluster kubeconfig \
+    --insecure-skip-tls-verify \
+    --context-name=kubernetes-cluster2 \
+    --cluster-name=kubernetes-cluster2 \
+    --apiserver-url=https://${MARATHON_PUBLIC_AGENT_IP}:6444
 ```
 
 Test:
