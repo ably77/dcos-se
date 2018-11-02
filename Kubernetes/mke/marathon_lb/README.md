@@ -1,6 +1,6 @@
 # Instructions on Connecting to the Kubernetes API using Marathon-LB
 
-Option #2 - Using Marathon-LB
+## Option #2 - Using Marathon-LB
 
 Install Marathon-LB:
 ```
