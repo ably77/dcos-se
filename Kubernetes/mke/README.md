@@ -2,6 +2,23 @@
 
 Below are instructions on how to get a multiple MKE cluster up and running
 
+## Table of Contents
+- [Prerequisites](https://github.com/ably77/dcos-se/tree/master/Kubernetes/mke#prerequisites)
+	- [Kubernetes HTTPS Requirement](https://github.com/ably77/dcos-se/tree/master/Kubernetes/mke#kubernetes-https-requirement)
+	- [Determine Public Agent IP Addresses](https://github.com/ably77/dcos-se/tree/master/Kubernetes/mke#determine-public-agent-ip-addresses)
+- [Install the Kubernetes Control Plane Manager](https://github.com/ably77/dcos-se/tree/master/Kubernetes/mke#install-the-kubernetes-control-plane-manager)
+	- [Creating Kubernetes Cluster #1](https://github.com/ably77/dcos-se/tree/master/Kubernetes/mke#creating-kubernetes-cluster-1)
+	- [Creating Kubernetes Cluster #2](https://github.com/ably77/dcos-se/tree/master/Kubernetes/mke#installing-kubernetes-cluster-2)
+- [Connecting to the Kubernetes API](https://github.com/ably77/dcos-se/tree/master/Kubernetes/mke#connecting-to-the-kubernetes-api)
+	- [Option #1 - Using Edge-LB](https://github.com/ably77/dcos-se/tree/master/Kubernetes/mke#option-1---using-edge-lb)
+	- [Option #2 - Using Marathon-LB](https://github.com/ably77/dcos-se/tree/master/Kubernetes/mke#option-2---using-marathon-lb)
+- [Accessing the Dashboard](https://github.com/ably77/dcos-se/tree/master/Kubernetes/mke#accessing-the-dashboard)
+- [Switching Clusters Using kubectl](https://github.com/ably77/dcos-se/tree/master/Kubernetes/mke#switching-clusters-using-kubectl)
+- [Scaling Your Kubernetes Cluster](https://github.com/ably77/dcos-se/tree/master/Kubernetes/mke#scaling-your-kubernetes-cluster)
+	- [Using the UI](https://github.com/ably77/dcos-se/tree/master/Kubernetes/mke#using-the-ui)
+	- [Using the CLI](https://github.com/ably77/dcos-se/tree/master/Kubernetes/mke#using-the-cli)
+- [Troubleshooting](https://github.com/ably77/dcos-se/tree/master/Kubernetes/mke#troubleshooting)
+
 ## Prerequisites
 - DC/OS 1.12
 - 1 Master
@@ -157,7 +174,7 @@ Install Kubernetes Cluster #1:
 dcos kubernetes cluster create --options=options.json --yes
 ```
 
-### Installing Kubernetes Cluster #2:
+### Creating Kubernetes Cluster #2
 
 Create the `kubernetes-cluster2` Service Account:
 ```
@@ -611,7 +628,7 @@ For this exercise, change the number of `private_node_count` to 2 and `public_no
 Click Review and Run > Run Service to complete scaling your Kubernetes cluster. Check the UI afterwards to see that the cluster scaled:
 ![](https://github.com/ably77/dcos-se/blob/master/Kubernetes/mke/resources/images/scaling4.png)
 
-## Using the CLI:
+### Using the CLI:
 Modify your designated `options.json` to make your cluster adjustments and save as `options-scale.json`
 
 For this exercise, change the number of `private_node_count` to 2 and `public_node_count` to 1.
