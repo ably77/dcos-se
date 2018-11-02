@@ -126,9 +126,14 @@ dcos marathon app remove get-public-agent-ip
 dcos package install kubernetes --yes
 ```
 
+### Install the latest DC/OS Kubernetes CLI:
+```
+dcos package install kubernetes --cli --yes
+```
+
 ### Creating Kubernetes Cluster #1
 
-Create the `kubernetes-cluster` Service Account
+Create the `kubernetes-cluster` Service Account:
 ```
 dcos security org service-accounts keypair private-key.pem public-key.pem
 dcos security org service-accounts create -p public-key.pem -d 'Kubernetes service account' kubernetes-cluster
@@ -174,6 +179,27 @@ Create options.json:
 Install Kubernetes Cluster #1:
 ```
 dcos kubernetes cluster create --options=options.json --yes
+```
+
+To monitor your Kubernetes cluster creation, use the DC/OS Kubernetes CLI:
+```
+dcos kubernetes cluster debug plan status deploy --cluster-name=kubernetes-cluster
+```
+
+Complete cluster plan shown below:
+```
+$ dcos kubernetes cluster debug plan status deploy --cluster-name=kubernetes-cluster
+Using Kubernetes cluster: kubernetes-cluster
+deploy (serial strategy) (COMPLETE)
+├─ etcd (serial strategy) (COMPLETE)
+│  └─ etcd-0:[peer] (COMPLETE)
+├─ control-plane (dependency strategy) (COMPLETE)
+│  └─ kube-control-plane-0:[instance] (COMPLETE)
+├─ mandatory-addons (serial strategy) (COMPLETE)
+│  └─ mandatory-addons-0:[instance] (COMPLETE)
+├─ node (dependency strategy) (COMPLETE)
+│  └─ kube-node-0:[kubelet] (COMPLETE)
+└─ public-node (dependency strategy) (COMPLETE)
 ```
 
 ### Creating Kubernetes Cluster #2
@@ -247,6 +273,27 @@ Create `options2.json`, note that this options JSON provides examples of how to 
 Install `kubernetes-cluster2` Cluster:
 ```
 dcos kubernetes cluster create --options=options2.json --yes
+```
+
+To monitor your Kubernetes cluster creation, use the DC/OS Kubernetes CLI:
+```
+dcos kubernetes cluster debug plan status deploy --cluster-name=kubernetes-cluster2
+```
+
+Complete cluster plan shown below:
+```
+$ dcos kubernetes cluster debug plan status deploy --cluster-name=kubernetes-cluster2
+Using Kubernetes cluster: kubernetes-cluster2
+deploy (serial strategy) (COMPLETE)
+├─ etcd (serial strategy) (COMPLETE)
+│  └─ etcd-0:[peer] (COMPLETE)
+├─ control-plane (dependency strategy) (COMPLETE)
+│  └─ kube-control-plane-0:[instance] (COMPLETE)
+├─ mandatory-addons (serial strategy) (COMPLETE)
+│  └─ mandatory-addons-0:[instance] (COMPLETE)
+├─ node (dependency strategy) (COMPLETE)
+│  └─ kube-node-0:[kubelet] (COMPLETE)
+└─ public-node (dependency strategy) (COMPLETE)
 ```
 
 ## Connecting to the Kubernetes API
