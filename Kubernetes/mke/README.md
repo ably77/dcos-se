@@ -12,7 +12,7 @@ Below are instructions on how to deploy and operate multi-kubernetes clusters us
 	- [Creating Kubernetes Cluster #2](https://github.com/ably77/dcos-se/tree/master/Kubernetes/mke#installing-kubernetes-cluster-2)
 - [Connecting to the Kubernetes API](https://github.com/ably77/dcos-se/tree/master/Kubernetes/mke#connecting-to-the-kubernetes-api)
 	- [Option #1 - Using Edge-LB](https://github.com/ably77/dcos-se/tree/master/Kubernetes/mke#option-1---using-edge-lb)
-	- [Option #2 - Using Marathon-LB](https://github.com/ably77/dcos-se/tree/master/Kubernetes/mke#option-2---using-marathon-lb)
+	- [Option #2 - Using Marathon-LB](https://github.com/ably77/dcos-se/tree/master/Kubernetes/mke/marathon_lb)
 - [Accessing the Dashboard](https://github.com/ably77/dcos-se/tree/master/Kubernetes/mke#accessing-the-dashboard)
 - [Switching Clusters Using kubectl](https://github.com/ably77/dcos-se/tree/master/Kubernetes/mke#switching-clusters-using-kubectl)
 - [Scaling Your Kubernetes Cluster](https://github.com/ably77/dcos-se/tree/master/Kubernetes/mke#scaling-your-kubernetes-cluster)
