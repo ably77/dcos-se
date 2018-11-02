@@ -19,47 +19,7 @@ Below are instructions on how to get a multiple MKE cluster up and running
 	- [Using the CLI](https://github.com/ably77/dcos-se/tree/master/Kubernetes/mke#using-the-cli)
 - [Automated Self Healing](https://github.com/ably77/dcos-se/tree/master/Kubernetes/mke#automated-self-healing)
 - [Troubleshooting](https://github.com/ably77/dcos-se/tree/master/Kubernetes/mke#troubleshooting)
-
-## Additional Kubernetes Exercises
-
-**Core Concepts**
-  - [Understand the Kubernetes API primitives](https://github.com/ably77/dcos-se/tree/master/CNCF/CoreConcepts-19%25#understand-the-kubernetes-api-primitives)
-  - [Understand the Kubernetes cluster architecture](https://github.com/ably77/dcos-se/tree/master/CNCF/CoreConcepts-19%25#understand-the-kubernetes-cluster-architecture)
-  - [Understand Services and other network primitives](https://github.com/ably77/dcos-se/tree/master/CNCF/CoreConcepts-19%25#understand-services-and-other-network-primitives)
-
-- **Application Lifecycle Management**
-  - [Understand Deployments and how to perform rolling updates and rollbacks](https://github.com/ably77/dcos-se/tree/master/CNCF/AppLifecycleManagement-8%25#deployments)
-  - [Know various ways to configure applications](https://github.com/ably77/dcos-se/tree/master/CNCF/AppLifecycleManagement-8%25#know-various-ways-to-configure-applications)
-  - [Know how to scale applications](https://github.com/ably77/dcos-se/tree/master/CNCF/AppLifecycleManagement-8%25#scaling-a-deployment)
-  - [Understand the primitives necessary to create a self-healing application](https://github.com/ably77/dcos-se/tree/master/CNCF/AppLifecycleManagement-8%25#understand-the-primitives-necessary-to-create-a-self-healing-application)
-
-**Scheduling**
-  - [Use label selectors to schedule Pods](https://github.com/ably77/dcos-se/tree/master/CNCF/Scheduling-5%25#using-label-selectors-to-schedule-pods-to-specific-nodes)
-  - [Understand the role of DaemonSets](https://github.com/ably77/dcos-se/tree/master/CNCF/Scheduling-5%25#understand-the-role-of-daemonsets)
-  - [Understand how resource limits can affect Pod scheduling](https://github.com/ably77/dcos-se/tree/master/CNCF/Scheduling-5%25#understand-how-resource-limits-can-affect-pod-scheduling)
-  - [Understand how to run multiple schedulers and how to configure Pods to use them](https://github.com/ably77/dcos-se/tree/master/CNCF/Scheduling-5%25#configuring-multiple-schedulers)
-  - [Manually schedule a pod without a scheduler](https://github.com/ably77/dcos-se/tree/master/CNCF/Scheduling-5%25#manually-schedule-a-pod-without-a-scheduler)
-  - [Display scheduler events](https://github.com/ably77/dcos-se/tree/master/CNCF/Scheduling-5%25#display-scheduler-events)
-  - [Know how to configure the Kubernetes scheduler](https://github.com/ably77/dcos-se/tree/master/CNCF/Scheduling-5%25#configuring-multiple-schedulers)
-
-**Logging / Monitoring**
-  - [Understand how to monitor all cluster components](https://github.com/ably77/dcos-se/tree/master/CNCF/Logging-Monitoring-5%25#understand-how-to-monitor-all-cluster-components)
-  - [Understand how to monitor applications](https://github.com/ably77/dcos-se/tree/master/CNCF/Logging-Monitoring-5%25#basic-metrics)
-  - [Manage cluster component logs](https://github.com/ably77/dcos-se/tree/master/CNCF/Logging-Monitoring-5%25#manage-cluster-component-logs)
-  - [Manage application logs](https://github.com/ably77/dcos-se/tree/master/CNCF/Logging-Monitoring-5%25#manage-cluster-component-logs)
-
-**Storage**
-  - [Understand persistent volumes and know how to create them](https://github.com/ably77/dcos-se/tree/master/CNCF/Storage-7%25#understand-persistent-volumes-and-know-how-to-create-them)
-  - [Understand access modes for volumes](https://github.com/ably77/dcos-se/tree/master/CNCF/Storage-7%25#understand-access-modes-for-volumes)
-  - [Understand persistent volume claims primitive](https://github.com/ably77/dcos-se/tree/master/CNCF/Storage-7%25#understand-persistent-volume-claims-primitive)
-  - [Understand Kubernetes storage objects](https://kubernetes.io/docs/concepts/storage/volumes/#types-of-volumes)
-  - [Know how to configure applications with persistent storage](https://github.com/ably77/dcos-se/tree/master/CNCF/Storage-7%25#know-how-to-configure-applications-with-persistent-storage)
-
-**Troubleshooting**
-  - [Troubleshoot application failure](https://github.com/ably77/dcos-se/tree/master/CNCF/Troubleshooting-10%25#troubleshoot-application-failure)
-  - [Troubleshoot control plane failure](https://github.com/ably77/dcos-se/tree/master/CNCF/Troubleshooting-10%25#troubleshoot-control-planeworker-node-failure)
-  - [Troubleshoot worker node failure](https://github.com/ably77/dcos-se/tree/master/CNCF/Troubleshooting-10%25#troubleshoot-control-planeworker-node-failure)
-  - [Troubleshoot networking](https://github.com/ably77/dcos-se/tree/master/CNCF/Troubleshooting-10%25#troubleshoot-networking)
+- [Additional Kubernetes Exercises](https://github.com/ably77/dcos-se/tree/master/Kubernetes/mke#additional-kubernetes-exercises)
 
 ## Prerequisites
 - DC/OS 1.12
@@ -1001,3 +961,43 @@ See the Official Kubernetes Service Docs > Troubleshooting page for more example
 
 [Kubernetes Service Docs - Troubleshooting](https://docs.mesosphere.com/services/kubernetes/2.0.0-1.12.1/operations/troubleshooting/)
 
+## Additional Kubernetes Exercises
+
+**Core Concepts**
+  - [Understand the Kubernetes API primitives](https://github.com/ably77/dcos-se/tree/master/CNCF/CoreConcepts-19%25#understand-the-kubernetes-api-primitives)
+  - [Understand the Kubernetes cluster architecture](https://github.com/ably77/dcos-se/tree/master/CNCF/CoreConcepts-19%25#understand-the-kubernetes-cluster-architecture)
+  - [Understand Services and other network primitives](https://github.com/ably77/dcos-se/tree/master/CNCF/CoreConcepts-19%25#understand-services-and-other-network-primitives)
+
+- **Application Lifecycle Management**
+  - [Understand Deployments and how to perform rolling updates and rollbacks](https://github.com/ably77/dcos-se/tree/master/CNCF/AppLifecycleManagement-8%25#deployments)
+  - [Know various ways to configure applications](https://github.com/ably77/dcos-se/tree/master/CNCF/AppLifecycleManagement-8%25#know-various-ways-to-configure-applications)
+  - [Know how to scale applications](https://github.com/ably77/dcos-se/tree/master/CNCF/AppLifecycleManagement-8%25#scaling-a-deployment)
+  - [Understand the primitives necessary to create a self-healing application](https://github.com/ably77/dcos-se/tree/master/CNCF/AppLifecycleManagement-8%25#understand-the-primitives-necessary-to-create-a-self-healing-application)
+
+**Scheduling**
+  - [Use label selectors to schedule Pods](https://github.com/ably77/dcos-se/tree/master/CNCF/Scheduling-5%25#using-label-selectors-to-schedule-pods-to-specific-nodes)
+  - [Understand the role of DaemonSets](https://github.com/ably77/dcos-se/tree/master/CNCF/Scheduling-5%25#understand-the-role-of-daemonsets)
+  - [Understand how resource limits can affect Pod scheduling](https://github.com/ably77/dcos-se/tree/master/CNCF/Scheduling-5%25#understand-how-resource-limits-can-affect-pod-scheduling)
+  - [Understand how to run multiple schedulers and how to configure Pods to use them](https://github.com/ably77/dcos-se/tree/master/CNCF/Scheduling-5%25#configuring-multiple-schedulers)
+  - [Manually schedule a pod without a scheduler](https://github.com/ably77/dcos-se/tree/master/CNCF/Scheduling-5%25#manually-schedule-a-pod-without-a-scheduler)
+  - [Display scheduler events](https://github.com/ably77/dcos-se/tree/master/CNCF/Scheduling-5%25#display-scheduler-events)
+  - [Know how to configure the Kubernetes scheduler](https://github.com/ably77/dcos-se/tree/master/CNCF/Scheduling-5%25#configuring-multiple-schedulers)
+
+**Logging / Monitoring**
+  - [Understand how to monitor all cluster components](https://github.com/ably77/dcos-se/tree/master/CNCF/Logging-Monitoring-5%25#understand-how-to-monitor-all-cluster-components)
+  - [Understand how to monitor applications](https://github.com/ably77/dcos-se/tree/master/CNCF/Logging-Monitoring-5%25#basic-metrics)
+  - [Manage cluster component logs](https://github.com/ably77/dcos-se/tree/master/CNCF/Logging-Monitoring-5%25#manage-cluster-component-logs)
+  - [Manage application logs](https://github.com/ably77/dcos-se/tree/master/CNCF/Logging-Monitoring-5%25#manage-cluster-component-logs)
+
+**Storage**
+  - [Understand persistent volumes and know how to create them](https://github.com/ably77/dcos-se/tree/master/CNCF/Storage-7%25#understand-persistent-volumes-and-know-how-to-create-them)
+  - [Understand access modes for volumes](https://github.com/ably77/dcos-se/tree/master/CNCF/Storage-7%25#understand-access-modes-for-volumes)
+  - [Understand persistent volume claims primitive](https://github.com/ably77/dcos-se/tree/master/CNCF/Storage-7%25#understand-persistent-volume-claims-primitive)
+  - [Understand Kubernetes storage objects](https://kubernetes.io/docs/concepts/storage/volumes/#types-of-volumes)
+  - [Know how to configure applications with persistent storage](https://github.com/ably77/dcos-se/tree/master/CNCF/Storage-7%25#know-how-to-configure-applications-with-persistent-storage)
+
+**Troubleshooting**
+  - [Troubleshoot application failure](https://github.com/ably77/dcos-se/tree/master/CNCF/Troubleshooting-10%25#troubleshoot-application-failure)
+  - [Troubleshoot control plane failure](https://github.com/ably77/dcos-se/tree/master/CNCF/Troubleshooting-10%25#troubleshoot-control-planeworker-node-failure)
+  - [Troubleshoot worker node failure](https://github.com/ably77/dcos-se/tree/master/CNCF/Troubleshooting-10%25#troubleshoot-control-planeworker-node-failure)
+  - [Troubleshoot networking](https://github.com/ably77/dcos-se/tree/master/CNCF/Troubleshooting-10%25#troubleshoot-networking)
