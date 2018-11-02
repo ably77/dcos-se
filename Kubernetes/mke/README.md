@@ -739,6 +739,45 @@ Continue cluster update? [yes/no]: yes
 2018/11/01 17:05:25 update complete!
 ```
 
+## Automated Self Healing
+Kubernetes with DC/OS includes automated self-healing of Kubernetes infrastructure. 
+
+We can demo this by killing the `etcd` component of one of the Kubernetes components 
+
+List your Kubernetes tasks:
+```
+dcos task | grep etcd
+```
+
+Output should resemble below
+```
+$ dcos task | grep etcd
+etcd-0-peer                                    172.12.25.146   root     R    kubernetes-cluster2__etcd-0-peer__c09966b0-379e-4519-ae10-5683db4926b0                           fc11bc38-dd26-4fbb-9011-cca26231f64b-S0  us-west-2  us-west-2b
+etcd-0-peer                                    172.12.25.146   root     R    kubernetes-cluster__etcd-0-peer__98e0bc46-a7d7-4553-8749-a9bafb624ae1                            fc11bc38-dd26-4fbb-9011-cca26231f64b-S0  us-west-2  us-west-2b
+```
+
+First we need to identify the etcd-0 PID value. In the example below the etcd PID value is 26:
+```
+dcos task exec -i kubernetes-cluster__etcd-0 bash -c 'pidof etcd'
+```
+
+Output should resemble below:
+```
+$ dcos task exec -i kubernetes-cluster__etcd-0 bash -c 'pidof etcd'
+Overwriting environment variable 'PATH'
+26
+```
+
+Kill the etcd manually and watch the UI auto-heal the etcd instance:
+```
+dcos task exec -it kubernetes-cluster__etcd-0 "kill -9 26"
+```
+
+Navigate to the DC/OS UI:
+Navigate to the DC/OS UI > Services > Kubernetes tab and open next to the terminal so you can see the components in the DC/OS UI. Use the search bar to search for etcd to observe auto-healing capabilities
+
+![](https://github.com/ably77/dcos-se/blob/master/Kubernetes/mke/resources/images/etcd1.png)
+
 ## Troubleshooting
 
 #### Issue: The custom manager: kubernetes, is not installed for this package
