@@ -774,7 +774,7 @@ dcos kubernetes cluster kubeconfig \
     --insecure-skip-tls-verify \
     --context-name=kubernetes-cluster1 \
     --cluster-name=kubernetes-cluster1 \
-    --apiserver-url=https://${MARATHON_PUB_IP}:6443
+    --apiserver-url=https://${PUBLIC_IP_ADDRESS}:6443
 ```
 
 Output:
@@ -802,6 +802,64 @@ dcos config set core.dcos_url https://<master_public_IP_or_ELB_address>
 Additionally, if the TLS certificate used by DC/OS is not trusted, you can run the following command to disable TLS verification:
 ```
 dcos config set core.ssl_verify false
+```
+
+#### Issue: When connecting kubectl client to the `kube-apiserver` I get the following error:
+
+Input:
+```
+dcos kubernetes cluster kubeconfig \
+    --insecure-skip-tls-verify \
+    --context-name=kubernetes-cluster \
+    --cluster-name=kubernetes-cluster \
+    --apiserver-url=https://${PUBLIC_IP_ADDRESS}:6443
+```
+
+Output:
+```
+Using Kubernetes cluster: kubernetes-cluster
+2018/11/01 17:22:20 failed to update kubeconfig context 'kubernetes-cluster': HTTP GET Query for https://54.149.204.113/service/kubernetes-cluster/v1/auth/data failed: 503 Service Unavailable
+Response: the service account secret has not been created yet
+Response data (51 bytes): the service account secret has not been created yet
+HTTP query failed
+```
+
+Resolution:
+Check to see if your `kubernetes-cluster` service is fully deployed
+
+Through the UI:
+Navigate to the Services > kubernetes-cluster service and make sure that the following components are deployed:
+- kubernetes-cluster
+- kubernetes-cluster__etcd-0-peer
+- kubernetes-cluster__kube-control-plane-0-instance
+- kubernetes-cluster__mandatory-addons-0-instance
+- kubernetes-cluster__kube-node-0-kubelet
+
+![](https://github.com/ably77/dcos-se/blob/master/Kubernetes/mke/resources/images/troubleshooting1.png)
+
+Through the CLI:
+
+Output the Kubernetes Deploy plan:
+```
+dcos kubernetes cluster debug plan status deploy --cluster-name=kubernetes-cluster
+```
+
+Output should look similar to below:
+```
+$ dcos kubernetes cluster debug plan status deploy --cluster-name=kubernetes-cluster
+Using Kubernetes cluster: kubernetes-cluster
+deploy (serial strategy) (COMPLETE)
+├─ etcd (serial strategy) (COMPLETE)
+│  └─ etcd-0:[peer] (COMPLETE)
+├─ control-plane (serial strategy) (COMPLETE)
+│  └─ kube-control-plane-0:[instance] (COMPLETE)
+├─ mandatory-addons (serial strategy) (COMPLETE)
+│  └─ mandatory-addons-0:[instance] (COMPLETE)
+├─ node (parallel strategy) (COMPLETE)
+│  ├─ kube-node-0:[kubelet] (COMPLETE)
+│  └─ kube-node-1:[kubelet] (COMPLETE)
+└─ public-node (serial strategy) (COMPLETE)
+   └─ kube-node-public-0:[kubelet] (COMPLETE)
 ```
 
 #### Issue: When connecting kubectl client to the `kube-apiserver` I get the following error when running kubectl commands:
