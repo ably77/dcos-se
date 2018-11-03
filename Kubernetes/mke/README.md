@@ -343,20 +343,21 @@ dcos edgelb create edgelb.json
 
 ### Find the edgelb-pool Public Agent IP
 
-List your edgelb tasks:
+List your edgelb pools:
 ```
-dcos task | grep edgelb-pool-0-server
+dcos edgelb list
 ```
 
 Output should look like below:
 ```
-$ dcos task | grep edgelb-pool-0-server
-edgelb-pool-0-server                               10.0.6.172   root     R    edgelb-pool-0-server__97631d50-09af-4f44-ad13-44564e37a403                                       e8a41984-fa99-417b-8640-1453c240a2c8-S1   aws/us-west-2  aws/us-west-2a
+$ dcos edgelb list
+  NAME                                   APIVERSION  COUNT  ROLE          PORTS
+  edgelb-kubernetes-cluster-proxy-basic  V2          1      slave_public  6090, 6443, 6444
 ```
 
 To find the public IP:
 ```
-dcos task exec -it edgelb-pool-0-server curl ifconfig.co
+dcos task exec -it edgelb-kubernetes-cluster-proxy-basic curl ifconfig.co
 ```
 
 Save the IP as a variable:
