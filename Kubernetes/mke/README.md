@@ -355,9 +355,22 @@ $ dcos edgelb list
   edgelb-kubernetes-cluster-proxy-basic  V2          1      slave_public  6090, 6443, 6444
 ```
 
+Make sure that the status of your edgelb deployment is in `TASK_RUNNING` state:
+```
+dcos edgelb status edgelb-kubernetes-cluster-proxy-basic
+```
+
+Output should look like below:
+```
+$ dcos edgelb status edgelb-kubernetes-cluster-proxy-basic
+  NAME                  TASK ID                                                     STATE
+  edgelb-pool-0-server  edgelb-pool-0-server__a6e4b1a1-e63c-4579-a27e-a54328f31321  TASK_RUNNING
+```
+
+
 To find the public IP:
 ```
-dcos task exec -it edgelb-kubernetes-cluster-proxy-basic curl ifconfig.co
+dcos task exec -it edgelb-pool-0-server curl ifconfig.co
 ```
 
 Save the IP as a variable:
