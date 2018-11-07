@@ -18,7 +18,6 @@ DC/OS Enterprise Edition Features Demos:
 - SDR Training
 - Secrets
 - Tensorflow Demo
-- Terraform
 
 
 
