@@ -98,12 +98,6 @@ Deploy Zeppelin for DCOS_AppStudio Apps:
 By default works with CoreOS in CCM:
 ```for id in $(dcos node --json | jq --raw-output '.[] | select(.attributes.public_ip == "true") | .id'); do dcos node ssh --option StrictHostKeyChecking=no --option LogLevel=quiet --master-proxy --mesos-id=$id "curl -s ifconfig.co" ; done 2>/dev/null```
 
-## Find EdgeLB Private Agent Node IP:
-```dcos edgelb pool status <app_name> --ip-only```
-
-## Get Agent Information about running Load Balancers:
-```dcos edgelb pool lb sample-minimal edgelb-pool-0```
-
 ## SSH into Agent Node:
 ```dcos node ssh --master-proxy --mesos-id=<mesos-id>```
 Note: Grab mesos-id from Mesos dashboard or `dcos node`
