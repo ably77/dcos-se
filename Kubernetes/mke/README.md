@@ -380,6 +380,11 @@ EDGELB_PUBLIC_AGENT_IP=<output_of_above>
 ### Finding Public IP if the above doesnt work
 If the above commands do not work (maybe due to security reasons, etc.) we can determine the Public Agent IPs that we need by [following the Find Public Agent IP Guide Here](https://github.com/ably77/dcos-se/tree/master/Kubernetes/mke/public_ip)
 
+### Make Sure Port :6443 and :6444 are open
+Before attempting to connect `kubectl` to the MKE clusters, make sure that port `:6443` and `:6444` are accessible by your local machine to the DC/OS Cluster. If using a cloud provider such as AWS, these would typically be rules configured in your EC2 --> Security Groups tab
+
+Failure to open up port `:6443` and `:6444` will cause `kubectl` commands to hang
+
 ### Connect to Kubernetes Cluster #1 at port `:6443`
 ```
 dcos kubernetes cluster kubeconfig \
