@@ -28,6 +28,7 @@ Below are instructions on how to deploy and operate multi-kubernetes clusters us
 ## Prerequisites
 - DC/OS 1.12
 - 1 Master
+
 Ideal VM Size for this demo: 
 - 3 Agents (m5.2xlarge - 8vCPU / 32 GB MEM)
 	- Demonstrates High Density Multi Kubernetes by bin packing 2x Highly Available Kubernetes Clusters in 3 agent nodes
