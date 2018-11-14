@@ -129,7 +129,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "mesos_master_cpus_percent",
+          "expr": "mesos_master_cpus_percent{state=\"leader\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "",
@@ -212,7 +212,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "mesos_master_mem_percent",
+          "expr": "mesos_master_mem_percent{state=\"leader\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "",
@@ -295,7 +295,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "mesos_master_disk_percent",
+          "expr": "mesos_master_disk_percent{state=\"leader\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "",
@@ -378,7 +378,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "mesos_master_gpus_percent",
+          "expr": "mesos_master_gpus_percent{state=\"leader\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "",
@@ -1163,7 +1163,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "mesos_master_slaves_active",
+          "expr": "mesos_master_slaves_active{state=\"leader\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "refId": "A"
@@ -1243,7 +1243,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "mesos_master_slaves_unreachable",
+          "expr": "mesos_master_slaves_unreachable{state=\"leader\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "refId": "A"
@@ -1323,7 +1323,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "mesos_master_slaves_inactive",
+          "expr": "mesos_master_slaves_inactive{state=\"leader\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "refId": "A"
@@ -1414,7 +1414,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "mesos_master_frameworks_active",
+          "expr": "mesos_master_frameworks_active{state=\"leader\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "refId": "A"
@@ -1494,7 +1494,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "mesos_master_frameworks_inactive",
+          "expr": "mesos_master_frameworks_inactive{state=\"leader\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "refId": "A"
@@ -1587,7 +1587,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "mesos_master_tasks_running",
+          "expr": "mesos_master_tasks_running{state=\"leader\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "refId": "A"
@@ -1667,7 +1667,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "mesos_master_tasks_starting",
+          "expr": "mesos_master_tasks_starting{state=\"leader\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "refId": "A"
@@ -1747,7 +1747,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "mesos_master_tasks_staging",
+          "expr": "mesos_master_tasks_staging{state=\"leader\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "refId": "A"
@@ -1827,7 +1827,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "mesos_master_tasks_failed",
+          "expr": "mesos_master_tasks_failed{state=\"leader\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "refId": "A"
@@ -1907,7 +1907,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "mesos_master_tasks_lost",
+          "expr": "mesos_master_tasks_lost{state=\"leader\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "refId": "A"
@@ -1987,7 +1987,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "mesos_master_tasks_unreachable",
+          "expr": "mesos_master_tasks_unreachable{state=\"leader\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "refId": "A"

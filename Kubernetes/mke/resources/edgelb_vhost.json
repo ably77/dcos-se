@@ -12,20 +12,20 @@
             ],
             "linkBackend": {
                 "map": [{
-                    "hostEq": "aly-kubernetes-cluster1.com",
-                    "backend": "kubernetes-cluster"
+                    "hostEq": "<INSERT_DESIRED_HTTP_ADDRESS_HERE>",
+                    "backend": "kubernetes-cluster1"
                 }, {
-                    "hostReg": "aly-kubernetes-cluster2.com",
+                    "hostReg": "<INSERT_DESIRED_HTTP_ADDRESS_HERE>",
                     "backend": "kubernetes-cluster2"
                 }]
             }
         }],
         "backends": [{
-                "name": "kubernetes-cluster",
+                "name": "kubernetes-cluster1",
                 "protocol": "HTTPS",
                 "services": [{
                     "mesos": {
-                        "frameworkName": "kubernetes-cluster",
+                        "frameworkName": "kubernetes-cluster1",
                         "taskNamePattern": "kube-control-plane"
                     },
                     "endpoint": {

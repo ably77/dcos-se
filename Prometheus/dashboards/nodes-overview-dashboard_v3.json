@@ -121,7 +121,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "mesos_master_slaves_active",
+          "expr": "mesos_master_slaves_active{state=\"leader\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "refId": "A"
@@ -201,7 +201,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "mesos_master_slaves_unreachable",
+          "expr": "mesos_master_slaves_unreachable{state=\"leader\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "refId": "A"
@@ -281,7 +281,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "mesos_master_slaves_inactive",
+          "expr": "mesos_master_slaves_inactive{state=\"leader\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "refId": "A"
@@ -361,7 +361,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "mesos_master_cpus_total",
+          "expr": "mesos_master_cpus_total{state=\"leader\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "refId": "A"
@@ -442,7 +442,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "mesos_allocator_mesos_resources_cpus_offered_or_allocated",
+          "expr": "mesos_allocator_mesos_resources_cpus_offered_or_allocated{state=\"leader\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "refId": "A"
@@ -523,7 +523,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "(mesos_master_cpus_total - mesos_master_cpus_used)",
+          "expr": "(mesos_master_cpus_total{state=\"leader\"} - mesos_allocator_mesos_resources_cpus_offered_or_allocated{state=\"leader\"})",
           "format": "time_series",
           "intervalFactor": 1,
           "refId": "A"
@@ -604,7 +604,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "mesos_master_gpus_total",
+          "expr": "mesos_master_gpus_total{state=\"leader\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "refId": "A"
@@ -685,7 +685,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "mesos_master_gpus_used",
+          "expr": "mesos_master_gpus_used{state=\"leader\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "refId": "A"
@@ -765,7 +765,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "mesos_master_mem_total",
+          "expr": "mesos_master_mem_total{state=\"leader\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "refId": "A"
@@ -846,7 +846,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "mesos_allocator_mesos_resources_mem_offered_or_allocated",
+          "expr": "mesos_allocator_mesos_resources_mem_offered_or_allocated{state=\"leader\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "refId": "A"
@@ -926,7 +926,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "(mesos_master_mem_total - mesos_master_mem_used)",
+          "expr": "mesos_master_mem_total{state=\"leader\"} - mesos_allocator_mesos_resources_mem_offered_or_allocated{state=\"leader\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "",
@@ -1007,7 +1007,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "mesos_master_disk_total",
+          "expr": "mesos_master_disk_total{state=\"leader\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "refId": "A"
@@ -1088,7 +1088,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "mesos_allocator_mesos_resources_disk_offered_or_allocated",
+          "expr": "mesos_allocator_mesos_resources_disk_offered_or_allocated{state=\"leader\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "refId": "A"
@@ -1168,7 +1168,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "(mesos_master_disk_total - mesos_master_disk_used)",
+          "expr": "mesos_master_disk_total{state=\"leader\"} - mesos_allocator_mesos_resources_disk_offered_or_allocated{state=\"leader\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "legendFormat": "",

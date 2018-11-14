@@ -11,7 +11,7 @@
                 "$AUTOCERT"
             ],
             "linkBackend": {
-                "defaultBackend": "kubernetes-cluster",
+                "defaultBackend": "kubernetes-cluster1",
                 "map": [{
                     "pathBeg": "/kube2",
                     "backend": "kubernetes-cluster2"
@@ -19,11 +19,11 @@
             }
         }],
         "backends": [{
-                "name": "kubernetes-cluster",
+                "name": "kubernetes-cluster1",
                 "protocol": "HTTPS",
                 "services": [{
                     "mesos": {
-                        "frameworkName": "kubernetes-cluster",
+                        "frameworkName": "kubernetes-cluster1",
                         "taskNamePattern": "kube-control-plane"
                     },
                     "endpoint": {

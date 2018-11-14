@@ -155,7 +155,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "mesos_master_slaves_unreachable",
+          "expr": "mesos_master_slaves_unreachable{state=\"leader\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "refId": "A"
@@ -235,7 +235,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "mesos_master_slaves_inactive",
+          "expr": "mesos_master_slaves_inactive{state=\"leader\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "refId": "A"
@@ -958,7 +958,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "mesos_master_tasks_failed",
+          "expr": "mesos_master_tasks_failed{state=\"leader\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "refId": "A"
@@ -1038,7 +1038,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "mesos_master_tasks_lost",
+          "expr": "mesos_master_tasks_lost{state=\"leader\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "refId": "A"
@@ -1118,7 +1118,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "mesos_master_tasks_unreachable",
+          "expr": "mesos_master_tasks_unreachable{state=\"leader\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "refId": "A"
@@ -1211,7 +1211,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "mesos_master_frameworks_inactive",
+          "expr": "mesos_master_frameworks_inactive{state=\"leader\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "refId": "A"

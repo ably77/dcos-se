@@ -29,7 +29,7 @@ Below are instructions on how to deploy and operate multi-kubernetes clusters us
 - DC/OS 1.12
 - 1 Master
 
-Ideal VM Size for this demo: 
+Ideal VM Size for this demo:
 - 3 Agents (m5.2xlarge - 8vCPU / 32 GB MEM)
 	- Demonstrates High Density Multi Kubernetes by bin packing 2x Highly Available Kubernetes Clusters in 3 agent nodes
 - 5 Agents (m4.xlarge - 4vCPU / 16GB MEM)
@@ -48,7 +48,7 @@ To ensure that you are authenticated to the DC/OS CLI using `HTTPS:` run:
 dcos config show core.dcos_url
 ```
 
-In case the returned URL doesn't start with `https://` run: 
+In case the returned URL doesn't start with `https://` run:
 ```
 dcos config set core.dcos_url https://<master_public_IP_or_ELB_address>
 ```
@@ -77,44 +77,44 @@ For more information on the CLI management commands for DC/OS Kubernetes see [he
 Create the `kubernetes-cluster` Service Account:
 ```
 dcos security org service-accounts keypair private-key.pem public-key.pem
-dcos security org service-accounts create -p public-key.pem -d 'Kubernetes service account' kubernetes-cluster
-dcos security secrets create-sa-secret private-key.pem kubernetes-cluster kubernetes-cluster/sa
+dcos security org service-accounts create -p public-key.pem -d 'Kubernetes service account' kubernetes-cluster1
+dcos security secrets create-sa-secret private-key.pem kubernetes-cluster1 kubernetes-cluster1/sa
 ```
 
 Grant the `kubernetes-cluster` Service Account permissions:
 ```
-dcos security org users grant kubernetes-cluster dcos:mesos:master:framework:role:kubernetes-cluster-role create
-dcos security org users grant kubernetes-cluster dcos:mesos:master:task:user:root create
-dcos security org users grant kubernetes-cluster dcos:mesos:agent:task:user:root create
+dcos security org users grant kubernetes-cluster1 dcos:mesos:master:framework:role:kubernetes-cluster1-role create
+dcos security org users grant kubernetes-cluster1 dcos:mesos:master:task:user:root create
+dcos security org users grant kubernetes-cluster1 dcos:mesos:agent:task:user:root create
+dcos security org users grant kubernetes-cluster1 dcos:mesos:master:reservation:role:kubernetes-cluster1-role create
+dcos security org users grant kubernetes-cluster1 dcos:mesos:master:reservation:principal:kubernetes-cluster1 delete
+dcos security org users grant kubernetes-cluster1 dcos:mesos:master:volume:role:kubernetes-cluster1-role create
+dcos security org users grant kubernetes-cluster1 dcos:mesos:master:volume:principal:kubernetes-cluster1 delete
 
-dcos security org users grant kubernetes-cluster dcos:mesos:master:reservation:role:kubernetes-cluster-role create
-dcos security org users grant kubernetes-cluster dcos:mesos:master:reservation:principal:kubernetes-cluster delete
-dcos security org users grant kubernetes-cluster dcos:mesos:master:volume:role:kubernetes-cluster-role create
-dcos security org users grant kubernetes-cluster dcos:mesos:master:volume:principal:kubernetes-cluster delete
+dcos security org users grant kubernetes-cluster1 dcos:secrets:default:/kubernetes-cluster1/* full
+dcos security org users grant kubernetes-cluster1 dcos:secrets:list:default:/kubernetes-cluster1 read
+dcos security org users grant kubernetes-cluster1 dcos:adminrouter:ops:ca:rw full
+dcos security org users grant kubernetes-cluster1 dcos:adminrouter:ops:ca:ro full
 
-dcos security org users grant kubernetes-cluster dcos:secrets:default:/kubernetes-cluster/* full
-dcos security org users grant kubernetes-cluster dcos:secrets:list:default:/kubernetes-cluster read
+dcos security org users grant kubernetes-cluster1 dcos:mesos:master:framework:role:slave_public/kubernetes-cluster1-role create
+dcos security org users grant kubernetes-cluster1 dcos:mesos:master:framework:role:slave_public/kubernetes-cluster1-role read
+dcos security org users grant kubernetes-cluster1 dcos:mesos:master:reservation:role:slave_public/kubernetes-cluster1-role create
+dcos security org users grant kubernetes-cluster1 dcos:mesos:master:volume:role:slave_public/kubernetes-cluster1-role create
+dcos security org users grant kubernetes-cluster1 dcos:mesos:master:framework:role:slave_public read
+dcos security org users grant kubernetes-cluster1 dcos:mesos:agent:framework:role:slave_public read
 
-dcos security org users grant kubernetes-cluster dcos:adminrouter:ops:ca:rw full
-dcos security org users grant kubernetes-cluster dcos:adminrouter:ops:ca:ro full
-
-dcos security org users grant kubernetes-cluster dcos:mesos:master:framework:role:slave_public/kubernetes-cluster-role create
-dcos security org users grant kubernetes-cluster dcos:mesos:master:framework:role:slave_public/kubernetes-cluster-role read
-dcos security org users grant kubernetes-cluster dcos:mesos:master:reservation:role:slave_public/kubernetes-cluster-role create
-dcos security org users grant kubernetes-cluster dcos:mesos:master:volume:role:slave_public/kubernetes-cluster-role create
-dcos security org users grant kubernetes-cluster dcos:mesos:master:framework:role:slave_public read
-dcos security org users grant kubernetes-cluster dcos:mesos:agent:framework:role:slave_public read
 ```
 
 Create options.json:
 ```
 {
   "service": {
-    "name": "kubernetes-cluster",
-    "service_account": "kubernetes-cluster",
-    "service_account_secret": "kubernetes-cluster/sa"
+    "name": "kubernetes-cluster1",
+    "service_account": "kubernetes-cluster1",
+    "service_account_secret": "kubernetes-cluster1/sa"
   }
 }
+
 ```
 
 Install Kubernetes Cluster #1:
@@ -124,13 +124,13 @@ dcos kubernetes cluster create --options=options.json --yes
 
 To monitor your Kubernetes cluster creation, use the DC/OS Kubernetes CLI:
 ```
-dcos kubernetes cluster debug plan status deploy --cluster-name=kubernetes-cluster
+dcos kubernetes cluster debug plan status deploy --cluster-name=kubernetes-cluster1
 ```
 
 Complete cluster plan shown below:
 ```
-$ dcos kubernetes cluster debug plan status deploy --cluster-name=kubernetes-cluster
-Using Kubernetes cluster: kubernetes-cluster
+$ dcos kubernetes cluster debug plan status deploy --cluster-name=kubernetes-cluster1
+Using Kubernetes cluster: kubernetes-cluster1
 deploy (serial strategy) (COMPLETE)
 ├─ etcd (serial strategy) (COMPLETE)
 │  └─ etcd-0:[peer] (COMPLETE)
@@ -292,7 +292,7 @@ Save Kubernetes Edge-LB Service Config as `edgelb.json`:
                     "$AUTOCERT"
                 ],
                 "linkBackend": {
-                    "defaultBackend": "kubernetes-cluster"
+                    "defaultBackend": "kubernetes-cluster1"
                 }
             },
             {
@@ -307,11 +307,11 @@ Save Kubernetes Edge-LB Service Config as `edgelb.json`:
             }
         ],
         "backends": [{
-                "name": "kubernetes-cluster",
+                "name": "kubernetes-cluster1",
                 "protocol": "HTTPS",
                 "services": [{
                     "mesos": {
-                        "frameworkName": "kubernetes-cluster",
+                        "frameworkName": "kubernetes-cluster1",
                         "taskNamePattern": "kube-control-plane"
                     },
                     "endpoint": {
@@ -394,8 +394,8 @@ Failure to open up port `:6443` and `:6444` will cause `kubectl` commands to han
 ```
 dcos kubernetes cluster kubeconfig \
     --insecure-skip-tls-verify \
-    --context-name=kubernetes-cluster \
-    --cluster-name=kubernetes-cluster \
+    --context-name=kubernetes-cluster1 \
+    --cluster-name=kubernetes-cluster1 \
     --apiserver-url=https://${EDGELB_PUBLIC_AGENT_IP}:6443
 ```
 
@@ -496,7 +496,7 @@ Output should look like below:
 ```
 $ kubectl config get-contexts
 CURRENT   NAME                  CLUSTER               AUTHINFO              NAMESPACE
-*         kubernetes-cluster    kubernetes-cluster    kubernetes-cluster
+*         kubernetes-cluster1   kubernetes-cluster1   kubernetes-cluster1
           kubernetes-cluster2   kubernetes-cluster2   kubernetes-cluster2
 ```
 
@@ -513,7 +513,7 @@ kubectl config rename-context <CURRENT_CONTEXT_NAME> <NEW_CONTEXT_NAME>
 ## Scaling your Kubernetes Cluster
 
 ### Using the UI
-From the UI, go to Services > kubernetes-cluster and select edit
+From the UI, go to Services > kubernetes-cluster1 and select edit
 ![](https://github.com/ably77/dcos-se/blob/master/Kubernetes/mke/resources/images/scaling1.png)
 
 Under "kubernetes" in left hand menu, make your cluster adjustments
@@ -534,9 +534,9 @@ For this exercise, change the number of `private_node_count` to 2 and `public_no
 ```
 {
     "service": {
-        "name": "kubernetes-cluster",
-        "service_account": "kubernetes-cluster",
-        "service_account_secret": "kubernetes-cluster/sa"
+        "name": "kubernetes-cluster1",
+        "service_account": "kubernetes-cluster1",
+        "service_account_secret": "kubernetes-cluster1/sa"
     },
     "kubernetes": {
         "authorization_mode": "AlwaysAllow",
@@ -571,13 +571,13 @@ For this exercise, change the number of `private_node_count` to 2 and `public_no
 
 Scale your Cluster:
 ```
-dcos kubernetes cluster update --cluster-name=kubernetes-cluster --options=options-scale.json
+dcos kubernetes cluster update --cluster-name=kubernetes-cluster1 --options=options-scale.json
 ```
 
 The output should look similar to below:
 ```
-$ dcos kubernetes cluster update --cluster-name=kubernetes-cluster --options=options-scale.json
-Using Kubernetes cluster: kubernetes-cluster
+$ dcos kubernetes cluster update --cluster-name=kubernetes-cluster1 --options=options-scale.json
+Using Kubernetes cluster: kubernetes-cluster1
 The following differences were detected between service configurations (CHANGED, CURRENT):
  {
    "kubernetes": {
@@ -610,9 +610,9 @@ The following differences were detected between service configurations (CHANGED,
 +    "system_mem": 1024
 +  },
    "service": {
-     "name": "kubernetes-cluster",
-     "service_account": "kubernetes-cluster",
-     "service_account_secret": "kubernetes-cluster/sa"
+     "name": "kubernetes-cluster1",
+     "service_account": "kubernetes-cluster1",
+     "service_account_secret": "kubernetes-cluster1/sa"
    },
 +  "public_node_count": 1,
 +  "public_node_placement": "",
@@ -639,9 +639,9 @@ Continue cluster update? [yes/no]: yes
 ```
 
 ## Automated Self Healing
-Kubernetes with DC/OS includes automated self-healing of Kubernetes infrastructure. 
+Kubernetes with DC/OS includes automated self-healing of Kubernetes infrastructure.
 
-We can demo this by killing the `etcd-0` component of one of the Kubernetes cluster 
+We can demo this by killing the `etcd-0` component of one of the Kubernetes cluster
 
 List your Kubernetes tasks:
 ```
@@ -652,7 +652,7 @@ Output should resemble below
 ```
 $ dcos task | grep etcd
 etcd-0-peer                                    172.12.25.146   root     R    kubernetes-cluster2__etcd-0-peer__c09966b0-379e-4519-ae10-5683db4926b0                           fc11bc38-dd26-4fbb-9011-cca26231f64b-S0  us-west-2  us-west-2b
-etcd-0-peer                                    172.12.25.146   root     R    kubernetes-cluster__etcd-0-peer__98e0bc46-a7d7-4553-8749-a9bafb624ae1                            fc11bc38-dd26-4fbb-9011-cca26231f64b-S0  us-west-2  us-west-2b
+etcd-0-peer                                    172.12.25.146   root     R    kubernetes-cluster1__etcd-0-peer__98e0bc46-a7d7-4553-8749-a9bafb624ae1                           fc11bc38-dd26-4fbb-9011-cca26231f64b-S0  us-west-2  us-west-2b
 ```
 
 Navigate to the DC/OS UI:
@@ -660,9 +660,9 @@ Navigate to the DC/OS UI > Services > Kubernetes tab and open next to the termin
 
 ![](https://github.com/ably77/dcos-se/blob/master/Kubernetes/mke/resources/images/etcd1.png)
 
-Run the command below to kill the `etcd-0` component of `kubernetes-cluster`:
+Run the command below to kill the `etcd-0` component of `kubernetes-cluster1`:
 ```
-dcos task exec -it kubernetes-cluster__etcd-0 bash -c 'kill -9 $(pidof etcd)'
+dcos task exec -it kubernetes-cluster1__etcd-0 bash -c 'kill -9 $(pidof etcd)'
 ```
 
 ## Troubleshooting
@@ -694,7 +694,7 @@ Make sure that the Service Accounts and Permissions are assigned correctly. Foll
 
 Follow the format at the [Creating Kubernetes Cluster #1](https://github.com/ably77/dcos-se/tree/master/Kubernetes/mke#creating-kubernetes-cluster-1) section above
 
-Modify the `kubernetes-cluster` name to match the name of your designated kubernetes-cluster (i.e. `kubernetes-dev`,`kubernetes-prod`, etc.) in the Service Accounts and Permissions
+Modify the `kubernetes-cluster1` name to match the name of your designated kubernetes-cluster (i.e. `kubernetes-dev`,`kubernetes-prod`, etc.) in the Service Accounts and Permissions
 
 Modify the `options.json` file to match the name of your designated kubernetes-cluster (i.e. `kubernetes-dev`,`kubernetes-prod`, etc.):
 
@@ -753,30 +753,30 @@ Input:
 ```
 dcos kubernetes cluster kubeconfig \
     --insecure-skip-tls-verify \
-    --context-name=kubernetes-cluster \
-    --cluster-name=kubernetes-cluster \
+    --context-name=kubernetes-cluster1 \
+    --cluster-name=kubernetes-cluster1 \
     --apiserver-url=https://${PUBLIC_IP_ADDRESS}:6443
 ```
 
 Output:
 ```
-Using Kubernetes cluster: kubernetes-cluster
-2018/11/01 17:22:20 failed to update kubeconfig context 'kubernetes-cluster': HTTP GET Query for https://54.149.204.113/service/kubernetes-cluster/v1/auth/data failed: 503 Service Unavailable
+Using Kubernetes cluster: kubernetes-cluster1
+2018/11/01 17:22:20 failed to update kubeconfig context 'kubernetes-cluster1': HTTP GET Query for https://54.149.204.113/service/kubernetes-cluster1/v1/auth/data failed: 503 Service Unavailable
 Response: the service account secret has not been created yet
 Response data (51 bytes): the service account secret has not been created yet
 HTTP query failed
 ```
 
 Resolution:
-Check to see if your `kubernetes-cluster` service is fully deployed
+Check to see if your `kubernetes-cluster1` service is fully deployed
 
 Through the UI:
-Navigate to the Services > kubernetes-cluster service and make sure that the following components are deployed:
-- kubernetes-cluster
-- kubernetes-cluster__etcd-0-peer
-- kubernetes-cluster__kube-control-plane-0-instance
-- kubernetes-cluster__mandatory-addons-0-instance
-- kubernetes-cluster__kube-node-0-kubelet
+Navigate to the Services > kubernetes-cluster1 service and make sure that the following components are deployed:
+- kubernetes-cluster1
+- kubernetes-cluster1__etcd-0-peer
+- kubernetes-cluster1__kube-control-plane-0-instance
+- kubernetes-cluster1__mandatory-addons-0-instance
+- kubernetes-cluster1__kube-node-0-kubelet
 
 ![](https://github.com/ably77/dcos-se/blob/master/Kubernetes/mke/resources/images/troubleshooting1.png)
 
@@ -784,13 +784,13 @@ Through the CLI:
 
 Output the Kubernetes Deploy plan:
 ```
-dcos kubernetes cluster debug plan status deploy --cluster-name=kubernetes-cluster
+dcos kubernetes cluster debug plan status deploy --cluster-name=kubernetes-cluster1
 ```
 
 Output should look similar to below:
 ```
-$ dcos kubernetes cluster debug plan status deploy --cluster-name=kubernetes-cluster
-Using Kubernetes cluster: kubernetes-cluster
+$ dcos kubernetes cluster debug plan status deploy --cluster-name=kubernetes-cluster1
+Using Kubernetes cluster: kubernetes-cluster1
 deploy (serial strategy) (COMPLETE)
 ├─ etcd (serial strategy) (COMPLETE)
 │  └─ etcd-0:[peer] (COMPLETE)
@@ -818,7 +818,7 @@ error: You must be logged in to the server (Unauthorized)
 ```
 
 Resolution:
-Make sure that you are authenticated to the correct port. If using the example above, kubernetes-cluster maps to `<PUBLIC_AGENT_IP>:6443` and kubernetes-cluster2 maps to `<PUBLIC_AGENT_IP>:6444`
+Make sure that you are authenticated to the correct port. If using the example above, kubernetes-cluster1 maps to `<PUBLIC_AGENT_IP>:6443` and kubernetes-cluster2 maps to `<PUBLIC_AGENT_IP>:6444`
 
 Example:
 ```

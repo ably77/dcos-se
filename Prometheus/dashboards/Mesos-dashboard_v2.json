@@ -128,7 +128,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "mesos_master_tasks_staging",
+          "expr": "mesos_master_tasks_staging{state=\"leader\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "refId": "A"
@@ -208,7 +208,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "mesos_master_tasks_starting",
+          "expr": "mesos_master_tasks_starting{state=\"leader\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "refId": "A"
@@ -288,7 +288,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "mesos_master_tasks_running",
+          "expr": "mesos_master_tasks_running{state=\"leader\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "refId": "A"
@@ -368,7 +368,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "mesos_master_tasks_killing",
+          "expr": "mesos_master_tasks_killing{state=\"leader\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "refId": "A"
@@ -448,7 +448,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "mesos_master_tasks_killed",
+          "expr": "mesos_master_tasks_killed{state=\"leader\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "refId": "A"
@@ -528,7 +528,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "mesos_master_tasks_failed",
+          "expr": "mesos_master_tasks_failed{state=\"leader\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "refId": "A"
@@ -608,7 +608,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "mesos_master_tasks_lost",
+          "expr": "mesos_master_tasks_lost{state=\"leader\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "refId": "A"
@@ -688,7 +688,7 @@
       "tableColumn": "",
       "targets": [
         {
-          "expr": "mesos_master_tasks_unreachable",
+          "expr": "mesos_master_tasks_unreachable{state=\"leader\"}",
           "format": "time_series",
           "intervalFactor": 1,
           "refId": "A"

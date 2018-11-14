@@ -1,29 +1,36 @@
 {
     "apiVersion": "V2",
-    "name": "edgelb-kubernetes-cluster-proxy",
+    "name": "edgelb-kubernetes-cluster-proxy-basic",
     "count": 1,
     "autoCertificate": true,
     "haproxy": {
         "frontends": [{
-            "bindPort": 6443,
-            "protocol": "HTTPS",
-            "certificates": [
-                "$AUTOCERT"
-            ],
-            "linkBackend": {
-                "defaultBackend": "kubernetes-cluster",
-                "map": [{
-                    "pathBeg": "/kube2",
-                    "backend": "kubernetes-cluster2"
-                }]
+                "bindPort": 6443,
+                "protocol": "HTTPS",
+                "certificates": [
+                    "$AUTOCERT"
+                ],
+                "linkBackend": {
+                    "defaultBackend": "kubernetes-cluster1"
+                }
+            },
+            {
+                "bindPort": 6444,
+                "protocol": "HTTPS",
+                "certificates": [
+                    "$AUTOCERT"
+                ],
+                "linkBackend": {
+                    "defaultBackend": "kubernetes-cluster2"
+                }
             }
-        }],
+        ],
         "backends": [{
-                "name": "kubernetes-cluster",
+                "name": "kubernetes-cluster1",
                 "protocol": "HTTPS",
                 "services": [{
                     "mesos": {
-                        "frameworkName": "kubernetes-cluster",
+                        "frameworkName": "kubernetes-cluster1",
                         "taskNamePattern": "kube-control-plane"
                     },
                     "endpoint": {
@@ -34,12 +41,6 @@
             {
                 "name": "kubernetes-cluster2",
                 "protocol": "HTTPS",
-                "rewriteHttp": {
-                    "path": {
-                        "fromPath": "/kube2",
-                        "toPath": "/"
-                    }
-                },
                 "services": [{
                     "mesos": {
                         "frameworkName": "kubernetes-cluster2",
@@ -57,4 +58,3 @@
         }
     }
 }
-
