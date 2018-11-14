@@ -43,7 +43,7 @@ Navigate to the `/opt/mesosphere/etc/telegraf/telegraf.d` directory
 cd /opt/mesosphere/etc/telegraf/telegraf.d
 ```
 
-Add the Mesos conf file to the directory - be sure to replace `<MASTER_INTERNAL_IP>` parameter in the configuration:
+Create a file called `mesos.conf` the directory with the below telegraf configuration - be sure to replace `<MASTER_INTERNAL_IP>` parameter in the configuration:
 ```
 # Telegraf plugin for gathering metrics from N Mesos masters
 [[inputs.mesos]]
@@ -172,7 +172,7 @@ Select Save and Test. Now you are ready to use Prometheus as a data source in Gr
 
 ### Dashboards
 
-[Dashboards](https://github.com/ably77/dcos-se/tree/master/Prometheus/dashboards)
+[Link to Dashboards](https://github.com/ably77/dcos-se/tree/master/Prometheus/dashboards)
 
 To use the dashboards above, once you have correctly set up your data source you can import the dashboard.json files
 
@@ -187,14 +187,17 @@ Select your Dashboard Name and Data Source:
 
 ### Examples of Working Dashboards:
 
+DC/OS Alert Center (Example):
+![](https://github.com/ably77/dcos-se/blob/master/Prometheus/resources/alertcenter.png)
+
 DC/OS Overview Dashboard:
-![](https://github.com/ably77/dcos-se/blob/master/Prometheus/resources/dashboard1.png)
+![](https://github.com/ably77/dcos-se/blob/master/Prometheus/resources/dcos-overview.png)
 
 DC/OS Node Dashboard:
-![](https://github.com/ably77/dcos-se/blob/master/Prometheus/resources/dashboard2.png)
+![](https://github.com/ably77/dcos-se/blob/master/Prometheus/resources/nodes-overview.png)
 
 DC/OS Mesos Master Dashboard:
-![](https://github.com/ably77/dcos-se/blob/master/Prometheus/resources/dashboard3.png)
+![](https://github.com/ably77/dcos-se/blob/master/Prometheus/resources/mesos-dashboard.png)
 
 ### Uninstall
 
