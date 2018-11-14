@@ -154,7 +154,9 @@ Select `Add a Data Source` and add Prometheus as a data source
 ![](https://github.com/ably77/dcos-se/blob/master/Prometheus/resources/grafana2.png)
 
 Input the fields:
+
 `Name`: Prometheus
+
 `Type`: Prometheus
 
 In this demo, because the Prometheus service is nested in the `/monitoring` group folder in DC/OS, the VIP hostname syntax for this demo is shown below:
