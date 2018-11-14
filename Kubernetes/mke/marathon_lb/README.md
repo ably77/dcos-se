@@ -9,10 +9,10 @@ dcos package install marathon-lb --yes
 
 ### Connecting to Cluster 1:
 
-Deploy the `kubernetes-cluster-proxy`:
+Deploy the `kubernetes-cluster1-proxy`:
 ```
 {
-  "id": "/kubernetes-cluster-proxy",
+  "id": "/kubernetes-cluster1-proxy",
   "instances": 1,
   "cpus": 0.001,
   "mem": 16,
@@ -31,14 +31,14 @@ Deploy the `kubernetes-cluster-proxy`:
     "HAPROXY_0_MODE": "http",
     "HAPROXY_0_PORT": "6443",
     "HAPROXY_0_SSL_CERT": "/etc/ssl/cert.pem",
-    "HAPROXY_0_BACKEND_SERVER_OPTIONS": "  timeout connect 10s\n  timeout client 86400s\n  timeout server 86400s\n  timeout tunnel 86400s\n  server kubernetescluster apiserver.kubernetes-cluster.l4lb.thisdcos.directory:6443 ssl verify none\n"
+    "HAPROXY_0_BACKEND_SERVER_OPTIONS": "  timeout connect 10s\n  timeout client 86400s\n  timeout server 86400s\n  timeout tunnel 86400s\n  server kubernetescluster apiserver.kubernetes-cluster1.l4lb.thisdcos.directory:6443 ssl verify none\n"
   }
 }
 ```
 
 You can also deploy using the below:
 ```
-dcos marathon app add https://raw.githubusercontent.com/ably77/dcos-se/master/Kubernetes/mke/resources/kubernetes-cluster-proxy.json
+dcos marathon app add https://raw.githubusercontent.com/ably77/dcos-se/master/Kubernetes/mke/resources/kubernetes-cluster1-proxy.json
 ```
 
 Find the `marathon-lb` private IP address and cross check the Private IP with your Public IP agent list to get the correct `MARATHON_PUBLIC_AGENT_IP` used in the next steps:
@@ -52,12 +52,12 @@ $ dcos task | grep marathon-lb
 marathon-lb                                    10.0.6.8     root     S    marathon-lb.8d2afb0b-d8be-11e8-9f25-5a26e0c9f3ae                                                 e8a41984-fa99-417b-8640-1453c240a2c8-S7   aws/us-west-2  aws/us-west-2a
 ```
 
-Connect to the Kubernetes API for kubernetes-cluster at port `:6443`:
+Connect to the Kubernetes API for kubernetes-cluster1 at port `:6443`:
 ```
 dcos kubernetes cluster kubeconfig \
     --insecure-skip-tls-verify \
-    --context-name=kubernetes-cluster \
-    --cluster-name=kubernetes-cluster \
+    --context-name=kubernetes-cluster1 \
+    --cluster-name=kubernetes-cluster1 \
     --apiserver-url=https://${MARATHON_PUBLIC_AGENT_IP}:6443
 ```
 
