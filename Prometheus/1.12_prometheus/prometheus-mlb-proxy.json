@@ -1,5 +1,5 @@
 {
-  "id": "/prometheus-proxy",
+  "id": "/monitoring/prometheus-proxy",
   "instances": 1,
   "cpus": 0.001,
   "mem": 16,
@@ -29,15 +29,15 @@
     "HAPROXY_GROUP": "external",
     "HAPROXY_0_MODE": "http",
     "HAPROXY_0_PORT": "9092",
-    "HAPROXY_0_BACKEND_SERVER_OPTIONS": "server prometheus prometheus.prometheus.l4lb.thisdcos.directory:9090",
+    "HAPROXY_0_BACKEND_SERVER_OPTIONS": "server prometheus prometheus.monitoringprometheus.l4lb.thisdcos.directory:9090",
     "HAPROXY_1_MODE": "http",
     "HAPROXY_1_PORT": "9093",
-    "HAPROXY_1_BACKEND_SERVER_OPTIONS": "server alertmanager alertmanager.prometheus.l4lb.thisdcos.directory:9093",
+    "HAPROXY_1_BACKEND_SERVER_OPTIONS": "server alertmanager alertmanager.monitoringprometheus.l4lb.thisdcos.directory:9093",
     "HAPROXY_2_MODE": "http",
     "HAPROXY_2_PORT": "9091",
-    "HAPROXY_2_BACKEND_SERVER_OPTIONS": "server pushgateway pushgateway.prometheus.l4lb.thisdcos.directory:9091",
+    "HAPROXY_2_BACKEND_SERVER_OPTIONS": "server pushgateway pushgateway.monitoringprometheus.l4lb.thisdcos.directory:9091",
     "HAPROXY_3_MODE": "http",
     "HAPROXY_3_PORT": "9094",
-    "HAPROXY_3_BACKEND_SERVER_OPTIONS": "server grafana grafana.grafana.l4lb.thisdcos.directory:3000"
+    "HAPROXY_3_BACKEND_SERVER_OPTIONS": "server grafana grafana.monitoringgrafana.l4lb.thisdcos.directory:3000"
   }
 }

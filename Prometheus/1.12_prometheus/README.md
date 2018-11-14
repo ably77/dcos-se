@@ -151,7 +151,7 @@ This takes you to the Grafana console
 
 Select `Add a Data Source` and add Prometheus as a data source
 
-The default installation VIP hostname is `http://prometheus-0-server.prometheus.autoip.dcos.thisdcos.directory:1025`
+The VIP hostname for this demo will be `http://prometheus-0-server.monitoringprometheus.autoip.dcos.thisdcos.directory:1025` since it is nested in the `/monitoring` group folder in DC/OS
 
 **Note:** your data source will not register without http:// in front of the URL
 

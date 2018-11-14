@@ -1,7 +1,7 @@
 {
   "service": {
-    "name": "kubernetes-cluster",
-    "service_account": "kubernetes-cluster",
-    "service_account_secret": "kubernetes-cluster/sa"
+    "name": "kubernetes-cluster1",
+    "service_account": "kubernetes-cluster1",
+    "service_account_secret": "kubernetes-cluster1/sa"
   }
 }
