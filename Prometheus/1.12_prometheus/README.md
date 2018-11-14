@@ -172,17 +172,27 @@ Select Save and Test. Now you are ready to use Prometheus as a data source in Gr
 
 ### Dashboards
 
-[Link to Dashboards](https://github.com/ably77/dcos-se/tree/master/Prometheus/dashboards)
+A few examples of Dashboards have been uploaded to Grafana.com and can be accessed below. Note that these are unofficial dashboards, and meant to provide some working examples
 
-To use the dashboards above, once you have correctly set up your data source you can import the dashboard.json files
+[Link to Dashboards on Grafana.com](https://grafana.com/dashboards?search=DC%2FOS)
 
-Select the + button --> import:
 ![](https://github.com/ably77/dcos-se/blob/master/Prometheus/resources/import1.png)
 
-Copy/Paste the JSON:
+Once you have correctly set up your data source in the steps above you can import the dashboard.json files
+
+Select the + button --> import:
 ![](https://github.com/ably77/dcos-se/blob/master/Prometheus/resources/import2.png)
 
-Select your Dashboard Name and Data Source:
+Paste the Grafana.com dashboard url or id:
+![](https://github.com/ably77/dcos-se/blob/master/Prometheus/resources/import2.png)
+
+Reference Dashboard IDs:
+- 1.12 DC/OS Alert Center Dashboard - ID: 9000 - URL: https://grafana.com/dashboards/9000
+- 1.12 DC/OS Mesos Dashboard - ID: 9012 - URL: https://grafana.com/dashboards/9012
+- 1.12 DC/OS Nodes Overview Dashboard - ID: 9009 - URL: https://grafana.com/dashboards/9009
+- 1.12 DC/OS Overview Dashboard - ID: 9006 - URL: https://grafana.com/dashboards/9006
+
+Edit your Dashboard Name and Select Data Source and Import:
 ![](https://github.com/ably77/dcos-se/blob/master/Prometheus/resources/import3.png)
 
 ### Examples of Working Dashboards:
