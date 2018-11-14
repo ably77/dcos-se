@@ -151,11 +151,19 @@ This takes you to the Grafana console
 
 Select `Add a Data Source` and add Prometheus as a data source
 
-The VIP hostname for this demo will be `http://prometheus-0-server.monitoringprometheus.autoip.dcos.thisdcos.directory:1025` since it is nested in the `/monitoring` group folder in DC/OS
+![](https://github.com/ably77/dcos-se/blob/master/Prometheus/resources/grafana2.png)
+
+Input the fields:
+`Name`: Prometheus
+`Type`: Prometheus
+
+In this demo, because the Prometheus service is nested in the `/monitoring` group folder in DC/OS, the VIP hostname syntax for this demo is shown below:
+
+`HTTP URL`: `http://prometheus-0-server.monitoringprometheus.autoip.dcos.thisdcos.directory:1025`
 
 **Note:** your data source will not register without http:// in front of the URL
 
-![](https://github.com/ably77/dcos-se/blob/master/Prometheus/resources/grafana2.png)
+![](https://github.com/ably77/dcos-se/blob/master/Prometheus/resources/grafana3.png)
 
 Select Save and Test. Now you are ready to use Prometheus as a data source in Grafana.
 
