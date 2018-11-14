@@ -17,7 +17,10 @@ Run:
 This will install Prometheus, Grafana, Marathon-LB, and the Prometheus proxy service to access the UIs
 
 
-### Adding Mesos Master Metrics
+### Adding Mesos Master Metrics using the Mesos Telegraf Plugin
+New to 1.12 is Telegraf, a popular open source metrics pipeline which is shipped as part of the DC/OS distribution to collect metrics from system, container, and application. Telegraf runs on every host in the cluster. It is designed around a pluggable architecture. Several custom plugins written especially for DC/OS provide metrics on the performance of DC/OS workloads and DC/OS itself.
+
+By default, the Mesos Telegraf plugin is not included in the installation (currently a WIP for a near-future point release) so below are instructions on how to start collecting Mesos level metrics using the Telegraf plugin
 
 ### On Each Master:
 
