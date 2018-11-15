@@ -1,7 +1,7 @@
 {
   "apiVersion": "V2",
   "name": "prometheus",
-  "count": 3,
+  "count": 1,
   "haproxy": {
     "frontends": [
       {
@@ -40,7 +40,7 @@
       "services": [{
         "endpoint": {
           "type": "ADDRESS",
-          "address": "prometheus.prometheus.l4lb.thisdcos.directory",
+          "address": "prometheus.monitoringprometheus.l4lb.thisdcos.directory",
           "port": 9090
         }
       }]
@@ -51,7 +51,7 @@
      "services": [{
        "endpoint": {
          "type": "ADDRESS",
-         "address": "alertmanager.prometheus.l4lb.thisdcos.directory",
+         "address": "alertmanager.monitoringprometheus.l4lb.thisdcos.directory",
          "port": 9093
        }
      }]
@@ -62,7 +62,7 @@
     "services": [{
       "endpoint": {
         "type": "ADDRESS",
-        "address": "grafana.grafana.l4lb.thisdcos.directory",
+        "address": "grafana.monitoringgrafana.l4lb.thisdcos.directory",
         "port": 3000
       }
     }]
@@ -73,7 +73,7 @@
     "services": [{
       "endpoint": {
         "type": "ADDRESS",
-        "address": "pushgateway.prometheus.l4lb.thisdcos.directory",
+        "address": "pushgateway.monitoringprometheus.l4lb.thisdcos.directory",
         "port": 9091
       }
     }]
