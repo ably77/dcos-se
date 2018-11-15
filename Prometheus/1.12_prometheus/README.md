@@ -1,4 +1,4 @@
-# Demo Prometheus Framework on DC/OS 1.12
+# Tutorial: Prometheus Framework on DC/OS 1.12
 
 ## Prerequisites:
 - DC/OS 1.12 Cluster (Note: This guide uses m3.xlarge instances - 4vCPU / 15GB MEM)
