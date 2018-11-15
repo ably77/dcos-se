@@ -29,11 +29,17 @@ Below are instructions on how to deploy and operate multi-kubernetes clusters us
 - DC/OS 1.12
 - 1 Master
 
-Ideal VM Size for this demo:
-- 3 Agents (m5.2xlarge - 8vCPU / 32 GB MEM)
+Ideal Agent VM Size for this demo:
+
+- 1 Public Agent (m4.xlarge) if not testing K8s ingress, +1 for each Kubernetes cluster if testing K8s ingress
+
+- 3 Private Agents (m5.2xlarge - 8vCPU / 32 GB MEM)
 	- Demonstrates High Density Multi Kubernetes by bin packing 2x Highly Available Kubernetes Clusters in 3 agent nodes
-- 5 Agents (m4.xlarge - 4vCPU / 16GB MEM)
+OR
+- 5 Private Agents (m4.xlarge - 4vCPU / 16GB MEM)
 	- Demonstrates multiple Kubernetes, but lack of bin packing due to small VM size
+
+
 
 Install the Enterprise DC/OS CLI:
 ```
