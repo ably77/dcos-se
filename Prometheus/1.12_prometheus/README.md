@@ -18,7 +18,7 @@ This will install Prometheus, Grafana, Marathon-LB, and the Prometheus proxy ser
 
 ### Manual Installation Steps:
 
-Save Prometheus `options.json`:
+Save Prometheus options as `prometheus-options.json`:
 ```
 {
   "service": {
@@ -32,7 +32,7 @@ Install Prometheus Framework:
 dcos package install prometheus --package-version=0.1.1-2.3.2 --options=prometheus-options.json --yes
 ```
 
-Save Grafana `options.json`:
+Save Grafana options as `grafana-options.json`:
 ```
 {
   "service": {
