@@ -196,6 +196,7 @@ Reference Dashboard IDs:
 - 1.12 DC/OS Overview Dashboard - ID: 9006 - URL: https://grafana.com/dashboards/9006
 - 1.12 DC/OS Nodes Overview Dashboard - ID: 9009 - URL: https://grafana.com/dashboards/9009
 - 1.12 DC/OS Mesos Dashboard - ID: 9012 - URL: https://grafana.com/dashboards/9012
+- 1.12 DC/OS Kafka Dashboard - ID: 9018 - URL: https://grafana.com/dashboards/9018
 
 Edit your Dashboard Name and Select Data Source and Import:
 ![](https://github.com/ably77/dcos-se/blob/master/Prometheus/resources/import3.png)
@@ -213,6 +214,10 @@ DC/OS Node Dashboard:
 
 DC/OS Mesos Master Dashboard:
 ![](https://github.com/ably77/dcos-se/blob/master/Prometheus/resources/mesos-dashboard.png)
+
+DC/OS Kafka Dashboard:
+![](https://github.com/ably77/dcos-se/blob/master/Prometheus/resources/kafka-dashboard1.png)
+![](https://github.com/ably77/dcos-se/blob/master/Prometheus/resources/kafka-dashboard2.png)
 
 ### Uninstall
 
