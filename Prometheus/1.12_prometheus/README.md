@@ -7,7 +7,7 @@
 	- 4 Private Agents
 - Cluster authenticated to DC/OS CLI
 
-### Installation
+### Installation Script:
 
 Run:
 ```
@@ -16,8 +16,63 @@ Run:
 
 This will install Prometheus, Grafana, Marathon-LB, and the Prometheus proxy service to access the UIs
 
+### Manual Installation Steps:
 
-### Adding Mesos Master Metrics using the Mesos Telegraf Plugin
+Save Prometheus `options.json`:
+```
+{
+  "service": {
+    "name": "/monitoring/prometheus"
+  }
+}
+```
+
+Install Prometheus Framework:
+```
+dcos package install prometheus --package-version=0.1.1-2.3.2 --options=prometheus-options.json --yes
+```
+
+Save Grafana `options.json`:
+```
+{
+  "service": {
+    "name": "/monitoring/grafana"
+  }
+}
+```
+
+Install Grafana Service:
+```
+dcos package install grafana --package-version=5.5.0-5.1.3 --options=grafana-options.json --yes
+```
+
+Install Marathon-LB:
+```
+dcos package install marathon-lb --package-version=1.12.3 --yes
+```
+
+Install Prometheus MLB Proxy:
+```
+dcos marathon app add https://raw.githubusercontent.com/ably77/dcos-se/master/Prometheus/1.12_prometheus/prometheus-mlb-proxy.json
+```
+
+Run the `findpublic_ips.sh` script:
+```
+./findpublic_ips.sh
+```
+
+Output should similar to below:
+```
+Public agent node found! public IP is:
+52.27.213.225
+172.12.3.121
+
+
+Once all of the services are deployed:
+open http://<PUBLIC_AGENT_IP>:9091-94 to access the Prometheus, Alertmanager, PushGateway, and Grafana UI
+```
+
+### Example of Adding Mesos Master Metrics using the Mesos Telegraf Plugin
 New to 1.12 is Telegraf, a popular open source metrics pipeline which is shipped as part of the DC/OS distribution to collect metrics from system, container, and application. Telegraf runs on every host in the cluster. It is designed around a pluggable architecture. Several custom plugins written especially for DC/OS provide metrics on the performance of DC/OS workloads and DC/OS itself.
 
 By default, the Mesos Telegraf plugin is not included in the installation (currently a WIP for a near-future point release) so below are instructions on how to start collecting Mesos level metrics using the Telegraf plugin
@@ -28,7 +83,7 @@ SSH into master:
 ```
 ssh -i <path/to/key> <user>@<master_ip>
 
-or 
+or
 
 ssh -A <user>@<master_ip>
 
@@ -234,5 +289,3 @@ If Mesos metrics are not showing, check the systemd `dcos-telegraf` component on
 ```
 sudo systemctl status dcos-telegraf
 ```
-
-
