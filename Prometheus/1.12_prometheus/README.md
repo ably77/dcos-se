@@ -197,7 +197,7 @@ Oct 25 16:46:30 ip-10-0-7-75.us-west-2.compute.internal start_telegraf.sh[9060]:
 
 At this point, Mesos Master metrics will start to pipe into Prometheus
 
-## Getting Started
+## Getting Started with Prometheus + Grafana
 
 Navigate to the Marathon-LB Public Agent serving the Grafana UI using the credentials `admin/admin`:
 ```
@@ -228,7 +228,7 @@ In this demo, because the Prometheus service is nested in the `/monitoring` grou
 Select Save and Test. Now you are ready to use Prometheus as a data source in Grafana.
 
 
-### Dashboards
+### Grafana Dashboards
 
 A few examples of Dashboards have been uploaded to Grafana.com and can be accessed below. Note that these are unofficial dashboards meant to provide some working examples
 
@@ -256,7 +256,7 @@ Reference Dashboard IDs:
 Edit your Dashboard Name and Select Data Source and Import:
 ![](https://github.com/ably77/dcos-se/blob/master/Prometheus/resources/import3.png)
 
-### Examples of Working Dashboards:
+### Examples of Working Grafana Dashboards:
 
 DC/OS Alert Center (Example):
 ![](https://github.com/ably77/dcos-se/blob/master/Prometheus/resources/alertcenter.png)
