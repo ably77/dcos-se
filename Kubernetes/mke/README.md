@@ -35,7 +35,9 @@ Ideal Agent VM Size for this demo:
 
 - 3 Private Agents (m5.2xlarge - 8vCPU / 32 GB MEM)
 	- Demonstrates High Density Multi Kubernetes by bin packing 2x Highly Available Kubernetes Clusters in 3 agent nodes
-OR
+
+**OR**
+
 - 5 Private Agents (m4.xlarge - 4vCPU / 16GB MEM)
 	- Demonstrates multiple Kubernetes, but lack of bin packing due to small VM size
 
