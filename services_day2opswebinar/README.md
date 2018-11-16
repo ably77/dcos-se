@@ -1,4 +1,4 @@
-# Webinar - (Spark, K8s, HDFS)-as-a-service
+# Day2 Ops Using the SmartCity Demo
 - The purpose of this webinar lab demo is to demonstrate/showcase Day 2 operations of our data services on DC/OS
 - The audience of this webinar is geared towards Systems Admins and Operators
 - The focus data services will be Spark, K8s, and HDFS as examples, but the concepts can easily be adapted to all of the other Certified SDK data services in the DC/OS Universe
