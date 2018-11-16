@@ -11,7 +11,7 @@ Prerequisites:
 - CCM Cluster - CoreOS Operating System
 - 1 Master
 - 1 Public Agent
-- 15 Private Agents
+- 15 Private Agents (m4.xlarge)
 - DC/OS CLI Installed and Authenticated
 
 Note: It is most ideal to have this EXACT environment above. Having multiple masters and multiple public agents will require some modification to the scripts
