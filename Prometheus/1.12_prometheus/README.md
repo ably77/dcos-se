@@ -199,6 +199,21 @@ At this point, Mesos Master metrics will start to pipe into Prometheus
 
 ## Getting Started with Prometheus + Grafana
 
+Use the DC/OS Prometheus CLI to discover your Prometheus endpoints, we will need this later to set up our Grafana data source:
+```
+dcos prometheus endpoints prometheus --name=monitoring/prometheus
+```
+
+Output should look like below:
+```
+$ dcos prometheus endpoints prometheus --name=monitoring/prometheus
+{
+  "address": ["172.12.24.145:1026"],
+  "dns": ["prometheus-0-server.monitoringprometheus.autoip.dcos.thisdcos.directory:1026"],
+  "vip": "prometheus.monitoringprometheus.l4lb.thisdcos.directory:9090"
+}
+```
+
 Navigate to the Marathon-LB Public Agent serving the Grafana UI using the credentials `admin/admin`:
 ```
 http://<public-agent-ip>:9094
@@ -217,9 +232,7 @@ Input the fields:
 
 `Type`: Prometheus
 
-In this demo, because the Prometheus service is nested in the `/monitoring` group folder in DC/OS, the VIP hostname syntax for this demo is shown below:
-
-`HTTP URL`: `http://prometheus-0-server.monitoringprometheus.autoip.dcos.thisdcos.directory:1025`
+`HTTP URL`: `http://prometheus-0-server.monitoringprometheus.autoip.dcos.thisdcos.directory:1026`
 
 **Note:** your data source will not register without http:// in front of the URL
 
@@ -244,7 +257,7 @@ Select the + button --> import:
 ![](https://github.com/ably77/dcos-se/blob/master/Prometheus/resources/import2.png)
 
 Paste the Grafana.com dashboard url or id:
-![](https://github.com/ably77/dcos-se/blob/master/Prometheus/resources/import2.png)
+![](https://github.com/ably77/dcos-se/blob/master/Prometheus/resources/import3.png)
 
 Reference Dashboard IDs:
 - 1.12 DC/OS Alert Center Dashboard - ID: 9000 - URL: https://grafana.com/dashboards/9000
