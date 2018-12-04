@@ -69,15 +69,15 @@ Install Kubernetes Cluster #1:
 dcos kubernetes cluster create --options=options.json --yes
 ```
 
-To monitor your Kubernetes cluster creation, use the DC/OS Kubernetes CLI:
+To monitor your prod/kubernetes-cluster1 creation, use the DC/OS Kubernetes CLI:
 ```
-dcos kubernetes cluster debug plan status deploy --cluster-name=kubernetes-cluster1
+dcos kubernetes cluster debug plan status deploy --cluster-name=prod/kubernetes-cluster1
 ```
 
 Complete cluster plan shown below:
 ```
-$ dcos kubernetes cluster debug plan status deploy --cluster-name=kubernetes-cluster1
-Using Kubernetes cluster: kubernetes-cluster1
+$ dcos kubernetes cluster debug plan status deploy --cluster-name=prod/kubernetes-cluster1
+Using Kubernetes cluster: prod/kubernetes-cluster1
 deploy (serial strategy) (COMPLETE)
 ├─ etcd (serial strategy) (COMPLETE)
 │  └─ etcd-0:[peer] (COMPLETE)
@@ -93,6 +93,27 @@ deploy (serial strategy) (COMPLETE)
 Install `kubernetes-cluster2` Cluster:
 ```
 dcos kubernetes cluster create --options=options2.json --yes
+```
+
+To monitor your prod/kubernetes-cluster1 creation, use the DC/OS Kubernetes CLI:
+```
+dcos kubernetes cluster debug plan status deploy --cluster-name=dev/kubernetes-cluster2
+```
+
+Complete cluster plan shown below:
+```
+$ dcos kubernetes cluster debug plan status deploy --cluster-name=dev/kubernetes-cluster2
+Using Kubernetes cluster: dev/kubernetes-cluster2
+deploy (serial strategy) (COMPLETE)
+├─ etcd (serial strategy) (COMPLETE)
+│  └─ etcd-0:[peer] (COMPLETE)
+├─ control-plane (dependency strategy) (COMPLETE)
+│  └─ kube-control-plane-0:[instance] (COMPLETE)
+├─ mandatory-addons (serial strategy) (COMPLETE)
+│  └─ mandatory-addons-0:[instance] (COMPLETE)
+├─ node (dependency strategy) (COMPLETE)
+│  └─ kube-node-0:[kubelet] (COMPLETE)
+└─ public-node (dependency strategy) (COMPLETE)
 ```
 
 ## Connecting to the Kubernetes API
