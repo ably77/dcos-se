@@ -18,37 +18,37 @@ Ideal Agent VM Size for this demo:
 - 5 Private Agents (m4.xlarge - 4vCPU / 16GB MEM)
 	- Demonstrates multiple Kubernetes, but lack of bin packing due to small VM size
 
-  ### Kubernetes HTTPS Requirement:
-  The Mesosphere Kubernetes Engine (MKE) requires access over `HTTPS` in order to connect to the `kubernetes-apiserver` using `kubectl`.
+### Kubernetes HTTPS Requirement:
+The Mesosphere Kubernetes Engine (MKE) requires access over `HTTPS` in order to connect to the `kubernetes-apiserver` using `kubectl`.
 
-  To ensure that you are authenticated to the DC/OS CLI using `HTTPS:` run:
-  ```
-  dcos config show core.dcos_url
-  ```
+To ensure that you are authenticated to the DC/OS CLI using `HTTPS:` run:
+```
+dcos config show core.dcos_url
+```
 
-  In case the returned URL doesn't start with `https://` run:
-  ```
-  dcos config set core.dcos_url https://<master_public_IP_or_ELB_address>
-  ```
+In case the returned URL doesn't start with `https://` run:
+```
+dcos config set core.dcos_url https://<master_public_IP_or_ELB_address>
+```
 
-  Additionally, if the TLS certificate used by DC/OS is not trusted, you can run the following command to disable TLS verification:
-  ```
-  dcos config set core.ssl_verify false
-  ```
+Additionally, if the TLS certificate used by DC/OS is not trusted, you can run the following command to disable TLS verification:
+```
+dcos config set core.ssl_verify false
+```
 
-  ### Install the Kubernetes Control Plane Manager:
-  ```
-  dcos package install kubernetes --yes
-  ```
+### Install the Kubernetes Control Plane Manager:
+```
+dcos package install kubernetes --yes
+```
 
-  ### Install the latest DC/OS Kubernetes CLI:
-  ```
-  dcos package install kubernetes --cli --yes
-  ```
+### Install the latest DC/OS Kubernetes CLI:
+```
+dcos package install kubernetes --cli --yes
+```
 
-  Create options.json:
-  ```
-  {
+Create options.json:
+```
+{
   "service": {
     "name": "prod/kubernetes-cluster1"
   }
