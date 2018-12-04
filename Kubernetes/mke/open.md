@@ -179,6 +179,35 @@ kube-control-plane-0-instance.prodkubernetes-cluster1.mesos   Ready    master   
 kube-node-0-kubelet.prodkubernetes-cluster1.mesos             Ready    <none>   4m8s    v1.12.3
 ```
 
+### Connecting to Cluster 2:
+
+Deploy the `kubernetes-cluster2-proxy`:
+```
+{
+  "id": "/kubernetes-cluster2-proxy",
+  "instances": 1,
+  "cpus": 0.001,
+  "mem": 16,
+  "cmd": "tail -F /dev/null",
+  "container": {
+    "type": "MESOS"
+  },
+  "portDefinitions": [
+    {
+      "protocol": "tcp",
+      "port": 0
+    }
+  ],
+  "labels": {
+    "HAPROXY_GROUP": "external",
+    "HAPROXY_0_MODE": "http",
+    "HAPROXY_0_PORT": "6444",
+    "HAPROXY_0_SSL_CERT": "/etc/ssl/cert.pem",
+    "HAPROXY_0_BACKEND_SERVER_OPTIONS": "  timeout connect 10s\n  timeout client 86400s\n  timeout server 86400s\n  timeout tunnel 86400s\n  server kubernetescluster apiserver.devkubernetes-cluster2.l4lb.thisdcos.directory:6443 ssl verify none\n"
+  }
+}
+```
+
 ### Connect to Kubernetes Cluster #2 at port `:6444`:
 ```
 dcos kubernetes cluster kubeconfig \
