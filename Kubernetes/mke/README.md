@@ -275,14 +275,9 @@ Create `edge-lb-options.json`:
 }
 ```
 
-Install Edge-LB:
+Install Edge-LB and the Edge-LB CLI:
 ```
 dcos package install --options=edge-lb-options.json edgelb --yes
-```
-
-Install EdgeLB CLI:
-```
-dcos package install edgelb --cli --yes
 ```
 
 Save Kubernetes Edge-LB Service Config as `edgelb.json`:
