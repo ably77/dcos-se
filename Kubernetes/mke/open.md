@@ -123,7 +123,7 @@ Before attempting to connect `kubectl` to the MKE clusters, make sure that port 
 
 Failure to open up port `:6443` and `:6444` will cause `kubectl` commands to hang
 
-Install Marathon-LB:
+### Install Marathon-LB:
 ```
 dcos package install marathon-lb --yes
 ```
@@ -217,7 +217,7 @@ dcos kubernetes cluster kubeconfig \
     --apiserver-url=https://${MARATHONLB_PUBLIC_AGENT_IP}:6444
 ```
 
-### Quick Test for Kubernetes Cluster #1
+### Quick Test for Kubernetes Cluster #2
 ```
 kubectl get nodes
 ```
