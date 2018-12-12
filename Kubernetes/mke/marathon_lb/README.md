@@ -38,7 +38,7 @@ Deploy the `kubernetes-cluster1-proxy`:
 
 You can also deploy using the below:
 ```
-dcos marathon app add https://raw.githubusercontent.com/ably77/dcos-se/master/Kubernetes/mke/resources/kubernetes-cluster1-proxy.json
+dcos marathon app add https://raw.githubusercontent.com/ably77/dcos-se/master/Kubernetes/mke/resources/kubernetes-cluster-proxy1.json
 ```
 
 Find the `marathon-lb` private IP address and cross check the Private IP with your Public IP agent list to get the correct `MARATHON_PUBLIC_AGENT_IP` used in the next steps:
@@ -111,7 +111,7 @@ Deploy kubernetes-cluster2-proxy:
 
 You can also deploy using the below:
 ```
-dcos marathon app add https://raw.githubusercontent.com/ably77/dcos-se/master/Kubernetes/mke/resources/kubernetes-cluster2-proxy.json
+dcos marathon app add https://raw.githubusercontent.com/ably77/dcos-se/master/Kubernetes/mke/resources/kubernetes-cluster-proxy2.json
 ```
 
 Connect to the Kubernetes API for kubernetes-cluster2 at port `:6444`
