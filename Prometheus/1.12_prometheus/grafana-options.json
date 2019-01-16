@@ -1,5 +1,7 @@
 {
-  "service": {
-    "name": "/monitoring/grafana"
-  }
+    "service": {
+        "name": "/monitoring/grafana",
+        "cpus": 0.5,
+        "mem": 4096
+    }
 }
