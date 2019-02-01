@@ -1,0 +1,14 @@
+{
+	"service": {
+		"name": "cassandra-team1",
+    "region": "us-west-2"
+	},
+	"nodes": {
+		"count": 3,
+		"cpus": 0.5,
+		"mem": 4096,
+		"disk": 10240,
+		"disk_type": "ROOT",
+		"placement_constraint": "[[\"hostname\", \"MAX_PER\", \"1\"]]"
+	}
+}
