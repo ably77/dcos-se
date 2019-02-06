@@ -55,4 +55,4 @@ dcos package install package-registry --cli --yes
 ### DC/OS Packages
 
 See link below for the list of Officially Supported .dcos packages:
-![DC/OS Packages](https://downloads.mesosphere.com/universe/packages/packages.html)
+[DC/OS Packages](https://downloads.mesosphere.com/universe/packages/packages.html)
