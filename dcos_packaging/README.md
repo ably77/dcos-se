@@ -9,6 +9,18 @@ Install the DC/OS Enterprise CLI:
 dcos package install dcos-enterprise-cli --yes
 ```
 
+### Remove the default DC/OS Universe Catalog:
+```
+dcos package repo remove Universe
+```
+
+NOTE: If you would like to add it back in the future, use the command below:
+```
+dcos package repo add --index=0 Universe https://universe.mesosphere.com/repo
+```
+
+### Install the DC/OS Registry service
+
 Create a registry service account, secret, and assign permissions:
 ```
 dcos security org service-accounts keypair private-key.pem public-key.pem
@@ -30,4 +42,17 @@ Install the DC/OS registry service:
 dcos package install package-registry --options=registry-options.json --yes
 ```
 
+Enable the DC/OS Package Registry with the DC/OS Package Manager
+```
+dcos package repo add --index=0 Registry https://registry.marathon.l4lb.thisdcos.directory/repo
+```
 
+Install the DC/OS Package Registry CLI:
+```
+dcos package install package-registry --cli --yes
+```
+
+### DC/OS Packages
+
+See link below for the list of Officially Supported .dcos packages:
+![DC/OS Packages](https://downloads.mesosphere.com/universe/packages/packages.html)
