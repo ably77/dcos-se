@@ -62,5 +62,10 @@ wget https://downloads.mesosphere.com/universe/packages/cassandra/1.0.25-3.0.10/
 ### Uploading Packages to the DC/OS Package Registry
 To upload a package to the Package Registry use the DC/OS registry CLI:
 ```
-dcos registry add --dcos-file <PACKAGE>.dcos
+dcos registry add --dcos-file <PACKAGE_NAME>.dcos
+```
+
+### Removing Packages from the DC/OS Package Registry
+```
+dcos registry remove --package-name <PACKAGE_NAME> --package-version <PACKAGE_VERSION>
 ```
