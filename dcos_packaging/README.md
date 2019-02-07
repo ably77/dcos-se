@@ -75,7 +75,7 @@ For our example we will be using the Gitlab package. From the Universe home dire
 
 **Note** that this repository contains the valid universe package definition files, and is a v4 or higher schema which fulfills our requirements
 
-For your convenience I have supplied the `hello-world` directory in this repo for you to use as well.
+**For your convenience, if you have cloned this repo I have supplied the `hello-world` directory in this repo for you to use as well.**
 
 ### Modify the Package
 
