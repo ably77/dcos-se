@@ -62,7 +62,7 @@ You can clean up the build definition json file as it is no longer needed. Both 
 
 After executing all the above steps, you should have a brand new `.dcos` file that is ready to :rocket:. Follow the instructions in [Managing Packages in Package Registry](#managing-packages-in-package-registry) to upload this `.dcos` file to your DC/OS cluster
 
-## Example - Modifying the DC/OS Gitlab package and creating a new .dcos file
+## Tutorial Example - Modifying the DC/OS Gitlab package and creating a new .dcos file
 
 Navigate to the DC/OS Universe Package Repository Github:
 ```
