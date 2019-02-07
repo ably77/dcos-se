@@ -13,7 +13,7 @@ Our current tooling enables us to bundle the universe packages in to .dcos files
 
 ### Requirements
 
-1.  Make sure you have the valid universe package defintion files([Schema here](https://github.com/mesosphere/universe/tree/version-3.x/repo/meta/schema)). Note that `package-registry` only support packages that are packaged with v4 or higher schema of universe packaging system. See [Creating a package](https://github.com/mesosphere/universe#creating-a-package) for more details.
+1.  Make sure you have the valid universe package definition files([Schema here](https://github.com/mesosphere/universe/tree/version-3.x/repo/meta/schema)). Note that `package-registry` only supports packages that are packaged with v4 or higher schema of universe packaging system. See [Creating a package](https://github.com/mesosphere/universe#creating-a-package) for more details.
 2. `docker` installed in your system (if your package uses docker images).
 3. Package registry CLI needs to be installed as well.
 
@@ -71,7 +71,7 @@ https://github.com/mesosphere/universe
 
 For our example we will be using the Gitlab package. From the Universe home directory navigate to repo --> packages --> H --> hello-world --> 16
 
-(Insert Pic Placeholder Here)
+![](https://github.com/ably77/dcos-se/blob/master/dcos_packaging/resources/github1.png)
 
 **Note** that this repository contains the valid universe package definition files, and is a v4 or higher schema which fulfills our requirements
 
@@ -212,7 +212,7 @@ Note: It will take a couple of minutes for the packages to be added to the regis
 ```
 
 After a few minutes the new service should be available in the DC/OS Catalog:
-(Insert Picture Placeholder Here)
+![](https://github.com/ably77/dcos-se/blob/master/dcos_packaging/resources/package1.png)
 
 If you click on the hello-world service you can see that the defaults for the Hello pod CPU and the World pod MEM have been changed:
-(Insert Picture Placeholder Here)
+![](https://github.com/ably77/dcos-se/blob/master/dcos_packaging/resources/package2.png)
