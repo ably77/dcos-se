@@ -1,0 +1,28 @@
+{
+	"apiVersion": "V2",
+	"name": "broker-0-pool",
+	"count": 1,
+	"haproxy": {
+		"frontends": [{
+			"bindPort": 1025,
+			"protocol": "TCP",
+			"linkBackend": {
+				"defaultBackend": "broker-0-backend"
+			}
+		}],
+		"backends": [{
+			"name": "broker-0-backend",
+			"protocol": "TCP",
+			"services": [{
+				"endpoint": {
+					"type": "ADDRESS",
+					"address": "kafka-0-broker.kafka-exposed.autoip.dcos.thisdcos.directory",
+					"port": 1025
+				}
+			}]
+		}],
+		"stats": {
+			"bindPort": 6091
+		}
+	}
+}

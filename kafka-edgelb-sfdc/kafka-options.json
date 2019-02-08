@@ -1,0 +1,18 @@
+{
+	"service": {
+		"name": "kafka"
+	},
+	"brokers": {
+		"cpus": 1,
+		"mem": 2048,
+		"heap": {
+			"size": 512
+		},
+		"disk": 5000,
+		"count": 3,
+    "port": 1025
+	},
+	"kafka": {
+		"log_retention_hours": 1
+	}
+}

@@ -1,0 +1,40 @@
+{
+  "id": "kafka-consumer",
+  "backoffFactor": 1.15,
+  "backoffSeconds": 1,
+  "cmd": "kafka-console-consumer --bootstrap-server broker.kafka.l4lb.thisdcos.directory:9092 --topic kafkatest --from-beginning",
+  "container": {
+    "type": "MESOS",
+    "volumes": [],
+    "docker": {
+      "image": "confluentinc/cp-kafka",
+      "forcePullImage": false,
+      "parameters": []
+    }
+  },
+  "cpus": 0.2,
+  "disk": 0,
+  "instances": 1,
+  "maxLaunchDelaySeconds": 0,
+  "mem": 512,
+  "gpus": 0,
+  "networks": [
+    {
+      "mode": "host"
+    }
+  ],
+  "portDefinitions": [],
+  "requirePorts": false,
+  "upgradeStrategy": {
+    "maximumOverCapacity": 1,
+    "minimumHealthCapacity": 0
+  },
+  "killSelection": "YOUNGEST_FIRST",
+  "unreachableStrategy": {
+    "inactiveAfterSeconds": 0,
+    "expungeAfterSeconds": 0
+  },
+  "healthChecks": [],
+  "fetch": [],
+  "constraints": []
+}

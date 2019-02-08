@@ -1,0 +1,34 @@
+{
+ "apiVersion": "V2",
+ "name": "broker-1-pool",
+ "count": 1,
+ "constraints": "hostname:LIKE:172.12.2.136",
+ "haproxy": {
+   "stats": {
+     "bindPort": 19090
+   },
+   "frontends": [{
+     "bindPort": 9092,
+     "protocol": "TCP",
+     "certificates": [
+       "$AUTOCERT"
+     ],
+     "linkBackend": {
+       "defaultBackend": "kafka-broker-1"
+     }
+   }],
+   "backends": [{
+     "name": "kafka-broker-1",
+     "protocol": "TCP",
+     "services": [{
+       "mesos": {
+         "frameworkName": "kafka",
+         "taskNamePattern": "kafka-1-broker"
+       },
+       "endpoint": {
+         "portName": "broker-tls"
+       }
+     }]
+   }]
+ }
+}

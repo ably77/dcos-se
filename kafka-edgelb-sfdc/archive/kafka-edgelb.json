@@ -1,0 +1,79 @@
+{
+	"apiVersion": "V2",
+	"name": "kafka-lb",
+	"count": 1,
+	"autoCertificate": true,
+	"haproxy": {
+		"frontends": [{
+				"bindPort": 1025,
+				"protocol": "TCP",
+				"certificates": [
+					"$AUTOCERT"
+				],
+				"linkBackend": {
+					"defaultBackend": "kafka-one"
+				}
+			},
+			{
+				"bindPort": 1026,
+				"protocol": "TCP",
+				"certificates": [
+					"$AUTOCERT"
+				],
+				"linkBackend": {
+					"defaultBackend": "kafka-two"
+				}
+			},
+			{
+				"bindPort": 1027,
+				"protocol": "TCP",
+				"linkBackend": {
+					"defaultBackend": "kafka-three"
+				}
+			}
+		],
+		"backends": [{
+				"name": "kafka-one",
+				"protocol": "TCP",
+				"services": [{
+					"mesos": {
+						"frameworkName": "kafka",
+						"taskNamePattern": "kafka-0-broker"
+					},
+					"endpoint": {
+						"port": 1025
+					}
+				}]
+			},
+			{
+				"name": "kafka-two",
+				"protocol": "TCP",
+				"services": [{
+					"mesos": {
+						"frameworkName": "kafka",
+						"taskNamePattern": "kafka-1-broker"
+					},
+					"endpoint": {
+						"port": 1025
+					}
+				}]
+			},
+			{
+				"name": "kafka-three",
+				"protocol": "TCP",
+				"services": [{
+					"mesos": {
+						"frameworkName": "kafka",
+						"taskNamePattern": "kafka-2-broker"
+					},
+					"endpoint": {
+						"port": 1025
+					}
+				}]
+			}
+		],
+		"stats": {
+			"bindPort": 6091
+		}
+	}
+}

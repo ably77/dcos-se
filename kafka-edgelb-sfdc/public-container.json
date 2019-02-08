@@ -1,0 +1,22 @@
+{
+  "id": "/public-container",
+  "instances": 1,
+  "portDefinitions": [],
+  "container": {
+    "type": "MESOS",
+    "volumes": [],
+    "docker": {
+      "image": "confluentinc/cp-kafka"
+    }
+  },
+  "acceptedResourceRoles": [
+    "slave_public"
+  ],
+  "cpus": 0.1,
+  "mem": 128,
+  "requirePorts": false,
+  "networks": [],
+  "healthChecks": [],
+  "fetch": [],
+  "constraints": []
+}

@@ -1,0 +1,19 @@
+{
+	"service": {
+		"name": "kafka",
+		"service_account": "kafka-principal",
+		"service_account_secret": "kafka/kafka-secret",
+		"security": {
+			"ssl_authentication": {
+				"enabled": false
+			},
+			"transport_encryption": {
+				"enabled": true,
+        "allow_plaintext": true
+			}
+		}
+	},
+	"brokers": {
+		"port_tls": 9092
+	}
+}

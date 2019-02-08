@@ -1,0 +1,67 @@
+{
+	"apiVersion": "V2",
+	"name": "kafka-lb",
+	"count": 1,
+	"autoCertificate": true,
+	"haproxy": {
+		"frontends": [{
+				"bindPort": 1025,
+				"protocol": "TCP",
+				"linkBackend": {
+					"defaultBackend": "kafka-0-broker"
+				}
+			},
+			{
+				"bindPort": 1026,
+				"protocol": "TCP",
+				"linkBackend": {
+					"defaultBackend": "kafka-1-broker"
+				}
+			},
+			{
+				"bindPort": 1027,
+				"protocol": "TCP",
+				"linkBackend": {
+					"defaultBackend": "kafka-2-broker"
+				}
+			}
+		],
+		"backends": [{
+				"name": "kafka-0-broker",
+				"protocol": "TCP",
+				"services": [{
+					"endpoint": {
+						"type": "ADDRESS",
+						"address": "kafka-0-broker.kafka.autoip.dcos.thisdcos.directory",
+						"port": 1026
+					}
+				}]
+			},
+			{
+				"name": "kafka-1-broker",
+				"protocol": "TCP",
+				"services": [{
+					"endpoint": {
+						"type": "ADDRESS",
+						"address": "kafka-1-broker.kafka.autoip.dcos.thisdcos.directory",
+						"port": 1025
+					}
+				}]
+			},
+			{
+				"name": "kafka-2-broker",
+				"protocol": "TCP",
+				"services": [{
+					"endpoint": {
+						"type": "ADDRESS",
+						"address": "kafka-2-broker.kafka.autoip.dcos.thisdcos.directory",
+						"port": 1025
+					}
+				}]
+			}
+		],
+		"stats": {
+			"bindPort": 6091
+		}
+	}
+}

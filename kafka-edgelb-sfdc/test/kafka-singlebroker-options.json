@@ -1,0 +1,19 @@
+{
+	"service": {
+		"name": "kafka-exposed",
+		"placement_constraint": "[[\"hostname\",\"MAX_PER\",\"1\"],[\"@region\",\"IS\",\"us-east-1\"]]",
+	},
+	"brokers": {
+		"cpus": 1,
+		"mem": 2048,
+		"heap": {
+			"size": 512
+		},
+		"disk": 5000,
+		"count": 1,
+    "port": 1025
+	},
+	"kafka": {
+		"log_retention_hours": 1
+	}
+}
