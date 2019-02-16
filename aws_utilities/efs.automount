@@ -1,0 +1,9 @@
+[Unit]
+Description=AWS EFS automount
+
+[Automount]
+Where=/efs
+
+[Install]
+WantedBy=multi-user.target
+
