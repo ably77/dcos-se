@@ -1,0 +1,53 @@
+{
+  "id": "/loadgenerator/post-tweets-awseast",
+  "backoffFactor": 1.15,
+  "backoffSeconds": 1,
+  "cmd": "bin/tweet shakespeare-tweets.json http://1.1.1.1:30000",
+  "constraints": [
+    [
+      "@region",
+      "IS",
+      "us-east-1"
+    ]
+  ],
+  "container": {
+    "portMappings": [
+      {
+        "containerPort": 3000,
+        "hostPort": 0,
+        "protocol": "tcp",
+        "servicePort": 10101
+      }
+    ],
+    "type": "MESOS",
+    "volumes": [],
+    "docker": {
+      "image": "mesosphere/tweeter",
+      "forcePullImage": false,
+      "parameters": []
+    }
+  },
+  "cpus": 0.25,
+  "disk": 0,
+  "instances": 1,
+  "maxLaunchDelaySeconds": 0,
+  "mem": 256,
+  "gpus": 0,
+  "networks": [
+    {
+      "mode": "container/bridge"
+    }
+  ],
+  "requirePorts": false,
+  "upgradeStrategy": {
+    "maximumOverCapacity": 1,
+    "minimumHealthCapacity": 0
+  },
+  "killSelection": "YOUNGEST_FIRST",
+  "unreachableStrategy": {
+    "inactiveAfterSeconds": 0,
+    "expungeAfterSeconds": 0
+  },
+  "healthChecks": [],
+  "fetch": []
+}

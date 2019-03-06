@@ -1,0 +1,5 @@
+{
+  "service": {
+    "remote_seeds": "node-0-server.cassandra-aws-east.autoip.dcos.thisdcos.directory,node-1-server.cassandra-aws-west.autoip.dcos.thisdcos.directory"
+  }
+}

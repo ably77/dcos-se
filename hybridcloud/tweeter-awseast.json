@@ -1,0 +1,83 @@
+{
+  "env": {
+    "CASSANDRA_HOSTS": "node-0-server.cassandra-aws-east.autoip.dcos.thisdcos.directory",
+    "RAILS_ENV": "production",
+    "SECRET_KEY_BASE": "be6ea21bd0e8ddad06accbdfbfcbc6f120815744a8177fb1196442c1670401c86a1d020f1fb62f9b7d6bacc8cf818de277d23d3f3e7dcf704ca88965e5b9ed86"
+  },
+  "labels": {
+    "HAPROXY_GROUP": "external",
+    "HAPROXY_0_VHOST": "ext-aly-hybrid-east-304557794.us-east-1.elb.amazonaws.com",
+    "HAPROXY_DEPLOYMENT_GROUP": "tweeter-awseast"
+  },
+  "id": "tweeterapp/tweeter-awseast",
+  "backoffFactor": 1.15,
+  "backoffSeconds": 1,
+  "cmd": "export KAFKA_BROKERS='broker.kafka-awseast.l4lb.thisdcos.directory:9092' && until rake cassandra:setup; do sleep 5; done && rails server --binding 0.0.0.0",
+  "constraints": [
+    [
+      "@region",
+      "IS",
+      "us-east-1"
+    ],
+    [
+      "@zone",
+      "GROUP_BY",
+      "3"
+    ]
+  ],
+  "container": {
+    "portMappings": [
+      {
+        "containerPort": 3000,
+        "hostPort": 0,
+        "labels": {
+          "VIP_0": "1.1.1.1:30000"
+        },
+        "protocol": "tcp",
+        "servicePort": 10000
+      }
+    ],
+    "type": "MESOS",
+    "volumes": [],
+    "docker": {
+      "image": "mesosphere/tweeter",
+      "forcePullImage": true,
+      "parameters": []
+    }
+  },
+  "cpus": 0.25,
+  "disk": 0,
+  "healthChecks": [
+    {
+      "gracePeriodSeconds": 300,
+      "ignoreHttp1xx": false,
+      "intervalSeconds": 60,
+      "maxConsecutiveFailures": 3,
+      "portIndex": 0,
+      "timeoutSeconds": 20,
+      "delaySeconds": 15,
+      "protocol": "HTTP",
+      "path": "/"
+    }
+  ],
+  "instances": 3,
+  "maxLaunchDelaySeconds": 60,
+  "mem": 256,
+  "gpus": 0,
+  "networks": [
+    {
+      "mode": "container/bridge"
+    }
+  ],
+  "requirePorts": false,
+  "upgradeStrategy": {
+    "maximumOverCapacity": 1,
+    "minimumHealthCapacity": 1
+  },
+  "killSelection": "YOUNGEST_FIRST",
+  "unreachableStrategy": {
+    "inactiveAfterSeconds": 0,
+    "expungeAfterSeconds": 0
+  },
+  "fetch": []
+}

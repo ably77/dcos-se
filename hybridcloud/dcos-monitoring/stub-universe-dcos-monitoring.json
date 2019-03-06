@@ -1,0 +1,432 @@
+{
+  "packages": [
+    {
+      "packagingVersion": "4.0",
+      "upgradesFrom": [
+        "*"
+      ],
+      "downgradesTo": [
+        "*"
+      ],
+      "minDcosReleaseVersion": "1.12",
+      "name": "dcos-monitoring",
+      "version": "v0.3.0",
+      "maintainer": "support@mesosphere.io",
+      "description": "An example implementation of a stateful service using the DC/OS SDK",
+      "selected": false,
+      "framework": true,
+      "tags": [
+        "logging",
+        "monitoring",
+        "prometheus",
+        "grafana"
+      ],
+      "preInstallNotes": "This DC/OS Service is currently in preview.",
+      "postInstallNotes": "Package dcos-monitoring is being installed!\n\n\tDocumentation: https://docs.mesosphere.com/service-docs/dcos-monitoring/\n\tIssues: https://docs.mesosphere.com/support/",
+      "postUninstallNotes": "Package dcos-monitoring is being uninstalled.",
+      "releaseVersion": 0,
+      "config": {
+        "type": "object",
+        "properties": {
+          "service": {
+            "type": "object",
+            "description": "DC/OS service configuration properties",
+            "properties": {
+              "name": {
+                "description": "The name of the service instance",
+                "type": "string",
+                "default": "dcos-monitoring"
+              },
+              "user": {
+                "description": "The user that the service will run as.",
+                "type": "string",
+                "default": "nobody"
+              },
+              "service_account": {
+                "description": "The service account for DC/OS service authentication. This is typically left empty to use the default unless service authentication is needed. The value given here is passed as the principal of the Mesos framework.",
+                "type": "string",
+                "default": ""
+              },
+              "service_account_secret": {
+                "description": "Name of the Secret Store credentials to use for DC/OS service authentication. This should be left empty unless service authentication is needed.",
+                "type": "string",
+                "default": ""
+              },
+              "log_level": {
+                "description": "The log level for the DC/OS service.",
+                "type": "string",
+                "enum": [
+                  "OFF",
+                  "FATAL",
+                  "ERROR",
+                  "WARN",
+                  "INFO",
+                  "DEBUG",
+                  "TRACE",
+                  "ALL"
+                ],
+                "default": "INFO"
+              }
+            }
+          },
+          "prometheus": {
+            "description": "Prometheus configuration properties",
+            "type": "object",
+            "properties": {
+              "cpus": {
+                "description": "Prometheus pod CPU requirements",
+                "type": "number",
+                "default": 2.0
+              },
+              "mem": {
+                "description": "Prometheus pod mem requirements (in MB)",
+                "type": "integer",
+                "default": 4096
+              },
+              "volume": {
+                "description": "Prometheus volume requirements",
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "description": "The type of persistent volume to use, one of ROOT or MOUNT",
+                    "type": "string",
+                    "default": "ROOT",
+                    "enum": [
+                      "ROOT",
+                      "MOUNT"
+                    ]
+                  },
+                  "size": {
+                    "description": "The size of the persistent volume in MB",
+                    "type": "integer",
+                    "default": 25000,
+                    "minimum": 2000
+                  }
+                }
+              },
+              "interval": {
+                "description": "Master scrape interval",
+                "type": "number",
+                "default": 30
+              },
+              "timeout": {
+                "description": "Master scrape timeout",
+                "type": "number",
+                "default": 25
+              },
+              "dcos_metrics_node_port": {
+                "description": "Port where to scrape dcos-metrics in each node",
+                "type": "number",
+                "default": 61091
+              },
+              "rule_urls_csv": {
+                "description": "List of alert rules file urls as csv",
+                "type": "string"
+              }
+            },
+            "required": [
+              "cpus",
+              "mem"
+            ]
+          },
+          "grafana": {
+            "description": "Grafana configuration properties",
+            "type": "object",
+            "properties": {
+              "cpus": {
+                "description": "Grafana pod CPU requirements",
+                "type": "number",
+                "default": 2.0
+              },
+              "mem": {
+                "description": "Grafana pod mem requirements (in MB)",
+                "type": "integer",
+                "default": 4096
+              },
+              "data_volume": {
+                "description": "Grafana data volume requirements",
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "description": "The type of persistent volume to use, one of ROOT or MOUNT",
+                    "type": "string",
+                    "default": "ROOT",
+                    "enum": [
+                      "ROOT",
+                      "MOUNT"
+                    ]
+                  },
+                  "size": {
+                    "description": "The size of the persistent volume in MB",
+                    "type": "integer",
+                    "default": 512,
+                    "minimum": 50
+                  }
+                }
+              },
+              "ui_port": {
+                "description": "The port to connect to the Grafana UI",
+                "type": "integer",
+                "default": 3000
+              },
+              "admin_router_proxy": {
+                "description": "Whether to use Admin Router as the proxy to access Grafana UI",
+                "type": "boolean",
+                "default": true
+              },
+              "public": {
+                "description": "Whether the Grafana instance will be deployed on a public agent or not.",
+                "type": "boolean",
+                "default": false
+              },
+              "admin_credentials": {
+                "description": "Username/password for the admin user",
+                "type": "object",
+                "properties": {
+                  "username": {
+                    "title": "Secret for username",
+                    "description": "Secret name for username of the admin user",
+                    "type": "string"
+                  },
+                  "password": {
+                    "title": "Secret for password",
+                    "description": "Secret name for password of the admin user",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "username",
+                  "password"
+                ]
+              },
+              "placement_constraints": {
+                "type": "string",
+                "description": "The Marathon-style placement constraints string controlling Grafana server placement",
+                "default": "",
+                "media": {
+                  "type": "application/x-zone-constraints+json"
+                }
+              },
+              "default_dashboards": {
+                "description": "Whether to load default Grafana dashboards associated with this package",
+                "type": "boolean",
+                "default": true
+              },
+              "dashboard_config_repository": {
+                "description": "Repository for Grafana dashboard configs",
+                "type": "object",
+                "properties": {
+                  "url": {
+                    "description": "The URL to the git repository",
+                    "type": "string"
+                  },
+                  "path": {
+                    "description": "Path in the repository to load configs from (e.g., /, /foo)",
+                    "type": "string"
+                  },
+                  "reference_name": {
+                    "description": "Git repository reference name (e.g., refs/heads/master)",
+                    "type": "string"
+                  },
+                  "credentials": {
+                    "oneOf": [
+                      {
+                        "description": "Username/password for accessing the repository",
+                        "type": "object",
+                        "properties": {
+                          "username": {
+                            "title": "Secret for username",
+                            "description": "Secret name for username of the repository",
+                            "type": "string"
+                          },
+                          "password": {
+                            "title": "Secret for password (or API token)",
+                            "description": "Secret name for password (or API token) of the repository",
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "username",
+                          "password"
+                        ]
+                      },
+                      {
+                        "description": "Deploy key for accessing the repository",
+                        "type": "object",
+                        "properties": {
+                          "deploy_key": {
+                            "description": "Secret name for the deploy key",
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "deploy_key"
+                        ]
+                      }
+                    ]
+                  }
+                },
+                "required": [
+                  "url",
+                  "path"
+                ]
+              }
+            },
+            "required": [
+              "cpus",
+              "mem"
+            ]
+          },
+          "alertmanager": {
+            "description": "Alertmanager settings",
+            "type": "object",
+            "properties": {
+              "secrets": {
+                "description": "Secrets that will be used by Alertmanager",
+                "type": "object",
+                "properties": {
+                  "slack_api_url": {
+                    "description": "Slack webhook url",
+                    "type": "string"
+                  }
+                }
+              },
+              "config_repository": {
+                "description": "Repository for Alertmanager configs",
+                "type": "object",
+                "properties": {
+                  "url": {
+                    "description": "The URL to the git repository",
+                    "type": "string"
+                  },
+                  "path": {
+                    "description": "Path in the repository to load configs from (e.g., /, /foo)",
+                    "type": "string"
+                  },
+                  "credentials": {
+                    "oneOf": [
+                      {
+                        "description": "Credentials for accessing the repository",
+                        "type": "object",
+                        "properties": {
+                          "username": {
+                            "title": "Secret for username",
+                            "description": "Secret name for username of the repository",
+                            "type": "string"
+                          },
+                          "password": {
+                            "title": "Secret for password (or API token)",
+                            "description": "Secret name for password (or API token) of the repository",
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "username",
+                          "password"
+                        ]
+                      },
+                      {
+                        "description": "Deploy key for accessing the repository",
+                        "type": "object",
+                        "properties": {
+                          "deploy_key": {
+                            "description": "Secret name for the deploy key",
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "deploy_key"
+                        ]
+                      }
+                    ]
+                  }
+                },
+                "required": [
+                  "url",
+                  "path"
+                ]
+              }
+            },
+            "required": [
+              "config_repository"
+            ]
+          }
+        }
+      },
+      "marathon": {
+        "v2AppMustacheTemplate": "ewogICJpZCI6ICJ7e3NlcnZpY2UubmFtZX19IiwKICAiY3B1cyI6IDEuMCwKICAibWVtIjogMTAyNCwKICAiaW5zdGFuY2VzIjogMSwKICAidXNlciI6ICJ7e3NlcnZpY2UudXNlcn19IiwKICAiY29udGFpbmVyIjogewogICAgInR5cGUiOiAiTUVTT1MiLAogICAgImRvY2tlciI6IHsKICAgICAgImltYWdlIjogInt7cmVzb3VyY2UuYXNzZXRzLmNvbnRhaW5lci5kb2NrZXIubmdpbnh9fSIKICAgIH0KICB9LAogICJjbWQiOiAiLi9pbml0LnNoIiwKICAibGFiZWxzIjogewogICAgIkRDT1NfQ09NTU9OU19BUElfVkVSU0lPTiI6ICJ2MSIsCiAgICAiRENPU19DT01NT05TX1VOSU5TVEFMTCI6ICJ0cnVlIiwKICAgICJEQ09TX1BBQ0tBR0VfRlJBTUVXT1JLX05BTUUiOiAie3tzZXJ2aWNlLm5hbWV9fSIsCiAgICAiTUFSQVRIT05fU0lOR0xFX0lOU1RBTkNFX0FQUCI6ICJ0cnVlIiwKICAgICJEQ09TX1NFUlZJQ0VfTkFNRSI6ICJ7e3NlcnZpY2UubmFtZX19IiwKICAgICJEQ09TX1NFUlZJQ0VfUE9SVF9JTkRFWCI6ICIxIiwKICAgICJEQ09TX1NFUlZJQ0VfU0NIRU1FIjogImh0dHAiCiAgfSwKICB7eyNzZXJ2aWNlLnNlcnZpY2VfYWNjb3VudF9zZWNyZXR9fQogICJzZWNyZXRzIjogewogIHt7L3NlcnZpY2Uuc2VydmljZV9hY2NvdW50X3NlY3JldH19CiAge3tec2VydmljZS5zZXJ2aWNlX2FjY291bnRfc2VjcmV0fX0KICB7eyNncmFmYW5hLmFkbWluX2NyZWRlbnRpYWxzfX0KICAic2VjcmV0cyI6IHsKICB7ey9ncmFmYW5hLmFkbWluX2NyZWRlbnRpYWxzfX0KICB7ey9zZXJ2aWNlLnNlcnZpY2VfYWNjb3VudF9zZWNyZXR9fQogICAge3sjc2VydmljZS5zZXJ2aWNlX2FjY291bnRfc2VjcmV0fX0KICAgICJzZXJ2aWNlQ3JlZGVudGlhbCI6IHsgInNvdXJjZSI6ICJ7e3NlcnZpY2Uuc2VydmljZV9hY2NvdW50X3NlY3JldH19IiB9LAogICAge3svc2VydmljZS5zZXJ2aWNlX2FjY291bnRfc2VjcmV0fX0KICAgIHt7I2dyYWZhbmEuYWRtaW5fY3JlZGVudGlhbHN9fQogICAgImdyYWZhbmFBZG1pblVzZXJuYW1lIjogeyAic291cmNlIjogInt7Z3JhZmFuYS5hZG1pbl9jcmVkZW50aWFscy51c2VybmFtZX19IiB9LAogICAgImdyYWZhbmFBZG1pblBhc3N3b3JkIjogeyAic291cmNlIjogInt7Z3JhZmFuYS5hZG1pbl9jcmVkZW50aWFscy5wYXNzd29yZH19IiB9LAogICAge3svZ3JhZmFuYS5hZG1pbl9jcmVkZW50aWFsc319CiAge3sjc2VydmljZS5zZXJ2aWNlX2FjY291bnRfc2VjcmV0fX0KICAgICJkdW1teSI6IHsgInNvdXJjZSI6ICJkdW1teSIgfQogIH0sCiAge3svc2VydmljZS5zZXJ2aWNlX2FjY291bnRfc2VjcmV0fX0KICB7e15zZXJ2aWNlLnNlcnZpY2VfYWNjb3VudF9zZWNyZXR9fQogIHt7I2dyYWZhbmEuYWRtaW5fY3JlZGVudGlhbHN9fQogICAgImR1bW15IjogeyAic291cmNlIjogImR1bW15IiB9CiAgfSwKICB7ey9ncmFmYW5hLmFkbWluX2NyZWRlbnRpYWxzfX0KICB7ey9zZXJ2aWNlLnNlcnZpY2VfYWNjb3VudF9zZWNyZXR9fQogICJlbnYiOiB7CiAgICAiTUVTT1NfQVBJX1ZFUlNJT04iOiAiVjEiLAogICAgIlBBQ0tBR0VfTkFNRSI6ICJkY29zLW1vbml0b3JpbmciLAogICAgIlBBQ0tBR0VfVkVSU0lPTiI6ICJ2MC4zLjAiLAogICAgIlBBQ0tBR0VfQlVJTERfVElNRV9FUE9DSF9NUyI6ICIxNTQ2OTY0MDc2ODUzIiwKICAgICJQQUNLQUdFX0JVSUxEX1RJTUVfU1RSIjogIlR1ZSBKYW4gMDggMjAxOSAxNjoxNDozNiArMDAwMCIsCiAgICAiRlJBTUVXT1JLX05BTUUiOiAie3tzZXJ2aWNlLm5hbWV9fSIsCiAgICAiRlJBTUVXT1JLX0xPR19MRVZFTCI6ICJ7e3NlcnZpY2UubG9nX2xldmVsfX0iLAogICAgIlNFUlZJQ0VfTkFNRSI6ICJ7e3NlcnZpY2UubmFtZX19IiwKICAgICJTRVJWSUNFX1BSSU5DSVBBTCI6ICJ7e3NlcnZpY2Uuc2VydmljZV9hY2NvdW50fX0iLAogICAgIlNFUlZJQ0VfVVNFUiI6ICJ7e3NlcnZpY2UudXNlcn19IiwKICAgICJQUk9NRVRIRVVTX0NQVVMiOiAie3twcm9tZXRoZXVzLmNwdXN9fSIsCiAgICAiUFJPTUVUSEVVU19NRU0iOiAie3twcm9tZXRoZXVzLm1lbX19IiwKICAgICJQUk9NRVRIRVVTX0RDT1NfTUVUUklDU19OT0RFX1BPUlQiOiAie3twcm9tZXRoZXVzLmRjb3NfbWV0cmljc19ub2RlX3BvcnR9fSIsCiAgICAiUFJPTUVUSEVVU19WT0xVTUVfVFlQRSI6ICJ7e3Byb21ldGhldXMudm9sdW1lLnR5cGV9fSIsCiAgICAiUFJPTUVUSEVVU19WT0xVTUVfU0laRSI6ICJ7e3Byb21ldGhldXMudm9sdW1lLnNpemV9fSIsCiAgICAiU0NSQVBFX0lOVEVSVkFMIjogInt7cHJvbWV0aGV1cy5pbnRlcnZhbH19IiwKICAgICJTQ1JBUEVfVElNRU9VVCI6ICJ7e3Byb21ldGhldXMudGltZW91dH19IiwKICAgICJHUkFGQU5BX0lNQUdFIjogInt7cmVzb3VyY2UuYXNzZXRzLmNvbnRhaW5lci5kb2NrZXIuZ3JhZmFuYX19IiwKICAgICJHUkFGQU5BX0NQVVMiOiAie3tncmFmYW5hLmNwdXN9fSIsCiAgICAiR1JBRkFOQV9NRU0iOiAie3tncmFmYW5hLm1lbX19IiwKICAgICJHUkFGQU5BX0RBVEFfVk9MVU1FX1RZUEUiOiAie3tncmFmYW5hLmRhdGFfdm9sdW1lLnR5cGV9fSIsCiAgICAiR1JBRkFOQV9EQVRBX1ZPTFVNRV9TSVpFIjogInt7Z3JhZmFuYS5kYXRhX3ZvbHVtZS5zaXplfX0iLAogICAgIkdSQUZBTkFfVUlfUE9SVCI6ICJ7e2dyYWZhbmEudWlfcG9ydH19IiwKICAgICJHUkFGQU5BX0FETUlOX1JPVVRFUl9QUk9YWSI6ICJ7e2dyYWZhbmEuYWRtaW5fcm91dGVyX3Byb3h5fX0iLAogICAge3sjZ3JhZmFuYS5wdWJsaWN9fQogICAgIkdSQUZBTkFfUFVCTElDIjogInt7Z3JhZmFuYS5wdWJsaWN9fSIsCiAgICB7ey9ncmFmYW5hLnB1YmxpY319CiAgICB7eyNncmFmYW5hLmFkbWluX2NyZWRlbnRpYWxzfX0KICAgICJHUkFGQU5BX0FETUlOX0NSRURFTlRJQUxTX0VOQUJMRUQiOiAidHJ1ZSIsCiAgICAiR1JBRkFOQV9BRE1JTl9DUkVERU5USUFMU19VU0VSTkFNRSI6ICJ7e2dyYWZhbmEuYWRtaW5fY3JlZGVudGlhbHMudXNlcm5hbWV9fSIsCiAgICAiR1JBRkFOQV9BRE1JTl9DUkVERU5USUFMU19QQVNTV09SRCI6ICJ7e2dyYWZhbmEuYWRtaW5fY3JlZGVudGlhbHMucGFzc3dvcmR9fSIsCiAgICAiR1JBRkFOQV9BRE1JTl9DUkVERU5USUFMU19VU0VSTkFNRV9WQUxVRSI6IHsgInNlY3JldCI6ICJncmFmYW5hQWRtaW5Vc2VybmFtZSIgfSwKICAgICJHUkFGQU5BX0FETUlOX0NSRURFTlRJQUxTX1BBU1NXT1JEX1ZBTFVFIjogeyAic2VjcmV0IjogImdyYWZhbmFBZG1pblBhc3N3b3JkIiB9LAogICAge3svZ3JhZmFuYS5hZG1pbl9jcmVkZW50aWFsc319CiAgICAiR1JBRkFOQV9QTEFDRU1FTlRfQ09OU1RSQUlOVFMiOiAie3tncmFmYW5hLnBsYWNlbWVudF9jb25zdHJhaW50c319IiwKICAgICJHUkFGQU5BX0RFRkFVTFRfREFTSEJPQVJEUyI6ICJ7e2dyYWZhbmEuZGVmYXVsdF9kYXNoYm9hcmRzfX0iLAogICAge3sjZ3JhZmFuYS5kYXNoYm9hcmRfY29uZmlnX3JlcG9zaXRvcnl9fQogICAgIkdSQUZBTkFfREFTSEJPQVJEX0NPTkZJR19SRVBPU0lUT1JZX0VOQUJMRUQiOiAidHJ1ZSIsCiAgICAiR1JBRkFOQV9EQVNIQk9BUkRfQ09ORklHX1JFUE9TSVRPUllfVVJMIjogInt7Z3JhZmFuYS5kYXNoYm9hcmRfY29uZmlnX3JlcG9zaXRvcnkudXJsfX0iLAogICAgIkdSQUZBTkFfREFTSEJPQVJEX0NPTkZJR19SRVBPU0lUT1JZX1BBVEgiOiAie3tncmFmYW5hLmRhc2hib2FyZF9jb25maWdfcmVwb3NpdG9yeS5wYXRofX0iLAogICAge3sjZ3JhZmFuYS5kYXNoYm9hcmRfY29uZmlnX3JlcG9zaXRvcnkucmVmZXJlbmNlX25hbWV9fQogICAgIkdSQUZBTkFfREFTSEJPQVJEX0NPTkZJR19SRVBPU0lUT1JZX1JFRkVSRU5DRV9OQU1FIjogInt7Z3JhZmFuYS5kYXNoYm9hcmRfY29uZmlnX3JlcG9zaXRvcnkucmVmZXJlbmNlX25hbWV9fSIsCiAgICB7ey9ncmFmYW5hLmRhc2hib2FyZF9jb25maWdfcmVwb3NpdG9yeS5yZWZlcmVuY2VfbmFtZX19CiAgICB7eyNncmFmYW5hLmRhc2hib2FyZF9jb25maWdfcmVwb3NpdG9yeS5jcmVkZW50aWFsc319CiAgICAiR1JBRkFOQV9EQVNIQk9BUkRfQ09ORklHX1JFUE9TSVRPUllfQ1JFREVOVElBTFNfRU5BQkxFRCI6ICJ0cnVlIiwKICAgIHt7I2dyYWZhbmEuZGFzaGJvYXJkX2NvbmZpZ19yZXBvc2l0b3J5LmNyZWRlbnRpYWxzLnVzZXJuYW1lfX0KICAgICJHUkFGQU5BX0RBU0hCT0FSRF9DT05GSUdfUkVQT1NJVE9SWV9DUkVERU5USUFMU19UWVBFX0JBU0lDIjogInRydWUiLAogICAgIkdSQUZBTkFfREFTSEJPQVJEX0NPTkZJR19SRVBPU0lUT1JZX1VTRVJOQU1FIjogInt7Z3JhZmFuYS5kYXNoYm9hcmRfY29uZmlnX3JlcG9zaXRvcnkuY3JlZGVudGlhbHMudXNlcm5hbWV9fSIsCiAgICAiR1JBRkFOQV9EQVNIQk9BUkRfQ09ORklHX1JFUE9TSVRPUllfUEFTU1dPUkQiOiAie3tncmFmYW5hLmRhc2hib2FyZF9jb25maWdfcmVwb3NpdG9yeS5jcmVkZW50aWFscy5wYXNzd29yZH19IiwKICAgIHt7L2dyYWZhbmEuZGFzaGJvYXJkX2NvbmZpZ19yZXBvc2l0b3J5LmNyZWRlbnRpYWxzLnVzZXJuYW1lfX0KICAgIHt7I2dyYWZhbmEuZGFzaGJvYXJkX2NvbmZpZ19yZXBvc2l0b3J5LmNyZWRlbnRpYWxzLmRlcGxveV9rZXl9fQogICAgIkdSQUZBTkFfREFTSEJPQVJEX0NPTkZJR19SRVBPU0lUT1JZX0NSRURFTlRJQUxTX1RZUEVfREVQTE9ZX0tFWSI6ICJ0cnVlIiwKICAgICJHUkFGQU5BX0RBU0hCT0FSRF9DT05GSUdfUkVQT1NJVE9SWV9ERVBMT1lfS0VZIjoie3tncmFmYW5hLmRhc2hib2FyZF9jb25maWdfcmVwb3NpdG9yeS5jcmVkZW50aWFscy5kZXBsb3lfa2V5fX0iLAogICAge3svZ3JhZmFuYS5kYXNoYm9hcmRfY29uZmlnX3JlcG9zaXRvcnkuY3JlZGVudGlhbHMuZGVwbG95X2tleX19CiAgICB7ey9ncmFmYW5hLmRhc2hib2FyZF9jb25maWdfcmVwb3NpdG9yeS5jcmVkZW50aWFsc319CiAgICB7ey9ncmFmYW5hLmRhc2hib2FyZF9jb25maWdfcmVwb3NpdG9yeX19CiAgICAiUFVTSEdBVEVXQVlfSU1BR0UiOiAie3tyZXNvdXJjZS5hc3NldHMuY29udGFpbmVyLmRvY2tlci5wdXNoZ2F0ZXdheX19IiwKICAgICJKQVZBX1VSSSI6ICJ7e3Jlc291cmNlLmFzc2V0cy51cmlzLmpyZS10YXItZ3p9fSIsCiAgICAiQk9PVFNUUkFQX1VSSSI6ICJ7e3Jlc291cmNlLmFzc2V0cy51cmlzLmJvb3RzdHJhcC16aXB9fSIsCiAgICAiUFJPTUVUSEVVU19VUkkiOiAie3tyZXNvdXJjZS5hc3NldHMudXJpcy5wcm9tZXRoZXVzLXRhci1nen19IiwKICAgICJESVNDT1ZFUllfSEVMUEVSX1VSSSI6ICJ7e3Jlc291cmNlLmFzc2V0cy51cmlzLmRpc2NvdmVyeS1oZWxwZXJ9fSIsCiAgICAiREFTSEJPQVJEX1JFRlJFU0hFUl9VUkkiOiAie3tyZXNvdXJjZS5hc3NldHMudXJpcy5kYXNoYm9hcmQtcmVmcmVzaGVyfX0iLAogICAgIkRFRkFVTFRfREFTSEJPQVJEU19VUkkiOiAie3tyZXNvdXJjZS5hc3NldHMudXJpcy5kZWZhdWx0LWRhc2hib2FyZHMtdGFyLWd6fX0iLAogICAge3sjc2VydmljZS5zZXJ2aWNlX2FjY291bnRfc2VjcmV0fX0KICAgICJTRVJWSUNFX1NFUlZJQ0VfQUNDT1VOVF9TRUNSRVQiOiAie3tzZXJ2aWNlLnNlcnZpY2VfYWNjb3VudF9zZWNyZXR9fSIsCiAgICAiRENPU19TRVJWSUNFX0FDQ09VTlRfQ1JFREVOVElBTCI6IHsgInNlY3JldCI6ICJzZXJ2aWNlQ3JlZGVudGlhbCIgfSwKICAgICJNRVNPU19NT0RVTEVTIjogIntcImxpYnJhcmllc1wiOlt7XCJmaWxlXCI6XCJsaWJtZXNvcy1idW5kbGVcL2xpYlwvbWVzb3NcL2xpYmRjb3Nfc2VjdXJpdHkuc29cIixcIm1vZHVsZXNcIjpbe1wibmFtZVwiOiBcImNvbV9tZXNvc3BoZXJlX2Rjb3NfQ2xhc3NpY1JQQ0F1dGhlbnRpY2F0ZWVcIn0se1wibmFtZVwiOlwiY29tX21lc29zcGhlcmVfZGNvc19odHRwX0F1dGhlbnRpY2F0ZWVcIixcInBhcmFtZXRlcnNcIjpbe1wia2V5XCI6XCJqd3RfZXhwX3RpbWVvdXRcIixcInZhbHVlXCI6XCI1bWluc1wifSx7XCJrZXlcIjpcInByZWVtcHRpdmVfcmVmcmVzaF9kdXJhdGlvblwiLFwidmFsdWVcIjpcIjMwbWluc1wifV19XX1dfSIsCiAgICAiTUVTT1NfQVVUSEVOVElDQVRFRSI6ICJjb21fbWVzb3NwaGVyZV9kY29zX0NsYXNzaWNSUENBdXRoZW50aWNhdGVlIiwKICAgICJNRVNPU19IVFRQX0FVVEhFTlRJQ0FURUUiOiAiY29tX21lc29zcGhlcmVfZGNvc19odHRwX0F1dGhlbnRpY2F0ZWUiLAogICAge3svc2VydmljZS5zZXJ2aWNlX2FjY291bnRfc2VjcmV0fX0KICAgICJMSUJNRVNPU19VUkkiOiAie3tyZXNvdXJjZS5hc3NldHMudXJpcy5saWJtZXNvcy1idW5kbGUtdGFyLWd6fX0iLAogICAge3sjYWxlcnRtYW5hZ2VyfX0KICAgICJBTEVSVE1BTkFHRVJfRU5BQkxFRCI6ICJ0cnVlIiwKICAgICJBTEVSVE1BTkFHRVJfQ09ORklHX1VSSSI6ICJ7e3Jlc291cmNlLmFzc2V0cy51cmlzLmFsZXJ0bWFuYWdlci1jb25maWd9fSIsCiAgICB7eyNhbGVydG1hbmFnZXIuc2VjcmV0c319CiAgICB7eyNhbGVydG1hbmFnZXIuc2VjcmV0cy5zbGFja19hcGlfdXJsfX0KICAgICJBTEVSVE1BTkFHRVJfU0VDUkVUU19TTEFDS19BUElfVVJMIjogInt7YWxlcnRtYW5hZ2VyLnNlY3JldHMuc2xhY2tfYXBpX3VybH19IiwKICAgIHt7L2FsZXJ0bWFuYWdlci5zZWNyZXRzLnNsYWNrX2FwaV91cmx9fQogICAge3svYWxlcnRtYW5hZ2VyLnNlY3JldHN9fQogICAgIkFMRVJUTUFOQUdFUl9DT05GSUdfUkVQT1NJVE9SWV9VUkwiOiAie3thbGVydG1hbmFnZXIuY29uZmlnX3JlcG9zaXRvcnkudXJsfX0iLAogICAgIkFMRVJUTUFOQUdFUl9DT05GSUdfUkVQT1NJVE9SWV9QQVRIIjogInt7YWxlcnRtYW5hZ2VyLmNvbmZpZ19yZXBvc2l0b3J5LnBhdGh9fSIsCiAgICB7eyNhbGVydG1hbmFnZXIuY29uZmlnX3JlcG9zaXRvcnkuY3JlZGVudGlhbHN9fQogICAgIkFMRVJUTUFOQUdFUl9DT05GSUdfUkVQT1NJVE9SWV9DUkVERU5USUFMU19FTkFCTEVEIjogInRydWUiLAogICAge3sjYWxlcnRtYW5hZ2VyLmNvbmZpZ19yZXBvc2l0b3J5LmNyZWRlbnRpYWxzLnVzZXJuYW1lfX0KICAgICJBTEVSVE1BTkFHRVJfQ09ORklHX1JFUE9TSVRPUllfQ1JFREVOVElBTFNfVFlQRV9CQVNJQyI6ICJ0cnVlIiwKICAgICJBTEVSVE1BTkFHRVJfQ09ORklHX1JFUE9TSVRPUllfVVNFUk5BTUUiOiAie3thbGVydG1hbmFnZXIuY29uZmlnX3JlcG9zaXRvcnkuY3JlZGVudGlhbHMudXNlcm5hbWV9fSIsCiAgICAiQUxFUlRNQU5BR0VSX0NPTkZJR19SRVBPU0lUT1JZX1BBU1NXT1JEIjogInt7YWxlcnRtYW5hZ2VyLmNvbmZpZ19yZXBvc2l0b3J5LmNyZWRlbnRpYWxzLnBhc3N3b3JkfX0iLAogICAge3svYWxlcnRtYW5hZ2VyLmNvbmZpZ19yZXBvc2l0b3J5LmNyZWRlbnRpYWxzLnVzZXJuYW1lfX0KICAgIHt7I2FsZXJ0bWFuYWdlci5jb25maWdfcmVwb3NpdG9yeS5jcmVkZW50aWFscy5kZXBsb3lfa2V5fX0KICAgICJBTEVSVE1BTkFHRVJfQ09ORklHX1JFUE9TSVRPUllfQ1JFREVOVElBTFNfVFlQRV9ERVBMT1lfS0VZIjogInRydWUiLAogICAgIkFMRVJUTUFOQUdFUl9DT05GSUdfUkVQT1NJVE9SWV9ERVBMT1lfS0VZIjogInt7YWxlcnRtYW5hZ2VyLmNvbmZpZ19yZXBvc2l0b3J5LmNyZWRlbnRpYWxzLmRlcGxveV9rZXl9fSIsCiAgICB7ey9hbGVydG1hbmFnZXIuY29uZmlnX3JlcG9zaXRvcnkuY3JlZGVudGlhbHMuZGVwbG95X2tleX19CiAgICB7ey9hbGVydG1hbmFnZXIuY29uZmlnX3JlcG9zaXRvcnkuY3JlZGVudGlhbHN9fQogICAge3svYWxlcnRtYW5hZ2VyfX0KICAgIHt7I3Byb21ldGhldXMucnVsZV91cmxzX2Nzdn19CiAgICAiUlVMRV9VUkxTX0NTViI6ICJ7e3Byb21ldGhldXMucnVsZV91cmxzX2Nzdn19IiwKICAgIHt7L3Byb21ldGhldXMucnVsZV91cmxzX2Nzdn19CiAgICAiRkVUQ0hFUl9VUkkiOiAie3tyZXNvdXJjZS5hc3NldHMudXJpcy5mZXRjaGVyfX0iLAogICAgIkFMRVJUTUFOQUdFUl9VUkkiOiAie3tyZXNvdXJjZS5hc3NldHMudXJpcy5hbGVydG1hbmFnZXItdGFyLWd6fX0iLAogICAgIlVQREFURV9BTEVSVFNfVVJJIjogInt7cmVzb3VyY2UuYXNzZXRzLnVyaXMudXBkYXRlLWFsZXJ0cy11cml9fSIKICB9LAogICJ1cmlzIjogWwogICAgInt7cmVzb3VyY2UuYXNzZXRzLnVyaXMuYm9vdHN0cmFwLXppcH19IiwKICAgICJ7e3Jlc291cmNlLmFzc2V0cy51cmlzLmpyZS10YXItZ3p9fSIsCiAgICAie3tyZXNvdXJjZS5hc3NldHMudXJpcy5zY2hlZHVsZXItemlwfX0iLAogICAgInt7cmVzb3VyY2UuYXNzZXRzLnVyaXMubGlibWVzb3MtYnVuZGxlLXRhci1nen19IiwKICAgICJ7e3Jlc291cmNlLmFzc2V0cy51cmlzLnNjaGVkdWxlci1hc3NldHMtdGFyLWd6fX0iCiAgXSwKICAidXBncmFkZVN0cmF0ZWd5Ijp7CiAgICAibWluaW11bUhlYWx0aENhcGFjaXR5IjogMCwKICAgICJtYXhpbXVtT3ZlckNhcGFjaXR5IjogMAogIH0sCiAgImhlYWx0aENoZWNrcyI6IFsKICAgIHsKICAgICAgInByb3RvY29sIjogIkhUVFAiLAogICAgICAicGF0aCI6ICIvdjEvaGVhbHRoIiwKICAgICAgImdyYWNlUGVyaW9kU2Vjb25kcyI6IDkwMCwKICAgICAgImludGVydmFsU2Vjb25kcyI6IDMwLAogICAgICAicG9ydEluZGV4IjogMCwKICAgICAgInRpbWVvdXRTZWNvbmRzIjogMzAsCiAgICAgICJtYXhDb25zZWN1dGl2ZUZhaWx1cmVzIjogMAogICAgfQogIF0sCiAgInBvcnREZWZpbml0aW9ucyI6IFsKICAgIHsKICAgICAgInBvcnQiOiAwLAogICAgICAicHJvdG9jb2wiOiAidGNwIiwKICAgICAgIm5hbWUiOiAiYXBpIiwKICAgICAgImxhYmVscyI6IHsgIlZJUF8wIjogIi9hcGkue3tzZXJ2aWNlLm5hbWV9fTo4MCIgfQogICAgfSwKICAgIHsKICAgICAgInBvcnQiOiAwLAogICAgICAicHJvdG9jb2wiOiAidGNwIiwKICAgICAgIm5hbWUiOiAicHJveHkiCiAgICB9CiAgXQp9Cg=="
+      },
+      "resource": {
+        "assets": {
+          "container": {
+            "docker": {
+              "pushgateway": "prom/pushgateway:v0.5.2",
+              "grafana": "grafana/grafana:5.3.4",
+              "nginx": "nginx:1.15.7"
+            }
+          },
+          "uris": {
+            "jre-tar-gz": "https://downloads.mesosphere.com/java/server-jre-8u172-linux-x64.tar.gz",
+            "libmesos-bundle-tar-gz": "https://downloads.mesosphere.com/libmesos-bundle/libmesos-bundle-1.11.0.tar.gz",
+            "scheduler-zip": "https://observability-artifacts.s3.amazonaws.com/releases/dcos-monitoring/v0.3.0/scheduler.zip",
+            "bootstrap-zip": "https://downloads.mesosphere.com/dcos-commons/artifacts/0.54.1/bootstrap.zip",
+            "scheduler-assets-tar-gz": "https://observability-artifacts.s3.amazonaws.com/releases/dcos-monitoring/v0.3.0/scheduler-assets.tar.gz",
+            "prometheus-tar-gz": "https://downloads.mesosphere.com/prometheus/assets/prometheus-2.2.1.linux-amd64.tar.gz",
+            "discovery-helper": "https://observability-artifacts.s3.amazonaws.com/releases/dcos-monitoring/v0.3.0/discovery-helper.zip",
+            "dashboard-refresher": "https://observability-artifacts.s3.amazonaws.com/releases/dcos-monitoring/v0.3.0/dashboard-refresher.zip",
+            "alertmanager-config": "https://observability-artifacts.s3.amazonaws.com/releases/dcos-monitoring/v0.3.0/alertmanager-config.zip",
+            "fetcher": "https://observability-artifacts.s3.amazonaws.com/releases/dcos-monitoring/v0.3.0/fetcher.zip",
+            "update-alerts-uri": "https://observability-artifacts.s3.amazonaws.com/releases/dcos-monitoring/v0.3.0/update-alerts.sh",
+            "default-dashboards-tar-gz": "https://observability-artifacts.s3.amazonaws.com/releases/dcos-monitoring/v0.3.0/default-dashboards.tar.gz",
+            "alertmanager-tar-gz": "https://github.com/prometheus/alertmanager/releases/download/v0.15.2/alertmanager-0.15.2.linux-amd64.tar.gz"
+          }
+        },
+        "images": {
+          "icon-small": "https://github.com/dcos/dcos-ui/blob/master/plugins/services/src/img/icon-service-default-small.png?raw=true",
+          "icon-medium": "https://github.com/dcos/dcos-ui/blob/master/plugins/services/src/img/icon-service-default-medium.png?raw=true",
+          "icon-large": "https://github.com/dcos/dcos-ui/blob/master/plugins/services/src/img/icon-service-default-large.png?raw=true"
+        },
+        "cli": {
+          "binaries": {
+            "darwin": {
+              "x86-64": {
+                "contentHash": [
+                  {
+                    "algo": "sha256",
+                    "value": "ff64d0088bf11bb9cbd84a2ecb50374e6a40d26383a9c065f36eebd34bafc212"
+                  }
+                ],
+                "kind": "executable",
+                "url": "https://downloads.mesosphere.com/dcos-commons/artifacts/0.54.1/dcos-service-cli-darwin"
+              }
+            },
+            "linux": {
+              "x86-64": {
+                "contentHash": [
+                  {
+                    "algo": "sha256",
+                    "value": "8a6acffeddc2248200ca4e94f0b5f1c73d8caebae006c20a5af022b51d694e1a"
+                  }
+                ],
+                "kind": "executable",
+                "url": "https://downloads.mesosphere.com/dcos-commons/artifacts/0.54.1/dcos-service-cli-linux"
+              }
+            },
+            "windows": {
+              "x86-64": {
+                "contentHash": [
+                  {
+                    "algo": "sha256",
+                    "value": "b447a6973792a9029cc0707640a912aa7c82c2ec511442907ec038dfae2a3afd"
+                  }
+                ],
+                "kind": "executable",
+                "url": "https://downloads.mesosphere.com/dcos-commons/artifacts/0.54.1/dcos-service-cli.exe"
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

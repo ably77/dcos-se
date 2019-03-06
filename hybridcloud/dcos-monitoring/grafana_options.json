@@ -1,0 +1,25 @@
+{
+	"service": {
+		"name": "dcos-monitoring"
+	},
+	"prometheus": {
+		"cpus": 2,
+		"mem": 4096,
+		"volume": {
+			"type": "ROOT",
+			"size": 15000
+		},
+		"grafana": {
+			"cpus": 1,
+			"mem": 4096
+		},
+		"admin_router_proxy": true,
+		"public": false,
+		"admin_credentials": {
+			"username": "admin",
+			"password": "admin"
+		},
+		"placement_constraints": "[[\"@region\",\"IS\",\"us-west-2\"]]",
+		"default_dashboards": true
+	}
+}

@@ -1,0 +1,44 @@
+{
+  "service": {
+    "name": "kubernetes-awseast",
+    "region": "us-east-1",
+    "service_account": "kubernetes-awseast",
+    "service_account_secret": "kubernetes-awseast/sa"
+  },
+  "kubernetes": {
+    "authorization_mode": "AlwaysAllow",
+    "high_availability": false,
+    "service_cidr": "10.100.0.0/16",
+    "control_plane_reserved_resources": {
+      "cpus": 1.5,
+      "mem": 4096,
+      "disk": 10240
+    },
+    "control_plane_placement": "[[\"hostname\", \"UNIQUE\"]]",
+    "private_node_count": 1,
+    "private_reserved_resources": {
+      "kube_cpus": 2,
+      "kube_mem": 2048,
+      "kube_disk": 10240,
+      "system_cpus": 1,
+      "system_mem": 1024
+    },
+    "private_node_placement": "",
+    "public_node_count": 0,
+    "public_reserved_resources": {
+      "kube_cpus": 0.5,
+      "kube_mem": 512,
+      "kube_disk": 2048,
+      "system_cpus": 1,
+      "system_mem": 1024
+    },
+    "public_node_placement": ""
+  },
+  "etcd": {
+    "cpus": 0.5,
+    "mem": 1024,
+    "data_disk": 3072,
+    "wal_disk": 512,
+    "disk_type": "ROOT"
+  }
+}
