@@ -249,18 +249,23 @@ What this Load Generator Does:
 
 ## Monitoring
 
-Prerequisites:
-- openvpn installed
+### Install Prometheus and Grafana
 
-cd into the dcos-monitoring directory:
+Install the DC/OS Monitoring Package:
 ```
-cd dcos-monitoring
+dcos package install beta-dcos-monitoring --yes
 ```
 
-Install dcos-monitoring:
+The DC/OS Monitoring package comprises of Prometheus, Alertmanager, PushGateway, and Grafana all in a single DC/OS Catalog framework.
+
+To monitor the installation:
 ```
-.install_dcos_monitoring.sh
+dcos beta-dcos-monitoring plan status deploy --name=dcos-monitoring
 ```
+
+Once the deployment is complete, you should be able to access the grafana UI through Adminrouter by running the command below:
+```
+open `dcos config show core.dcos_url`/service/dcos-monitoring/grafana/
 
 Start vpn:
 ```
@@ -275,11 +280,6 @@ Enable mesos metrics:
 ```
 
 Once the above step is complete, you can cancel (Ctrl-C) the vpn connection in your other terminal tab
-
-Open Grafana:
-```
-./grafana_dashboard.sh
-```
 
 Import Dashboards:
 Reference Dashboard IDs:
