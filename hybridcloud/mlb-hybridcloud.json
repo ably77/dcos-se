@@ -3,17 +3,12 @@
   "cpus": 2,
   "mem": 1024,
   "disk": 0,
-  "instances": 4,
+  "instances": 2,
   "constraints": [
     [
       "@region",
       "GROUP_BY",
-      "2"
-    ],
-    [
-      "@zone",
-      "MAX_PER",
-      "2"
+      "1"
     ]
   ],
   "acceptedResourceRoles": [

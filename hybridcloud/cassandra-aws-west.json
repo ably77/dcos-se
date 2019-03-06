@@ -27,7 +27,7 @@
     "mem": 4096,
     "disk": 15000,
     "disk_type": "ROOT",
-    "placement_constraint": "[[\"hostname\",\"MAX_PER\",\"1\"],[\"@zone\",\"GROUP_BY\",\"3\"]]",
+    "placement_constraint": "[[\"hostname\",\"MAX_PER\",\"1\"]]",
     "heap": {
       "size": 2048,
       "new": 100,

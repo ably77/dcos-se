@@ -7,12 +7,12 @@
 ### Cluster Sizing Requirements:
 Hub Cluster:
 1 master
-2 public
+1 public
 4 private
 
 Spoke Cluster:
 1 master
-2 public
+1 public
 4 private
 
 ## Getting Started
@@ -66,12 +66,12 @@ Note that the UI will still show the task as `UNREACHABLE` but if you run a `dco
 
 Deploy aws-east-1 Region Cassandra:
 ```
-dcos package install cassandra --options=cassandra-aws-east.json --yes
+dcos package install cassandra --package-version="2.4.0-3.0.16" --options=cassandra-aws-east.json --yes
 ```
 
 Deploy aws-west-2 Region Cassandra:
 ```
-dcos package install cassandra --options=cassandra-aws-west.json --yes
+dcos package install cassandra --package-version="2.4.0-3.0.16" --options=cassandra-aws-west.json --yes
 ```
 
 Validate Cassandra Installations complete

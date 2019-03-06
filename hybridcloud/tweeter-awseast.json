@@ -1,15 +1,15 @@
 {
   "env": {
+    "SECRET_KEY_BASE": "be6ea21bd0e8ddad06accbdfbfcbc6f120815744a8177fb1196442c1670401c86a1d020f1fb62f9b7d6bacc8cf818de277d23d3f3e7dcf704ca88965e5b9ed86",
     "CASSANDRA_HOSTS": "node-0-server.cassandra-aws-east.autoip.dcos.thisdcos.directory",
-    "RAILS_ENV": "production",
-    "SECRET_KEY_BASE": "be6ea21bd0e8ddad06accbdfbfcbc6f120815744a8177fb1196442c1670401c86a1d020f1fb62f9b7d6bacc8cf818de277d23d3f3e7dcf704ca88965e5b9ed86"
+    "RAILS_ENV": "production"
   },
   "labels": {
-    "HAPROXY_GROUP": "external",
-    "HAPROXY_0_VHOST": "ext-aly-hybrid-east-304557794.us-east-1.elb.amazonaws.com",
-    "HAPROXY_DEPLOYMENT_GROUP": "tweeter-awseast"
+    "HAPROXY_DEPLOYMENT_GROUP": "tweeter-awseast",
+    "HAPROXY_0_VHOST": "ext-ly-spoke1-487147757.us-east-1.elb.amazonaws.com",
+    "HAPROXY_GROUP": "external"
   },
-  "id": "tweeterapp/tweeter-awseast",
+  "id": "/tweeterapp/tweeter-awseast",
   "backoffFactor": 1.15,
   "backoffSeconds": 1,
   "cmd": "export KAFKA_BROKERS='broker.kafka-awseast.l4lb.thisdcos.directory:9092' && until rake cassandra:setup; do sleep 5; done && rails server --binding 0.0.0.0",
@@ -18,11 +18,6 @@
       "@region",
       "IS",
       "us-east-1"
-    ],
-    [
-      "@zone",
-      "GROUP_BY",
-      "3"
     ]
   ],
   "container": {

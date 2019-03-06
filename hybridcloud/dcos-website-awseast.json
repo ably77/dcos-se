@@ -4,7 +4,7 @@
     "HAPROXY_0_REDIRECT_TO_HTTPS": "true",
     "HAPROXY_GROUP": "external",
     "HAPROXY_DEPLOYMENT_ALT_PORT": "10005",
-    "HAPROXY_0_VHOST": "ext-region1-436911716.us-east-1.elb.amazonaws.com"
+    "HAPROXY_0_VHOST": "ext-ly-spoke1-487147757.us-east-1.elb.amazonaws.com"
   },
   "id": "/dcos-website-awseast",
   "backoffFactor": 1.15,
@@ -13,7 +13,7 @@
     [
       "@region",
       "IS",
-      "aws/us-east-1"
+      "us-east-1"
     ]
   ],
   "container": {
