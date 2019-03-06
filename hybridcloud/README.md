@@ -268,6 +268,11 @@ Once the deployment is complete, you should be able to access the grafana UI thr
 open `dcos config show core.dcos_url`/service/dcos-monitoring/grafana/
 ```
 
+Install dcos-tunnel:
+```
+dcos package install dcos-tunnel --yes
+```
+
 Start vpn:
 ```
 ./start_vpn.sh
