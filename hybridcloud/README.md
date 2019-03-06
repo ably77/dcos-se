@@ -266,6 +266,7 @@ dcos beta-dcos-monitoring plan status deploy --name=dcos-monitoring
 Once the deployment is complete, you should be able to access the grafana UI through Adminrouter by running the command below:
 ```
 open `dcos config show core.dcos_url`/service/dcos-monitoring/grafana/
+```
 
 Start vpn:
 ```
