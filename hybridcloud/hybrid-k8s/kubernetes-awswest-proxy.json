@@ -1,6 +1,6 @@
 {
   "id": "/proxies/kubernetes-awswest-proxy",
-  "instances": 2,
+  "instances": 1,
   "cpus": 0.001,
   "mem": 16,
   "cmd": "tail -F /dev/null",

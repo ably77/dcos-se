@@ -50,6 +50,13 @@ open http://alexly-tf0417-pub-agt-elb-1272969290.us-east-1.elb.amazonaws.com
 open http://alexly-tf0417-pub-agt-elb-1272969290.us-west-2.elb.amazonaws.com
 ```
 
+### Remove the DC/OS Site Service
+```
+dcos marathon app remove dcos-website-awseast
+
+dcos marathon app remove dcos-website-awswest
+```
+
 ## Tests
 
 ### Scenario #1 - A node serving Marathon LB in AWS is stopped/dies
@@ -316,6 +323,11 @@ dcos config set core.ssl_verify false
 To verify that the cluster is connected, or if there was a change to https, setup the cluster again, making sure to insert the actual URL of your cluster:
 ```
 dcos cluster setup <cluster-url>
+```
+
+Install the DC/OS Enterprise CLI:
+```
+dcos package install dcos-enterprise-cli --yes
 ```
 
 Run the Permissions Scripts:
