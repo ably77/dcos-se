@@ -270,7 +270,7 @@ open `dcos config show core.dcos_url`/service/dcos-monitoring/grafana/
 
 Install dcos-tunnel:
 ```
-dcos package install dcos-tunnel --yes
+dcos package install tunnel-cli --cli --yes
 ```
 
 Start vpn:
