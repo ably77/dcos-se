@@ -1,7 +1,7 @@
 # Hybrid Cloud Demo
 
 ## Prerequisites:
-- Hybrid Cloud DC/OS Cluster [](https://github.com/bernadinm/hybrid-cloud/blob/master/labs/lab-1-deploying-hybrid-cluster.md)
+- Hybrid Cloud DC/OS Cluster [](https://github.com/dcos-terraform/examples/blob/master/aws/multi-region/two-region-example/main.tf)
 - Authenticated to DC/OS CLI
 
 ### Cluster Sizing Requirements:
@@ -11,7 +11,6 @@ Hub Cluster:
 4 private
 
 Spoke Cluster:
-1 master
 1 public
 4 private
 
